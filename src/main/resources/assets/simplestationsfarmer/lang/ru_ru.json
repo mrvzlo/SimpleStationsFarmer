@@ -1,0 +1,23 @@
+{
+  "itemGroup.simplestationsfarmer": "Простые Фермерские Станции",
+  "block.simplestationsfarmer.miner": "Фермерская станция",
+  "item.simplestationsfarmer.miner_drill": "Бур",
+
+  "simplestationsfarmer.configuration.title": "Настройки",
+  "simplestationsfarmer.configuration.consume": "Потребление RF в тик",
+  "simplestationsfarmer.configuration.work_time": "Время работы в тиках",
+  "simplestationsfarmer.configuration.max_coolant": "Лимит охлаждения",
+  "simplestationsfarmer.configuration.max_catalyst": "Лимит катализаторов",
+  "simplestationsfarmer.configuration.fuel_rf": "Количество RF с 1 угля",
+  "simplestationsfarmer.configuration.fuel_max": "Лимит хранения RF",
+  "simplestationsfarmer.configuration.max_y": "Максимальная высота",
+  "simplestationsfarmer.configuration.work_mode": "Режим работы",
+
+  "screen.simplestationsfarmer.miner": "Фермерская станция",
+  "screen.simplestationsfarmer.recipes": "Рецепты шахты",
+  "screen.simplestationsfarmer.fuel": "Энергия",
+  "screen.simplestationsfarmer.coolant": "Охлаждение",
+  "screen.simplestationsfarmer.catalysis": "Катализатор",
+  "screen.simplestationsfarmer.filter": "Руда для выкапывания",
+  "screen.simplestationsfarmer.depthError": "Станция слишком высоко"
+}

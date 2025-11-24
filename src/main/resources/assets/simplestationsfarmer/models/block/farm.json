@@ -1,0 +1,8 @@
+{
+  "parent": "simplestationsfarmer:custom/farm",
+  "textures": {
+    "all": "simplestationsfarmer:block/farm",
+    "1": "simplestationsfarmer:block/farm"
+  },
+  "render_type": "cutout"
+}
