@@ -1,13 +1,15 @@
 package com.ave.simplestationsfarmer.blockentity;
 
 import com.ave.simplestationsfarmer.Config;
-import com.ave.simplestationsfarmer.sound.ModSounds;
+import com.ave.simplestationsfarmer.SimpleStationsFarmer;
+import com.ave.simplestationsfarmer.blockentity.handlers.WaterTank;
+import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
+import com.ave.simplestationsfarmer.registrations.ModSounds;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.sounds.SoundSource;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -15,18 +17,16 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.energy.EnergyStorage;
 
 public class FarmerBlockEntity extends ModContainer {
-    public EnergyStorage fuel;
-    public Item type = null;
+    public EnergyStorage fuel = new EnergyStorage(Config.POWER_MAX.get());
+    public WaterTank tank = WaterTank.create(0);
+
+    public CropType type = CropType.Unknown;
     public float progress = 0;
     public int fertilizer = 0;
-    public int redstone = 0;
     public boolean working = false;
 
-    private int outputSize = 1;
-
     public FarmerBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.MINER_BLOCK_ENTITY.get(), pos, state, 5);
-        fuel = new EnergyStorage(Config.POWER_MAX.get());
+        super(ModBlockEntities.FARMER_ENTITY.get(), pos, state, 5);
     }
 
     public void tick() {
@@ -37,16 +37,16 @@ public class FarmerBlockEntity extends ModContainer {
             progress -= Config.MAX_PROGRESS.get();
 
         checkNewType();
-        checkResource(WATER_SLOT, Items.COAL_BLOCK, Config.POWER_PER_RED.get(), Config.POWER_MAX.get(),
-                ResourceType.FUEL);
+        checkResource(WATER_SLOT, null, 1000, Config.WATER_MAX.get(), ResourceType.WATER);
+        checkResource(REDSTONE_SLOT, Items.REDSTONE_BLOCK, Config.POWER_PER_RED.get(), Config.POWER_MAX.get(),
+                ResourceType.POWER);
+        checkResource(FERTI_SLOT, null, Config.FERT_PER_BONE.get(), Config.FERT_MAX.get(),
+                ResourceType.FERT);
 
-        checkResource(REDSTONE_SLOT, Items.REDSTONE_BLOCK, 1, Config.WATER_MAX.get(), ResourceType.POWER);
-        checkResource(FERTI_SLOT, Items.LAPIS_BLOCK, 1, Config.FERT_MAX.get(), ResourceType.FERT);
-
-        ItemStack slot = inventory.getStackInSlot(OUTPUT_SLOT);
+        var slot = inventory.getStackInSlot(OUTPUT_SLOT);
         working = getWorking(slot);
 
-        if (type == null || !working)
+        if (!working)
             return;
 
         progress++;
@@ -55,8 +55,8 @@ public class FarmerBlockEntity extends ModContainer {
             fertilizer--;
             progress += Config.FERT_MULT.get();
         }
-        if (redstone > 0) {
-            redstone--;
+        if (fuel.getEnergyStored() > 0) {
+            fuel.extractEnergy(1, false);
             progress += Config.POWER_MULT.get();
         }
         fuel.extractEnergy(Config.WATER_PER_CYCLE.get(), false);
@@ -65,42 +65,48 @@ public class FarmerBlockEntity extends ModContainer {
         if (progress < Config.MAX_PROGRESS.get())
             return;
 
-        ItemStack toAdd = new ItemStack(type);
-        toAdd.setCount(slot.getCount() + outputSize);
+        tank.drain(Config.WATER_PER_CYCLE);
+        var toAdd = new ItemStack(type.product);
+        toAdd.setCount(slot.getCount() + type.output);
         inventory.setStackInSlot(OUTPUT_SLOT, toAdd);
         setChanged();
     }
 
     private boolean getWorking(ItemStack slot) {
-        if (type == null)
+        if (type == null || type == CropType.Unknown)
             return false;
-        if (fuel.getEnergyStored() < Config.WATER_PER_CYCLE.get())
+        if (tank.getFluidAmount() < Config.WATER_PER_CYCLE.get())
             return false;
         if (slot.getCount() == 0)
             return true;
-        if (slot.getCount() + outputSize > slot.getMaxStackSize())
+        if (slot.getCount() + type.output > slot.getMaxStackSize())
             return false;
-        return slot.getItem().equals(type);
+        return slot.getItem().equals(type.product);
     }
 
-    private boolean checkResource(int slot, Item blockItem, int singleValue, int maxCapacity, ResourceType type) {
-        ItemStack stack = inventory.getStackInSlot(slot);
-        int increment = stack.getItem().equals(blockItem) ? singleValue * 9 : singleValue;
+    private void checkResource(int slot, Item blockItem, int increment, int maxCapacity, ResourceType type) {
+        var stack = inventory.getStackInSlot(slot);
 
-        if (stack.isEmpty() || getResourceValue(type) + increment > maxCapacity)
-            return false;
+        if (blockItem != null && stack.getItem().equals(blockItem))
+            increment *= 9;
 
-        stack.shrink(1);
-        inventory.setStackInSlot(slot, stack);
+        if (stack.isEmpty() || stack.getItem().equals(Items.BUCKET) || getResourceValue(type) + increment > maxCapacity)
+            return;
+
+        if (stack.getItem().equals(Items.WATER_BUCKET))
+            inventory.setStackInSlot(slot, new ItemStack(Items.BUCKET, 1));
+        else {
+            stack.shrink(1);
+            inventory.setStackInSlot(slot, stack);
+        }
         addResource(type, increment);
-        return true;
     }
 
     private void addResource(ResourceType type, int amount) {
         switch (type) {
-            case FUEL -> fuel.receiveEnergy(amount, false);
+            case WATER -> tank.fill(amount);
             case FERT -> fertilizer += amount;
-            case POWER -> redstone += amount;
+            case POWER -> fuel.receiveEnergy(amount, false);
         }
     }
 
@@ -117,40 +123,23 @@ public class FarmerBlockEntity extends ModContainer {
 
     private int getResourceValue(ResourceType type) {
         return switch (type) {
-            case FUEL -> fuel.getEnergyStored();
+            case WATER -> tank.getFluidAmount();
             case FERT -> fertilizer;
-            case POWER -> redstone;
+            case POWER -> fuel.getEnergyStored();
         };
     }
 
-    private int getOutputSize() {
-        return getOutputSize(type);
-    }
-
-    public static int getOutputSize(Item item) {
-        if (item == null)
-            return 1;
-
-        if (item.equals(Items.SAND) || item.equals(Items.STONE) || item.equals(Items.GRAVEL))
-            return 8;
-
-        if (item.equals(Items.COAL_ORE) || item.equals(Items.DEEPSLATE_COAL_ORE)
-                || item.equals(Items.COPPER_ORE) || item.equals(Items.DEEPSLATE_COPPER_ORE)
-                || item.equals(Items.NETHER_QUARTZ_ORE))
-            return 2;
-
-        return 1;
-    }
-
     private void checkNewType() {
-        Item newType = getCurrentFilter();
+        var newType = getCurrentFilter();
         if (type == null && newType == null || type != null && type.equals(newType))
             return;
 
         type = newType;
         progress = 0;
-        outputSize = getOutputSize();
+        if (type != null)
+            SimpleStationsFarmer.LOGGER.info("Changed type to " + type.name());
         level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+
     }
 
     @Override
@@ -168,28 +157,29 @@ public class FarmerBlockEntity extends ModContainer {
     @Override
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
-        type = getCurrentFilter();
+        type = CropType.values()[tag.getInt("type")];
         fuel = new EnergyStorage(Config.POWER_MAX.get(), Config.POWER_MAX.get(), Config.POWER_MAX.get(),
                 tag.getInt("fuel"));
         progress = tag.getFloat("progress");
-        fertilizer = tag.getInt("coolant");
-        redstone = tag.getInt("redstone");
-        outputSize = getOutputSize();
+        fertilizer = tag.getInt("fertilizer");
+        tank = WaterTank.create(tag.getInt("water"));
     }
 
     private void saveAll(CompoundTag tag) {
         tag.putInt("fuel", fuel.getEnergyStored());
         tag.putFloat("progress", progress);
-        tag.putInt("coolant", fertilizer);
-        tag.putInt("redstone", redstone);
+        tag.putInt("fertilizer", fertilizer);
+        tag.putInt("water", tank.getFluidAmount());
+        if (type != null)
+            tag.putInt("type", type.ordinal());
     }
 
-    private Item getCurrentFilter() {
-        ItemStack stack = inventory.getStackInSlot(TYPE_SLOT);
-        return stack.isEmpty() ? null : stack.getItem();
+    private CropType getCurrentFilter() {
+        var stack = inventory.getStackInSlot(TYPE_SLOT);
+        return stack.isEmpty() ? CropType.Unknown : CropType.fromSeed(stack.getItem());
     }
 
     private enum ResourceType {
-        FUEL, FERT, POWER
+        WATER, FERT, POWER
     }
 }

@@ -1,7 +1,7 @@
 package com.ave.simplestationsfarmer.uihelpers;
 
 public class NumToString {
-    public static String parse(int number, String postfix) {
+    public static String parse(float number, String postfix) {
         String[] units = { "", "k", "m", "b" };
         int idx = 0;
         double v = number;

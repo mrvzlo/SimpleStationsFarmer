@@ -1,0 +1,7 @@
+{
+  "parent": "simplestationsfarmer:custom/crop",
+  "textures": {
+    "0": "simplestationsfarmer:block/potato"
+  },
+  "render_type": "transparent"
+}

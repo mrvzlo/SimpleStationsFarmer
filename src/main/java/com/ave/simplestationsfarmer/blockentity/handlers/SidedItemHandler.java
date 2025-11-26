@@ -1,8 +1,8 @@
 package com.ave.simplestationsfarmer.blockentity.handlers;
 
+import com.ave.simplestationsfarmer.blockentity.CropType;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.ModContainer;
-import com.ave.simplestationsfarmer.datagen.ModTags;
 
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
@@ -24,9 +24,8 @@ public class SidedItemHandler extends ItemStackHandler {
             return stack.getItem() == Items.BONE_MEAL;
         if (slot == FarmerBlockEntity.REDSTONE_SLOT)
             return stack.getItem() == Items.REDSTONE_BLOCK || stack.getItem() == Items.REDSTONE;
-
         if (slot == FarmerBlockEntity.TYPE_SLOT)
-            return stack.is(ModTags.Items.MINEABLE_TAG);
+            return CropType.fromSeed(stack.getItem()) != null;
 
         return super.isItemValid(slot, stack);
     }

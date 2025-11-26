@@ -1,4 +1,4 @@
-package com.ave.simplestationsfarmer.sound;
+package com.ave.simplestationsfarmer.registrations;
 
 import java.util.function.Supplier;
 

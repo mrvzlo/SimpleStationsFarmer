@@ -22,20 +22,6 @@ public class ModItemTagProvider extends ItemTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        tag(ModTags.Items.MINEABLE_TAG)
-                .add(Items.STONE)
-                .add(Items.GRAVEL)
-                .add(Items.SAND)
-                .addTag(ItemTags.COAL_ORES)
-                .addTag(ItemTags.IRON_ORES)
-                .addTag(ItemTags.GOLD_ORES)
-                .addTag(ItemTags.LAPIS_ORES)
-                .addTag(ItemTags.DIAMOND_ORES)
-                .addTag(ItemTags.EMERALD_ORES)
-                .addTag(ItemTags.COPPER_ORES)
-                .addTag(ItemTags.REDSTONE_ORES)
-                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("c", "ores"))
-                .addOptionalTag(ResourceLocation.fromNamespaceAndPath("forge", "ores"));
 
     }
 }

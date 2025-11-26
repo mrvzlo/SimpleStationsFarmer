@@ -1,8 +1,8 @@
 package com.ave.simplestationsfarmer;
 
-import com.ave.simplestationsfarmer.blockentity.ModBlockEntities;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
+import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import com.ave.simplestationsfarmer.renderer.StationRenderer;
 import com.ave.simplestationsfarmer.screen.ModMenuTypes;
 import com.ave.simplestationsfarmer.screen.StationScreen;
@@ -52,6 +52,6 @@ public class SimpleStationsFarmerClient {
 
     @SubscribeEvent // on the mod event bus only on the physical client
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(ModBlockEntities.MINER_BLOCK_ENTITY.get(), StationRenderer::new);
+        event.registerBlockEntityRenderer(ModBlockEntities.PART_ENTITY.get(), StationRenderer::new);
     }
 }

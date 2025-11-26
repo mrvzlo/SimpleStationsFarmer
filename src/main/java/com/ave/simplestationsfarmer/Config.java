@@ -36,7 +36,7 @@ public class Config {
                                 .defineInRange("work_time", 24000, 1, 100000);
                 WATER_PER_CYCLE = BUILDER
                                 .comment("How much water to consume per tick\n Default: 1")
-                                .defineInRange("water_tick", 1, 1, 1000);
+                                .defineInRange("water_per_cycle", 1, 1, 1000);
                 WATER_MAX = BUILDER
                                 .comment("Max water to store\n Default: 10000")
                                 .defineInRange("water_max", 10000, 1, 30000);
@@ -47,8 +47,8 @@ public class Config {
                                 .comment("Max fertilizer to store\n Default: 1000")
                                 .defineInRange("fert_max", 1000, 1, 10000);
                 FERT_MULT = BUILDER
-                                .comment("Fertilizer productivity multiplier\n Default: +2.0 (i.e. +200%)")
-                                .defineInRange("fert_mult", 2.0, 0.1, 10.0);
+                                .comment("Fertilizer productivity multiplier\n Default: +5.0 (i.e. +500%)")
+                                .defineInRange("fert_mult", 5.0, 0.1, 10.0);
                 POWER_PER_RED = BUILDER
                                 .comment("How much power one redstone adds\n Default: 1000")
                                 .defineInRange("power_per_red", 150, 1, 10000);
@@ -56,8 +56,8 @@ public class Config {
                                 .comment("Max redstone power to store\n Default: 10000")
                                 .defineInRange("power_max", 10000, 1, 100000);
                 POWER_MULT = BUILDER
-                                .comment("Redstone productivity multiplier\n Default: +1.0 (i.e. +100%)")
-                                .defineInRange("power_mult", 1.0, 0.1, 10.0);
+                                .comment("Redstone productivity multiplier\n Default: +2.0 (i.e. +200%)")
+                                .defineInRange("power_mult", 2.0, 0.1, 10.0);
         }
 
         @SubscribeEvent

@@ -2,7 +2,7 @@ package com.ave.simplestationsfarmer.datagen;
 
 import java.util.concurrent.CompletableFuture;
 
-import com.ave.simplestationsfarmer.SimpleStationsFarmer;
+import com.ave.simplestationsfarmer.registrations.ModBlocks;
 
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -19,7 +19,7 @@ public class ModRecipeProvider extends RecipeProvider {
 
     @Override
     protected void buildRecipes(RecipeOutput consumer) {
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, SimpleStationsFarmer.SPRINKLER.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.SPRINKLER.get())
                 .pattern("RBR")
                 .pattern("HDH")
                 .pattern("RBR")
@@ -30,11 +30,11 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
                 .save(consumer);
 
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, SimpleStationsFarmer.FARMER_BLOCK.get())
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FARMER_BLOCK.get())
                 .pattern("DHD")
                 .pattern("LRL")
                 .pattern("DSD")
-                .define('R', SimpleStationsFarmer.SPRINKLER.get())
+                .define('R', ModBlocks.SPRINKLER.get())
                 .define('L', Items.LANTERN)
                 .define('D', Items.DIRT)
                 .define('H', Items.STONE_HOE)

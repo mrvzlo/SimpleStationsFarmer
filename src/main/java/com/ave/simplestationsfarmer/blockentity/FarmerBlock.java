@@ -26,15 +26,16 @@ import net.minecraft.world.level.LevelReader;
 
 import javax.annotation.Nullable;
 
-import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
+import com.ave.simplestationsfarmer.registrations.ModBlocks;
 
 public class FarmerBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
 
     public FarmerBlock(Properties props) {
         super(props);
-        this.registerDefaultState(this.stateDefinition.any().setValue(FACING, Direction.NORTH));
+        this.registerDefaultState(
+                this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
 
     @Nullable
@@ -70,7 +71,7 @@ public class FarmerBlock extends Block implements EntityBlock {
     @Override
     public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
-        FarmerBlockEntity blockEntity = (FarmerBlockEntity) level.getBlockEntity(pos);
+        var blockEntity = (FarmerBlockEntity) level.getBlockEntity(pos);
         player.openMenu(new SimpleMenuProvider(blockEntity, Component.literal("")), pos);
         return ItemInteractionResult.SUCCESS;
     }
@@ -79,7 +80,7 @@ public class FarmerBlock extends Block implements EntityBlock {
     public boolean canSurvive(BlockState state, LevelReader level, BlockPos pos) {
         for (int dx = -1; dx <= 1; dx++)
             for (int dz = -1; dz <= 1; dz++) {
-                BlockPos p = pos.offset(dx, 0, dz);
+                var p = pos.offset(dx, 0, dz);
                 if (p.equals(pos) || level.getBlockState(p).canBeReplaced())
                     continue;
                 return false;
@@ -95,15 +96,15 @@ public class FarmerBlock extends Block implements EntityBlock {
 
         for (int dx = -1; dx <= 1; dx++)
             for (int dz = -1; dz <= 1; dz++) {
-                BlockPos p = pos.offset(dx, 0, dz);
+                var p = pos.offset(dx, 0, dz);
 
                 if (p.equals(pos))
                     continue;
 
-                BlockState block = SimpleStationsFarmer.PART.get().defaultBlockState();
+                var block = ModBlocks.PART.get().defaultBlockState();
                 level.setBlock(p, block, 3);
 
-                PartBlockEntity be = (PartBlockEntity) level.getBlockEntity(p);
+                var be = (PartBlockEntity) level.getBlockEntity(p);
                 be.setControllerPos(pos);
             }
     }
@@ -118,22 +119,22 @@ public class FarmerBlock extends Block implements EntityBlock {
         if (level.isClientSide)
             return;
 
-        BlockEntity controller = level.getBlockEntity(pos);
+        var controller = level.getBlockEntity(pos);
         if (controller instanceof FarmerBlockEntity miner) {
             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
-                    new ItemStack(SimpleStationsFarmer.FARMER_BLOCK, 1));
+                    new ItemStack(ModBlocks.FARMER_BLOCK, 1));
             Containers.dropContents(level, pos, miner.inventory.getAsList());
         }
         super.onRemove(state, level, pos, newState, moving);
 
         for (int dx = -1; dx <= 1; dx++)
             for (int dz = -1; dz <= 1; dz++) {
-                BlockPos p = pos.offset(dx, 0, dz);
+                var p = pos.offset(dx, 0, dz);
 
                 if (p.equals(pos))
                     continue;
 
-                BlockEntity be = level.getBlockEntity(p);
+                var be = level.getBlockEntity(p);
                 if (be instanceof PartBlockEntity)
                     level.destroyBlock(p, false);
             }

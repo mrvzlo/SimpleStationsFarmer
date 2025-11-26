@@ -1,9 +1,10 @@
 package com.ave.simplestationsfarmer.screen;
 
 import com.ave.simplestationsfarmer.Config;
-import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.ModContainer;
+import com.ave.simplestationsfarmer.blockentity.handlers.WaterTank;
+import com.ave.simplestationsfarmer.registrations.ModBlocks;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 
 import net.minecraft.network.FriendlyByteBuf;
@@ -64,12 +65,12 @@ public class StationMenu extends AbstractContainerMenu {
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return miner.redstone;
+                return miner.tank.getFluidAmount();
             }
 
             @Override
             public void set(int value) {
-                miner.redstone = value;
+                miner.tank = WaterTank.create(value);
             }
         });
         addDataSlot(new DataSlot() {
@@ -153,7 +154,7 @@ public class StationMenu extends AbstractContainerMenu {
     @Override
     public boolean stillValid(Player player) {
         return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player,
-                SimpleStationsFarmer.FARMER_BLOCK.get());
+                ModBlocks.FARMER_BLOCK.get());
     }
 
     private void addPlayerInventory(Inventory inventory) {

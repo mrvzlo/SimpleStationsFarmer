@@ -6,6 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.ave.simplestationsfarmer.Config;
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
+import com.ave.simplestationsfarmer.registrations.ModBlocks;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 import com.google.common.collect.Lists;
 
@@ -56,7 +57,7 @@ public class MinerRecipeCategory implements IRecipeCategory<SimpleRecipe> {
         @Override
         public @Nullable IDrawable getIcon() {
                 return guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK,
-                                new ItemStack(SimpleStationsFarmer.FARMER_BLOCK_ITEM.get()));
+                                new ItemStack(ModBlocks.FARMER_BLOCK_ITEM.get()));
         }
 
         @Override
@@ -68,9 +69,9 @@ public class MinerRecipeCategory implements IRecipeCategory<SimpleRecipe> {
                 builder.addSlot(RecipeIngredientRole.INPUT, UIBlocks.WATER_SLOT.left, UIBlocks.WATER_SLOT.top)
                                 .addIngredients(Ingredient.of(Items.WATER_BUCKET));
                 builder.addSlot(RecipeIngredientRole.OUTPUT, UIBlocks.OUT_SLOT.left, UIBlocks.OUT_SLOT.top)
-                                .addItemStack(new ItemStack(recipe.filter.getItem(), recipe.outputSize));
+                                .addItemStack(recipe.outputType);
                 builder.addSlot(RecipeIngredientRole.CATALYST, UIBlocks.FILTER_SLOT.left, UIBlocks.FILTER_SLOT.top)
-                                .addIngredients(Ingredient.of(recipe.outputType.getItem()));
+                                .addIngredients(Ingredient.of(recipe.filter.getItem()));
         }
 
         @Override

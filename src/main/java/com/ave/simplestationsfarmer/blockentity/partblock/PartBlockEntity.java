@@ -1,10 +1,10 @@
 package com.ave.simplestationsfarmer.blockentity.partblock;
 
-import com.ave.simplestationsfarmer.blockentity.ModBlockEntities;
+import com.ave.simplestationsfarmer.blockentity.CropType;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.handlers.InputItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.OutputItemHandler;
-import com.ave.simplestationsfarmer.blockentity.handlers.SidedItemHandler;
+import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -18,6 +18,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.energy.EnergyStorage;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 import net.neoforged.neoforge.items.IItemHandler;
 
 public class PartBlockEntity extends BlockEntity {
@@ -25,7 +26,7 @@ public class PartBlockEntity extends BlockEntity {
     private BlockPos controllerPos;
 
     public PartBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.PART_BLOCK_ENTITY.get(), pos, state);
+        super(ModBlockEntities.PART_ENTITY.get(), pos, state);
     }
 
     public void setControllerPos(BlockPos pos) {
@@ -36,6 +37,12 @@ public class PartBlockEntity extends BlockEntity {
         level.sendBlockUpdated(worldPosition, getBlockState(), getBlockState(), 3);
     }
 
+    public CropType getCropType() {
+        if (this.getController(this) == null)
+            return CropType.Unknown;
+        return this.getController(this).type;
+    }
+
     public BlockPos getControllerPos() {
         return controllerPos;
     }
@@ -43,19 +50,29 @@ public class PartBlockEntity extends BlockEntity {
     public static void registerCaps(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.PART_BLOCK_ENTITY.get(),
+                ModBlockEntities.PART_ENTITY.get(),
                 (be, direction) -> be.getItemHandler(direction, be));
     }
 
     public IItemHandler getItemHandler(Direction side, PartBlockEntity be) {
-        SidedItemHandler inventory = ((FarmerBlockEntity) be.getLevel().getBlockEntity(be.controllerPos)).inventory;
+        var inventory = this.getController(be).inventory;
         if (side == Direction.DOWN)
             return new OutputItemHandler(inventory);
         return new InputItemHandler(inventory);
     }
 
     public EnergyStorage getEnergyStorage(PartBlockEntity be) {
-        return ((FarmerBlockEntity) be.getLevel().getBlockEntity(be.controllerPos)).fuel;
+        return this.getController(be).fuel;
+    }
+
+    public FluidTank getWaterStorage(PartBlockEntity be) {
+        return this.getController(be).tank;
+    }
+
+    private FarmerBlockEntity getController(PartBlockEntity be) {
+        if (be.controllerPos == null)
+            return null;
+        return ((FarmerBlockEntity) be.getLevel().getBlockEntity(be.controllerPos));
     }
 
     @Override

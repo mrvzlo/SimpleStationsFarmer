@@ -1,0 +1,7 @@
+{
+  "parent": "simplestationsfarmer:custom/crop",
+  "textures": {
+    "0": "simplestationsfarmer:block/glow_berry"
+  },
+  "render_type": "transparent"
+}

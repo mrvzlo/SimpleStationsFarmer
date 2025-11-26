@@ -19,7 +19,7 @@ import net.minecraft.world.entity.player.Inventory;
 
 public class StationScreen extends AbstractContainerScreen<StationMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SimpleStationsFarmer.MODID,
-            "textures/gui/base_miner_gui.png");
+            "textures/gui/station_gui.png");
 
     public StationScreen(StationMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
@@ -37,27 +37,28 @@ public class StationScreen extends AbstractContainerScreen<StationMenu> {
         int startY = (height - imageHeight) / 2;
 
         if (UIBlocks.WATER_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String fuelPart = NumToString.parse(miner.fuel.getEnergyStored(), "RF / ")
-                    + NumToString.parse(Config.POWER_MAX.get(), "RF");
-            List<Component> fuelText = Arrays.asList(Component.translatable("screen.simplestationsfarmer.fuel"),
-                    Component.literal(fuelPart));
-            gfx.renderComponentTooltip(font, fuelText, mouseX, mouseY);
+            String waterPart = NumToString.parse(miner.tank.getFluidAmount() / 1000f, "B / ")
+                    + NumToString.parse(Config.WATER_MAX.get() / 1000f, "B");
+            List<Component> waterText = Arrays.asList(Component.translatable("screen.simplestationsfarmer.water"),
+                    Component.literal(waterPart));
+            gfx.renderComponentTooltip(font, waterText, mouseX, mouseY);
         }
 
         if (UIBlocks.FERTI_BAR.isHovered(mouseX - startX, mouseY - startY)) {
             String fertPart = miner.fertilizer + " / " + Config.FERT_MAX.get();
-            List<Component> coolantText = Arrays.asList(
+            List<Component> fertText = Arrays.asList(
                     Component.translatable("screen.simplestationsfarmer.fertilizer"),
                     Component.literal(fertPart));
-            gfx.renderComponentTooltip(font, coolantText, mouseX, mouseY);
+            gfx.renderComponentTooltip(font, fertText, mouseX, mouseY);
         }
 
-        if (UIBlocks.RED_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String redstonePart = miner.redstone + " / " + Config.POWER_MAX.get();
-            List<Component> redstoneText = Arrays.asList(
+        if (UIBlocks.POWER_BAR.isHovered(mouseX - startX, mouseY - startY)) {
+            String powerPart = NumToString.parse(miner.fuel.getEnergyStored(), "RF / ")
+                    + NumToString.parse(Config.POWER_MAX.get(), "RF");
+            List<Component> powerText = Arrays.asList(
                     Component.translatable("screen.simplestationsfarmer.power"),
-                    Component.literal(redstonePart));
-            gfx.renderComponentTooltip(font, redstoneText, mouseX, mouseY);
+                    Component.literal(powerPart));
+            gfx.renderComponentTooltip(font, powerText, mouseX, mouseY);
         }
 
         if (miner.progress > 0 && UIBlocks.PROGRESS_BAR.isHovered(mouseX - startX, mouseY - startY)) {
@@ -93,15 +94,15 @@ public class StationScreen extends AbstractContainerScreen<StationMenu> {
         float progressPart = miner.progress / Config.MAX_PROGRESS.get();
         UIBlocks.PROGRESS_BAR.drawProgressToRight(graphics, x, y, progressPart, 0xFFCCFEDD);
 
-        float fuelPart = (float) miner.fuel.getEnergyStored() / Config.POWER_MAX.get();
-        UIBlocks.WATER_BAR.drawProgressToTop(graphics, x, y, fuelPart, 0xAA222299);
-        if (fuelPart == 0)
+        float waterPart = miner.tank.getPercent();
+        UIBlocks.WATER_BAR.drawProgressToTop(graphics, x, y, waterPart, 0xAA222299);
+        if (miner.tank.getFluidAmount() < Config.WATER_PER_CYCLE.get())
             UIBlocks.WATER_SLOT.drawBorder(graphics, x, y, borderColor);
 
         float fertPart = (float) miner.fertilizer / Config.FERT_MAX.get();
         UIBlocks.FERTI_BAR.drawProgressToTop(graphics, x, y, fertPart, 0xAAEEFFFF);
 
-        float redstonePart = (float) miner.redstone / Config.POWER_MAX.get();
-        UIBlocks.RED_BAR.drawProgressToTop(graphics, x, y, redstonePart, 0xAABB2211);
+        float powerPart = (float) miner.fuel.getEnergyStored() / Config.POWER_MAX.get();
+        UIBlocks.POWER_BAR.drawProgressToTop(graphics, x, y, powerPart, 0xAABB2211);
     }
 }

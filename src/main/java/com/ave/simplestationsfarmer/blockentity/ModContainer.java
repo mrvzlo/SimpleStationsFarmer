@@ -3,6 +3,7 @@ package com.ave.simplestationsfarmer.blockentity;
 import com.ave.simplestationsfarmer.blockentity.handlers.InputItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.OutputItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.SidedItemHandler;
+import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import com.ave.simplestationsfarmer.screen.StationMenu;
 
 import net.minecraft.core.BlockPos;
@@ -46,7 +47,7 @@ public class ModContainer extends BlockEntity implements MenuProvider {
     public static void registerCaps(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.MINER_BLOCK_ENTITY.get(),
+                ModBlockEntities.FARMER_ENTITY.get(),
                 (be, direction) -> be.getItemHandler(direction));
     }
 
