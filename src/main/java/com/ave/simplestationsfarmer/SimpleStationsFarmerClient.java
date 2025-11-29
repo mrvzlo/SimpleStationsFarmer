@@ -1,11 +1,13 @@
 package com.ave.simplestationsfarmer;
 
+import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
 import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import com.ave.simplestationsfarmer.renderer.StationRenderer;
 import com.ave.simplestationsfarmer.screen.ModMenuTypes;
-import com.ave.simplestationsfarmer.screen.StationScreen;
+import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
+import com.ave.simplestationsfarmer.screen.FarmStationScreen;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -41,12 +43,14 @@ public class SimpleStationsFarmerClient {
 
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
-        event.register(ModMenuTypes.MINER_MENU.get(), StationScreen::new);
+        event.register(ModMenuTypes.FARM_MENU.get(), FarmStationScreen::new);
+        event.register(ModMenuTypes.DARK_FARM_MENU.get(), DarkFarmStationScreen::new);
     }
 
     @SubscribeEvent
     public static void registerCaps(RegisterCapabilitiesEvent event) {
         FarmerBlockEntity.registerCaps(event);
+        DarkFarmerBlockEntity.registerCaps(event);
         PartBlockEntity.registerCaps(event);
     }
 

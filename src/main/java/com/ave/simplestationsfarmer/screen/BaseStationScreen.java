@@ -5,7 +5,7 @@ import java.util.List;
 
 import com.ave.simplestationsfarmer.Config;
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
-import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 import com.ave.simplestationsfarmer.uihelpers.NumToString;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -17,11 +17,11 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Inventory;
 
-public class StationScreen extends AbstractContainerScreen<StationMenu> {
+public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStationMenu> {
     private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(SimpleStationsFarmer.MODID,
             "textures/gui/station_gui.png");
 
-    public StationScreen(StationMenu menu, Inventory inventory, Component title) {
+    public BaseStationScreen(BaseStationMenu menu, Inventory inventory, Component title) {
         super(menu, inventory, title);
     }
 
@@ -30,7 +30,7 @@ public class StationScreen extends AbstractContainerScreen<StationMenu> {
         super.render(gfx, mouseX, mouseY, partialTicks);
         this.renderTooltip(gfx, mouseX, mouseY);
 
-        if (!(menu.blockEntity instanceof FarmerBlockEntity miner))
+        if (!(menu.blockEntity instanceof BaseFarmerBlockEntity miner))
             return;
 
         int startX = (width - imageWidth) / 2;
@@ -81,12 +81,11 @@ public class StationScreen extends AbstractContainerScreen<StationMenu> {
         graphics.blit(TEXTURE, x, y, 0, 0, imageWidth, imageHeight, imageWidth,
                 imageHeight);
 
-        Component title = Component.translatable("screen.simplestationsfarmer.miner");
-        int textWidth = font.width(title);
+        int textWidth = font.width(getTitle());
         int centerX = (width / 2) - (textWidth / 2);
-        graphics.drawString(font, title, centerX, y + 6, 0x222222, false);
+        graphics.drawString(font, getTitle(), centerX, y + 6, 0x222222, false);
 
-        if (!(menu.blockEntity instanceof FarmerBlockEntity miner))
+        if (!(menu.blockEntity instanceof BaseFarmerBlockEntity miner))
             return;
 
         int tickAlpha = 96 + (int) (63 * Math.sin(System.currentTimeMillis() / 400.0));
@@ -100,9 +99,13 @@ public class StationScreen extends AbstractContainerScreen<StationMenu> {
             UIBlocks.WATER_SLOT.drawBorder(graphics, x, y, borderColor);
 
         float fertPart = (float) miner.fertilizer / Config.FERT_MAX.get();
-        UIBlocks.FERTI_BAR.drawProgressToTop(graphics, x, y, fertPart, 0xAAEEFFFF);
+        UIBlocks.FERTI_BAR.drawProgressToTop(graphics, x, y, fertPart, this.getFertColor());
 
         float powerPart = (float) miner.fuel.getEnergyStored() / Config.POWER_MAX.get();
         UIBlocks.POWER_BAR.drawProgressToTop(graphics, x, y, powerPart, 0xAABB2211);
+    }
+
+    public int getFertColor() {
+        return 0;
     }
 }

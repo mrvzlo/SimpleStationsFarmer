@@ -1,7 +1,7 @@
 package com.ave.simplestationsfarmer.screen;
 
 import com.ave.simplestationsfarmer.Config;
-import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.ModContainer;
 import com.ave.simplestationsfarmer.blockentity.handlers.WaterTank;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
@@ -13,23 +13,24 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.inventory.ContainerLevelAccess;
 import net.minecraft.world.inventory.DataSlot;
+import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.neoforged.neoforge.energy.EnergyStorage;
 import net.neoforged.neoforge.items.SlotItemHandler;
 
-public class StationMenu extends AbstractContainerMenu {
+public abstract class BaseStationMenu extends AbstractContainerMenu {
     public final Level level;
     public final ModContainer blockEntity;
 
-    public StationMenu(int containerId, Inventory inventory, FriendlyByteBuf data) {
+    public BaseStationMenu(int containerId, Inventory inventory, FriendlyByteBuf data, MenuType menu) {
         this(containerId, inventory,
-                (ModContainer) inventory.player.level().getBlockEntity(data.readBlockPos()));
+                (ModContainer) inventory.player.level().getBlockEntity(data.readBlockPos()), menu);
     }
 
-    public StationMenu(int containerId, Inventory inventory, ModContainer be) {
-        super(ModMenuTypes.MINER_MENU.get(), containerId);
+    public BaseStationMenu(int containerId, Inventory inventory, ModContainer be, MenuType menu) {
+        super(menu, containerId);
         level = inventory.player.level();
         blockEntity = be;
 
@@ -46,11 +47,11 @@ public class StationMenu extends AbstractContainerMenu {
         addSlot(new SlotItemHandler(blockEntity.inventory, ModContainer.REDSTONE_SLOT, UIBlocks.RED_SLOT.left,
                 UIBlocks.RED_SLOT.top));
 
-        if (blockEntity instanceof FarmerBlockEntity miner)
+        if (blockEntity instanceof BaseFarmerBlockEntity miner)
             addDataSlots(miner);
     }
 
-    private void addDataSlots(FarmerBlockEntity miner) {
+    private void addDataSlots(BaseFarmerBlockEntity miner) {
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
@@ -149,12 +150,6 @@ public class StationMenu extends AbstractContainerMenu {
         }
         sourceSlot.onTake(playerIn, sourceStack);
         return copyOfSourceStack;
-    }
-
-    @Override
-    public boolean stillValid(Player player) {
-        return stillValid(ContainerLevelAccess.create(level, blockEntity.getBlockPos()), player,
-                ModBlocks.FARMER_BLOCK.get());
     }
 
     private void addPlayerInventory(Inventory inventory) {

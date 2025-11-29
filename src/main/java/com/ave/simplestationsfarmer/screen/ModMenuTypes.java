@@ -18,8 +18,11 @@ public class ModMenuTypes {
         MENUS.register(eventBus);
     }
 
-    public static final DeferredHolder<MenuType<?>, MenuType<StationMenu>> MINER_MENU = registerMenuType(
-            "miner_menu", StationMenu::new);
+    public static final DeferredHolder<MenuType<?>, MenuType<FarmStationMenu>> FARM_MENU = registerMenuType(
+            "farm_menu", FarmStationMenu::new);
+
+    public static final DeferredHolder<MenuType<?>, MenuType<DarkFarmStationMenu>> DARK_FARM_MENU = registerMenuType(
+            "dark_farm_menu", DarkFarmStationMenu::new);
 
     private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(
             String name, IContainerFactory<T> factory) {

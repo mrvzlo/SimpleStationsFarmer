@@ -1,11 +1,10 @@
 package com.ave.simplestationsfarmer.blockentity;
 
+import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
 import com.ave.simplestationsfarmer.blockentity.handlers.InputItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.OutputItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.SidedItemHandler;
 import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
-import com.ave.simplestationsfarmer.screen.StationMenu;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -15,9 +14,6 @@ import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.game.ClientGamePacketListener;
 import net.minecraft.network.protocol.game.ClientboundBlockEntityDataPacket;
 import net.minecraft.world.MenuProvider;
-import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.inventory.AbstractContainerMenu;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
@@ -25,7 +21,7 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.items.IItemHandler;
 
-public class ModContainer extends BlockEntity implements MenuProvider {
+public abstract class ModContainer extends BlockEntity implements MenuProvider {
     public final SidedItemHandler inventory;
     public static final int OUTPUT_SLOT = 0;
     public static final int WATER_SLOT = 1;
@@ -33,10 +29,10 @@ public class ModContainer extends BlockEntity implements MenuProvider {
     public static final int FERTI_SLOT = 3;
     public static final int REDSTONE_SLOT = 4;
 
-    public ModContainer(BlockEntityType<FarmerBlockEntity> entity, BlockPos pos, BlockState state,
-            int size) {
+    public ModContainer(BlockEntityType<BlockEntity> entity, BlockPos pos, BlockState state, int size,
+            CropGroup group) {
         super(entity, pos, state);
-        inventory = new SidedItemHandler(size) {
+        inventory = new SidedItemHandler(size, group) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
@@ -49,6 +45,10 @@ public class ModContainer extends BlockEntity implements MenuProvider {
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.FARMER_ENTITY.get(),
                 (be, direction) -> be.getItemHandler(direction));
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.DARK_FARMER_ENTITY.get(),
+                (be, direction) -> be.getItemHandler(direction));
     }
 
     public IItemHandler getItemHandler(Direction side) {
@@ -59,12 +59,7 @@ public class ModContainer extends BlockEntity implements MenuProvider {
 
     @Override
     public Component getDisplayName() {
-        return Component.translatable("container.simplestationsfarmer.miner");
-    }
-
-    @Override
-    public AbstractContainerMenu createMenu(int containerId, Inventory inventory, Player player) {
-        return new StationMenu(containerId, inventory, this);
+        return Component.translatable("container.simplestationsfarmer.farmer");
     }
 
     @Override

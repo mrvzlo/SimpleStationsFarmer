@@ -8,14 +8,14 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.state.BlockState;
 
-public class FarmerBlock extends BaseFarmerBlock {
-    public FarmerBlock(Properties props) {
-        super(props, ModBlocks.FARMER_BLOCK);
+public class DarkFarmerBlock extends BaseFarmerBlock {
+    public DarkFarmerBlock(Properties props) {
+        super(props, ModBlocks.DARK_FARMER_BLOCK);
     }
 
     @Nullable
     @Override
     public BlockEntity newBlockEntity(BlockPos pos, BlockState state) {
-        return new FarmerBlockEntity(pos, state);
+        return new DarkFarmerBlockEntity(pos, state);
     }
 }

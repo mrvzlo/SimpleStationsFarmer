@@ -2,7 +2,7 @@ package com.ave.simplestationsfarmer;
 
 import org.slf4j.Logger;
 
-import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
 import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
@@ -34,14 +34,12 @@ public class SimpleStationsFarmer {
 
         public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS
                         .register("example_tab", () -> CreativeModeTab.builder()
-                                        .title(Component.translatable("itemGroup.simplestationsfarmer")) // The language
-                                                                                                         // key for
-                                        // the title of your
-                                        // CreativeModeTab
+                                        .title(Component.translatable("itemGroup.simplestations"))
                                         .withTabsBefore(CreativeModeTabs.COMBAT)
                                         .icon(() -> ModBlocks.FARMER_BLOCK_ITEM.get().getDefaultInstance())
                                         .displayItems((parameters, output) -> {
                                                 output.accept(ModBlocks.FARMER_BLOCK_ITEM.get());
+                                                output.accept(ModBlocks.DARK_FARMER_BLOCK_ITEM.get());
                                                 output.accept(ModBlocks.SPRINKLER.get());
                                         }).build());
 
@@ -66,14 +64,14 @@ public class SimpleStationsFarmer {
 
         private void registerCapabilities(RegisterCapabilitiesEvent event) {
                 event.registerBlock(Capabilities.EnergyStorage.BLOCK,
-                                (level, pos, state, be, side) -> ((FarmerBlockEntity) be).fuel,
+                                (level, pos, state, be, side) -> ((BaseFarmerBlockEntity) be).fuel,
                                 ModBlocks.FARMER_BLOCK.get());
                 event.registerBlock(
                                 Capabilities.EnergyStorage.BLOCK, (level, pos, state, be,
                                                 side) -> ((PartBlockEntity) be).getEnergyStorage((PartBlockEntity) be),
                                 ModBlocks.PART.get());
                 event.registerBlock(Capabilities.FluidHandler.BLOCK,
-                                (level, pos, state, be, side) -> ((FarmerBlockEntity) be).tank,
+                                (level, pos, state, be, side) -> ((BaseFarmerBlockEntity) be).tank,
                                 ModBlocks.FARMER_BLOCK.get());
                 event.registerBlock(
                                 Capabilities.FluidHandler.BLOCK, (level, pos, state, be,

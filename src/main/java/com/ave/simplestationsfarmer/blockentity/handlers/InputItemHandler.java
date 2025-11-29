@@ -2,7 +2,7 @@ package com.ave.simplestationsfarmer.blockentity.handlers;
 
 import net.neoforged.neoforge.items.IItemHandler;
 
-import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 
 import net.minecraft.world.item.ItemStack;
 
@@ -25,15 +25,13 @@ public class InputItemHandler implements IItemHandler {
 
     @Override
     public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
-        // Нельзя класть в выход
-        if (slot == FarmerBlockEntity.OUTPUT_SLOT)
+        if (slot == BaseFarmerBlockEntity.OUTPUT_SLOT)
             return stack;
         return parent.insertItem(slot, stack, simulate);
     }
 
     @Override
     public ItemStack extractItem(int slot, int amount, boolean simulate) {
-        // input-хендлер ничего не отдаёт
         return ItemStack.EMPTY;
     }
 

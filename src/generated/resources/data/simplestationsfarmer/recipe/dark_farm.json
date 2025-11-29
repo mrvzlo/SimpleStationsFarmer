@@ -1,0 +1,33 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "C": {
+      "item": "minecraft:cobblestone"
+    },
+    "H": {
+      "item": "minecraft:stone_hoe"
+    },
+    "L": {
+      "item": "minecraft:lantern"
+    },
+    "N": {
+      "item": "minecraft:netherrack"
+    },
+    "R": {
+      "item": "simplestationsfarmer:sprinkler"
+    },
+    "S": {
+      "item": "minecraft:stone_shovel"
+    }
+  },
+  "pattern": [
+    "CHC",
+    "LRL",
+    "NSN"
+  ],
+  "result": {
+    "count": 1,
+    "id": "simplestationsfarmer:dark_farm"
+  }
+}

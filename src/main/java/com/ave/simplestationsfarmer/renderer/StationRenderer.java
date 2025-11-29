@@ -1,6 +1,6 @@
 package com.ave.simplestationsfarmer.renderer;
 
-import com.ave.simplestationsfarmer.blockentity.CropType;
+import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -29,6 +29,16 @@ public class StationRenderer implements BlockEntityRenderer<PartBlockEntity> {
         models[CropType.MELON.ordinal()] = shaper.getBlockModel(ModBlocks.MELON_BLOCK.get().defaultBlockState());
         models[CropType.GLOWBERRY.ordinal()] = shaper
                 .getBlockModel(ModBlocks.GLOWBERRY_BLOCK.get().defaultBlockState());
+        models[CropType.CACTUS.ordinal()] = shaper.getBlockModel(ModBlocks.CACTUS_BLOCK.get().defaultBlockState());
+        models[CropType.MELON.ordinal()] = shaper.getBlockModel(ModBlocks.MELON_BLOCK.get().defaultBlockState());
+        models[CropType.RED_MUSHROOM.ordinal()] = shaper
+                .getBlockModel(ModBlocks.RED_MUSHROOM_BLOCK.get().defaultBlockState());
+        models[CropType.BROWN_MUSHROOM.ordinal()] = shaper
+                .getBlockModel(ModBlocks.BROWN_MUSHROOM_BLOCK.get().defaultBlockState());
+        models[CropType.NETHER_WART.ordinal()] = shaper
+                .getBlockModel(ModBlocks.NETHER_WART_BLOCK.get().defaultBlockState());
+        models[CropType.CHORUS.ordinal()] = shaper
+                .getBlockModel(ModBlocks.CHORUS_BLOCK.get().defaultBlockState());
     }
 
     @Override
@@ -36,7 +46,7 @@ public class StationRenderer implements BlockEntityRenderer<PartBlockEntity> {
             int overlay) {
 
         var type = be.getCropType();
-        if (type == null || type.equals(CropType.Unknown))
+        if (type == null || type == CropType.Unknown)
             return;
 
         pose.pushPose();

@@ -26,20 +26,21 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 
-public class MinerRecipeCategory implements IRecipeCategory<SimpleRecipe> {
-        public static final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(SimpleStationsFarmer.MODID,
-                        "regular");
-        private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
+public class FarmRecipeCategory implements IRecipeCategory<SimpleRecipe> {
+        private static final String Path = "farm";
+
+        public final ResourceLocation UID = ResourceLocation.fromNamespaceAndPath(SimpleStationsFarmer.MODID, Path);
+        private final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath(
                         SimpleStationsFarmer.MODID,
-                        "textures/gui/jei.png");
+                        "textures/gui/farm_jei.png");
 
         public IGuiHelper guiHelper;
-        public static RecipeType<SimpleRecipe> REGULAR = RecipeType.create(SimpleStationsFarmer.MODID, "regular",
+        public static RecipeType<SimpleRecipe> REGULAR = RecipeType.create(SimpleStationsFarmer.MODID, Path,
                         SimpleRecipe.class);
 
         private final IDrawableStatic bg;
 
-        public MinerRecipeCategory(IGuiHelper guiHelper) {
+        public FarmRecipeCategory(IGuiHelper guiHelper) {
                 this.guiHelper = guiHelper;
                 bg = guiHelper.createDrawable(TEXTURE, 0, 0, 176, 80);
         }
@@ -51,7 +52,7 @@ public class MinerRecipeCategory implements IRecipeCategory<SimpleRecipe> {
 
         @Override
         public Component getTitle() {
-                return Component.translatable("screen.simplestationsfarmer.recipes");
+                return Component.translatable("screen.simplestationsfarmer.farm_recipes");
         }
 
         @Override

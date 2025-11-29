@@ -27,6 +27,10 @@ public class WaterTank extends FluidTank {
         super.drain(value.get(), FluidAction.EXECUTE);
     }
 
+    public void drain(int value) {
+        super.drain(value, FluidAction.EXECUTE);
+    }
+
     public float getPercent() {
         return (float) getFluidAmount() / getCapacity();
     }

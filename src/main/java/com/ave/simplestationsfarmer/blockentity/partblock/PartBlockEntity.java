@@ -1,7 +1,7 @@
 package com.ave.simplestationsfarmer.blockentity.partblock;
 
-import com.ave.simplestationsfarmer.blockentity.CropType;
-import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import com.ave.simplestationsfarmer.blockentity.handlers.InputItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.OutputItemHandler;
 import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
@@ -69,10 +69,16 @@ public class PartBlockEntity extends BlockEntity {
         return this.getController(be).tank;
     }
 
-    private FarmerBlockEntity getController(PartBlockEntity be) {
+    private BaseFarmerBlockEntity getController(PartBlockEntity be) {
         if (be.controllerPos == null)
             return null;
-        return ((FarmerBlockEntity) be.getLevel().getBlockEntity(be.controllerPos));
+        return ((BaseFarmerBlockEntity) be.getLevel().getBlockEntity(be.controllerPos));
+    }
+
+    public boolean isEdge() {
+        if (this.controllerPos == null)
+            return false;
+        return this.controllerPos.getX() == getBlockPos().getX() || this.controllerPos.getZ() == getBlockPos().getZ();
     }
 
     @Override

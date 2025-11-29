@@ -41,5 +41,18 @@ public class ModRecipeProvider extends RecipeProvider {
                 .define('S', Items.STONE_SHOVEL)
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
                 .save(consumer);
+
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.DARK_FARMER_BLOCK.get())
+                .pattern("CHC")
+                .pattern("LRL")
+                .pattern("NSN")
+                .define('R', ModBlocks.SPRINKLER.get())
+                .define('L', Items.SOUL_LANTERN)
+                .define('C', Items.COBBLESTONE)
+                .define('N', Items.NETHERRACK)
+                .define('H', Items.STONE_HOE)
+                .define('S', Items.STONE_SHOVEL)
+                .unlockedBy("has_redstone", has(Items.REDSTONE))
+                .save(consumer);
     }
 }

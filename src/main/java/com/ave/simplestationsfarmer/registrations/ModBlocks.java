@@ -1,6 +1,7 @@
 package com.ave.simplestationsfarmer.registrations;
 
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
+import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlock;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlock;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlock;
 
@@ -20,12 +21,19 @@ public class ModBlocks {
                         () -> new FarmerBlock(BlockBehaviour.Properties.of()
                                         .strength(0.1F).lightLevel((state) -> 15).noOcclusion()));
 
+        public static final DeferredBlock<Block> DARK_FARMER_BLOCK = BLOCKS.register("dark_farm",
+                        () -> new DarkFarmerBlock(BlockBehaviour.Properties.of()
+                                        .strength(0.1F).lightLevel((state) -> 15).noOcclusion()));
+
         public static final DeferredBlock<Block> PART = BLOCKS.register("part",
                         () -> new PartBlock(BlockBehaviour.Properties.of()
                                         .strength(0.1F).lightLevel((state) -> 15).noOcclusion()));
 
         public static final DeferredItem<BlockItem> FARMER_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("farm",
                         FARMER_BLOCK);
+
+        public static final DeferredItem<BlockItem> DARK_FARMER_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("dark_farm",
+                        DARK_FARMER_BLOCK);
 
         public static final DeferredItem<Item> SPRINKLER = ITEMS.registerItem("sprinkler", Item::new,
                         new Item.Properties());
@@ -49,5 +57,13 @@ public class ModBlocks {
         public static final DeferredBlock<Block> MELON_BLOCK = BLOCKS.register("melon",
                         () -> new Block(BlockBehaviour.Properties.of()));
         public static final DeferredBlock<Block> GLOWBERRY_BLOCK = BLOCKS.register("glow_berry",
+                        () -> new Block(BlockBehaviour.Properties.of()));
+        public static final DeferredBlock<Block> RED_MUSHROOM_BLOCK = BLOCKS.register("red_mushroom",
+                        () -> new Block(BlockBehaviour.Properties.of()));
+        public static final DeferredBlock<Block> BROWN_MUSHROOM_BLOCK = BLOCKS.register("brown_mushroom",
+                        () -> new Block(BlockBehaviour.Properties.of()));
+        public static final DeferredBlock<Block> NETHER_WART_BLOCK = BLOCKS.register("n_wart",
+                        () -> new Block(BlockBehaviour.Properties.of()));
+        public static final DeferredBlock<Block> CHORUS_BLOCK = BLOCKS.register("chorus",
                         () -> new Block(BlockBehaviour.Properties.of()));
 }

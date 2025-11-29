@@ -3,9 +3,11 @@ package com.ave.simplestationsfarmer.recipes;
 import java.util.List;
 
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
-import com.ave.simplestationsfarmer.blockentity.CropType;
+import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
+import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
-import com.ave.simplestationsfarmer.screen.StationScreen;
+import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
+import com.ave.simplestationsfarmer.screen.FarmStationScreen;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 import com.google.common.collect.Lists;
 
@@ -27,31 +29,37 @@ public class JEIModPlugin implements IModPlugin {
 
     @Override
     public void registerCategories(IRecipeCategoryRegistration registration) {
-        registration.addRecipeCategories(new MinerRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new FarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new DarkFarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        List<SimpleRecipe> recipes = Lists.newArrayList();
+        registration.addRecipes(FarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Crop));
+        registration.addRecipes(DarkFarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Dark));
+    }
 
+    private List<SimpleRecipe> getRecipes(CropGroup group) {
+        List<SimpleRecipe> list = Lists.newArrayList();
         for (var c : CropType.values()) {
-            if (c.equals(CropType.Unknown))
+            if (c.equals(CropType.Unknown) || !c.group.equals(group))
                 continue;
-            recipes.add(new SimpleRecipe(new ItemStack(c.seed), new ItemStack(c.product, c.output)));
+            list.add(new SimpleRecipe(new ItemStack(c.seed), new ItemStack(c.product, c.output)));
         }
-
-        SimpleStationsFarmer.LOGGER.info("Registered recipes: " + recipes.size());
-        registration.addRecipes(MinerRecipeCategory.REGULAR, recipes);
+        return list;
     }
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.FARMER_BLOCK.get()), MinerRecipeCategory.REGULAR);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.FARMER_BLOCK.get()), FarmRecipeCategory.REGULAR);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.DARK_FARMER_BLOCK.get()), DarkFarmRecipeCategory.REGULAR);
     }
 
     @Override
     public void registerGuiHandlers(IGuiHandlerRegistration registration) {
-        registration.addRecipeClickArea(StationScreen.class, UIBlocks.OUT_SLOT.left - 16, 6,
-                UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, MinerRecipeCategory.REGULAR);
+        registration.addRecipeClickArea(FarmStationScreen.class, UIBlocks.OUT_SLOT.left - 16, 6,
+                UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, FarmRecipeCategory.REGULAR);
+        registration.addRecipeClickArea(DarkFarmStationScreen.class, UIBlocks.OUT_SLOT.left - 16, 6,
+                UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, DarkFarmRecipeCategory.REGULAR);
     }
 }

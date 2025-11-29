@@ -1,6 +1,6 @@
 package com.ave.simplestationsfarmer.blockentity.partblock;
 
-import com.ave.simplestationsfarmer.blockentity.FarmerBlock;
+import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlock;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
@@ -39,7 +39,7 @@ public class PartBlock extends Block implements EntityBlock {
             return ItemInteractionResult.SUCCESS;
 
         BlockPos ctrlPos = part.getControllerPos();
-        FarmerBlock ctrl = (FarmerBlock) level.getBlockState(ctrlPos).getBlock();
+        BaseFarmerBlock ctrl = (BaseFarmerBlock) level.getBlockState(ctrlPos).getBlock();
         ctrl.useItemOn(stack, state, level, ctrlPos, player, hand, hit);
 
         return ItemInteractionResult.SUCCESS;
@@ -56,7 +56,7 @@ public class PartBlock extends Block implements EntityBlock {
             return;
         BlockPos controllerPos = part.getControllerPos();
         BlockState controllerState = level.getBlockState(controllerPos);
-        if (controllerState.getBlock() instanceof FarmerBlock)
+        if (controllerState.getBlock() instanceof BaseFarmerBlock)
             level.destroyBlock(controllerPos, true);
 
     }
