@@ -1,9 +1,9 @@
 {
   "itemGroup.simplestations": "Простые фермерские станции",
-  "block.simplestationsfarmer.farm": "Фермерская станция",
-  "block.simplestationsfarmer.dark_farm": "Грибная станция",
-  "block.simplestationsfarmer.tree_farm": "Древесная станция",
-  "block.simplestationsfarmer.forage_farm": "Станция собирателя",
+  "item.simplestationsfarmer.farm": "Фермерская станция",
+  "item.simplestationsfarmer.dark_farm": "Грибная станция",
+  "item.simplestationsfarmer.tree_farm": "Древесная станция",
+  "item.simplestationsfarmer.forage_farm": "Станция собирателя",
   "item.simplestationsfarmer.sprinkler": "Ороситель",
 
   "simplestationsfarmer.configuration.title": "Настройки",

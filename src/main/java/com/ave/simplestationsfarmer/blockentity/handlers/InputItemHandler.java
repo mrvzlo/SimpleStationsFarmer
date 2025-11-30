@@ -1,10 +1,9 @@
 package com.ave.simplestationsfarmer.blockentity.handlers;
 
-import net.neoforged.neoforge.items.IItemHandler;
-
 import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.items.IItemHandler;
 
 public class InputItemHandler implements IItemHandler {
     private final SidedItemHandler parent;

@@ -30,14 +30,14 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
         super.render(gfx, mouseX, mouseY, partialTicks);
         this.renderTooltip(gfx, mouseX, mouseY);
 
-        if (!(menu.blockEntity instanceof BaseFarmerBlockEntity miner))
+        if (!(menu.blockEntity instanceof BaseFarmerBlockEntity farmer))
             return;
 
         int startX = (width - imageWidth) / 2;
         int startY = (height - imageHeight) / 2;
 
         if (UIBlocks.WATER_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String waterPart = NumToString.parse(miner.tank.getFluidAmount() / 1000f, "B / ")
+            String waterPart = NumToString.parse(farmer.tank.getFluidAmount() / 1000f, "B / ")
                     + NumToString.parse(Config.WATER_MAX.get() / 1000f, "B");
             List<Component> waterText = Arrays.asList(Component.translatable("screen.simplestationsfarmer.water"),
                     Component.literal(waterPart));
@@ -45,7 +45,7 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
         }
 
         if (UIBlocks.FERTI_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String fertPart = miner.fertilizer + " / " + Config.FERT_MAX.get();
+            String fertPart = farmer.fertilizer + " / " + Config.FERT_MAX.get();
             List<Component> fertText = Arrays.asList(
                     Component.translatable("screen.simplestationsfarmer.fertilizer"),
                     Component.literal(fertPart));
@@ -53,7 +53,7 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
         }
 
         if (UIBlocks.POWER_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String powerPart = NumToString.parse(miner.fuel.getEnergyStored(), "RF / ")
+            String powerPart = NumToString.parse(farmer.fuel.getEnergyStored(), "RF / ")
                     + NumToString.parse(Config.POWER_MAX.get(), "RF");
             List<Component> powerText = Arrays.asList(
                     Component.translatable("screen.simplestationsfarmer.power"),
@@ -61,12 +61,12 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
             gfx.renderComponentTooltip(font, powerText, mouseX, mouseY);
         }
 
-        if (miner.progress > 0 && UIBlocks.PROGRESS_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            int progressPart = (int) Math.ceil(100 * miner.progress / Config.MAX_PROGRESS.get());
+        if (farmer.progress > 0 && UIBlocks.PROGRESS_BAR.isHovered(mouseX - startX, mouseY - startY)) {
+            int progressPart = (int) Math.ceil(100 * farmer.progress / Config.MAX_PROGRESS.get());
             gfx.renderTooltip(font, Component.literal(progressPart + "%"), mouseX, mouseY);
         }
 
-        if (miner.type == null && UIBlocks.FILTER_SLOT.isHovered(mouseX - startX, mouseY - startY)) {
+        if (farmer.type == null && UIBlocks.FILTER_SLOT.isHovered(mouseX - startX, mouseY - startY)) {
             gfx.renderTooltip(font, Component.translatable("screen.simplestationsfarmer.filter"), mouseX, mouseY);
         }
     }
@@ -85,23 +85,23 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
         int centerX = (width / 2) - (textWidth / 2);
         graphics.drawString(font, getTitle(), centerX, y + 6, 0x222222, false);
 
-        if (!(menu.blockEntity instanceof BaseFarmerBlockEntity miner))
+        if (!(menu.blockEntity instanceof BaseFarmerBlockEntity farmer))
             return;
 
         int tickAlpha = 96 + (int) (63 * Math.sin(System.currentTimeMillis() / 400.0));
         int borderColor = (tickAlpha << 24) | 0xFF0000;
-        float progressPart = miner.progress / Config.MAX_PROGRESS.get();
+        float progressPart = farmer.progress / Config.MAX_PROGRESS.get();
         UIBlocks.PROGRESS_BAR.drawProgressToRight(graphics, x, y, progressPart, 0xFFCCFEDD);
 
-        float waterPart = miner.tank.getPercent();
+        float waterPart = farmer.tank.getPercent();
         UIBlocks.WATER_BAR.drawProgressToTop(graphics, x, y, waterPart, getFluidColor());
-        if (miner.tank.getFluidAmount() < miner.fluidUsage)
+        if (farmer.tank.getFluidAmount() < farmer.fluidUsage)
             UIBlocks.WATER_SLOT.drawBorder(graphics, x, y, borderColor);
 
-        float fertPart = (float) miner.fertilizer / Config.FERT_MAX.get();
+        float fertPart = (float) farmer.fertilizer / Config.FERT_MAX.get();
         UIBlocks.FERTI_BAR.drawProgressToTop(graphics, x, y, fertPart, getFertColor());
 
-        float powerPart = (float) miner.fuel.getEnergyStored() / Config.POWER_MAX.get();
+        float powerPart = (float) farmer.fuel.getEnergyStored() / Config.POWER_MAX.get();
         UIBlocks.POWER_BAR.drawProgressToTop(graphics, x, y, powerPart, 0xAABB2211);
     }
 

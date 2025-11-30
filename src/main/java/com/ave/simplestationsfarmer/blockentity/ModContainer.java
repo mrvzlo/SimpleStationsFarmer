@@ -4,7 +4,6 @@ import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
 import com.ave.simplestationsfarmer.blockentity.handlers.InputItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.OutputItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.SidedItemHandler;
-import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -17,9 +16,7 @@ import net.minecraft.world.MenuProvider;
 import net.minecraft.world.level.block.entity.BlockEntity;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public abstract class ModContainer extends BlockEntity implements MenuProvider {
     public final SidedItemHandler inventory;
@@ -38,17 +35,6 @@ public abstract class ModContainer extends BlockEntity implements MenuProvider {
                 setChanged();
             }
         };
-    }
-
-    public static void registerCaps(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.FARMER_ENTITY.get(),
-                (be, direction) -> be.getItemHandler(direction));
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.DARK_FARMER_ENTITY.get(),
-                (be, direction) -> be.getItemHandler(direction));
     }
 
     public IItemHandler getItemHandler(Direction side) {

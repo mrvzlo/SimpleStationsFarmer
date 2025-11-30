@@ -9,7 +9,7 @@ public class NumToString {
             v /= 1000.0;
             idx++;
         }
-        java.text.DecimalFormat df = new java.text.DecimalFormat("0.0");
+        java.text.DecimalFormat df = new java.text.DecimalFormat("0.00");
         return df.format(Math.abs(v)) + " " + units[idx] + postfix;
     }
 }

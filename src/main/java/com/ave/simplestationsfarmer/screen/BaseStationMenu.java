@@ -15,8 +15,8 @@ import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.inventory.Slot;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
-import net.neoforged.neoforge.energy.EnergyStorage;
-import net.neoforged.neoforge.items.SlotItemHandler;
+import net.minecraftforge.energy.EnergyStorage;
+import net.minecraftforge.items.SlotItemHandler;
 
 public abstract class BaseStationMenu extends AbstractContainerMenu {
     public final Level level;
@@ -45,64 +45,77 @@ public abstract class BaseStationMenu extends AbstractContainerMenu {
         addSlot(new SlotItemHandler(blockEntity.inventory, ModContainer.REDSTONE_SLOT, UIBlocks.RED_SLOT.left,
                 UIBlocks.RED_SLOT.top));
 
-        if (blockEntity instanceof BaseFarmerBlockEntity miner)
-            addDataSlots(miner);
+        if (blockEntity instanceof BaseFarmerBlockEntity farmer)
+            addDataSlots(farmer);
     }
 
-    private void addDataSlots(BaseFarmerBlockEntity miner) {
+    private void addDataSlots(BaseFarmerBlockEntity farmer) {
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return miner.fertilizer;
+                return farmer.fertilizer;
             }
 
             @Override
             public void set(int value) {
-                miner.fertilizer = value;
+                farmer.fertilizer = value;
             }
         });
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return miner.tank.getFluidAmount();
+                return farmer.tank.getFluidAmount();
             }
 
             @Override
             public void set(int value) {
-                miner.tank = WaterTank.create(value);
+                farmer.tank = WaterTank.create(value);
             }
         });
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return (int) miner.progress;
+                return (int) farmer.progress;
             }
 
             @Override
             public void set(int value) {
-                miner.progress = value;
+                farmer.progress = value;
             }
         });
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return miner.working ? 1 : 0;
+                return farmer.working ? 1 : 0;
             }
 
             @Override
             public void set(int value) {
-                miner.working = value != 0;
+                farmer.working = value != 0;
             }
         });
         addDataSlot(new DataSlot() {
             @Override
             public int get() {
-                return miner.fuel.getEnergyStored();
+                return farmer.fuelLow;
             }
 
             @Override
             public void set(int value) {
-                miner.fuel = new EnergyStorage(Config.POWER_MAX.get(), 0, 0, value);
+                value = (farmer.fuel.getEnergyStored() & 0xFFFF0000) | ((short) value & 0xFFFF);
+                farmer.fuel = new EnergyStorage(Config.POWER_MAX.get(), 0, 0, value);
+            }
+        });
+        addDataSlot(new DataSlot() {
+            @Override
+            public int get() {
+                return farmer.fuelHigh;
+            }
+
+            @Override
+            public void set(int value) {
+                value = (farmer.fuel.getEnergyStored() & 0xFFFF) | (value << 16);
+                farmer.fuel = new EnergyStorage(Config.POWER_MAX.get(), 0, 0, value);
             }
         });
     }

@@ -3,9 +3,10 @@ package com.ave.simplestationsfarmer.blockentity.handlers;
 import com.ave.simplestationsfarmer.Config;
 
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.common.ModConfigSpec.IntValue;
-import net.neoforged.neoforge.fluids.FluidStack;
-import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
+import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.IFluidHandler.FluidAction;
+import net.minecraftforge.fluids.capability.templates.FluidTank;
 
 public class WaterTank extends FluidTank {
 

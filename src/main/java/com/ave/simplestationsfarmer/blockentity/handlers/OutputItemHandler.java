@@ -3,7 +3,7 @@ package com.ave.simplestationsfarmer.blockentity.handlers;
 import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.items.IItemHandler;
+import net.minecraftforge.items.IItemHandler;
 
 public class OutputItemHandler implements IItemHandler {
     private final SidedItemHandler parent;

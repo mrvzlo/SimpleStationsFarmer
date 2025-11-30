@@ -8,7 +8,7 @@ import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class SidedItemHandler extends ItemStackHandler {
     private final CropGroup group;

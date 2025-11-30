@@ -3,6 +3,7 @@ package com.ave.simplestationsfarmer.blockentity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
 import net.minecraft.world.level.block.HorizontalDirectionalBlock;
@@ -14,12 +15,13 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.registries.DeferredBlock;
+import net.minecraftforge.registries.RegistryObject;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
@@ -30,9 +32,9 @@ import com.ave.simplestationsfarmer.registrations.ModBlocks;
 
 public abstract class BaseFarmerBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    private final DeferredBlock<Block> block;
+    private final RegistryObject<BlockItem> block;
 
-    public BaseFarmerBlock(Properties props, DeferredBlock<Block> block) {
+    public BaseFarmerBlock(Properties props, RegistryObject<BlockItem> block) {
         super(props);
         this.block = block;
         this.registerDefaultState(
@@ -66,8 +68,10 @@ public abstract class BaseFarmerBlock extends Block implements EntityBlock {
     @Override
     public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
             Player player, InteractionHand hand, BlockHitResult hit) {
+        if (!(player instanceof ServerPlayer sp))
+            return ItemInteractionResult.SUCCESS;
         var blockEntity = (BaseFarmerBlockEntity) level.getBlockEntity(pos);
-        player.openMenu(new SimpleMenuProvider(blockEntity, Component.literal("")), pos);
+        sp.openMenu(new SimpleMenuProvider(blockEntity, Component.literal("")), pos);
         return ItemInteractionResult.SUCCESS;
     }
 
@@ -115,10 +119,10 @@ public abstract class BaseFarmerBlock extends Block implements EntityBlock {
             return;
 
         var controller = level.getBlockEntity(pos);
-        if (controller instanceof BaseFarmerBlockEntity miner) {
+        if (controller instanceof BaseFarmerBlockEntity farmer) {
             Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
-                    new ItemStack(block, 1));
-            Containers.dropContents(level, pos, miner.inventory.getAsList());
+                    new ItemStack(block.get(), 1));
+            Containers.dropContents(level, pos, farmer.inventory.getAsList());
         }
         super.onRemove(state, level, pos, newState, moving);
 

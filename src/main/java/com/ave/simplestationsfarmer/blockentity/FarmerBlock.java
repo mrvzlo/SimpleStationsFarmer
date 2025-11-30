@@ -10,7 +10,7 @@ import net.minecraft.world.level.block.state.BlockState;
 
 public class FarmerBlock extends BaseFarmerBlock {
     public FarmerBlock(Properties props) {
-        super(props, ModBlocks.FARMER_BLOCK);
+        super(props, ModBlocks.FARMER_BLOCK_ITEM);
     }
 
     @Nullable
