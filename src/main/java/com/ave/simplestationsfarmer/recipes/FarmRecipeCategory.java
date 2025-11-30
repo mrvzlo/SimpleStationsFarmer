@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.ave.simplestationsfarmer.Config;
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
+import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 import com.google.common.collect.Lists;
@@ -85,7 +85,7 @@ public class FarmRecipeCategory implements IRecipeCategory<SimpleRecipe> {
                         double mouseY) {
                 List<Component> list = Lists.newArrayList();
                 if (UIBlocks.WATER_BAR.isHovered(mouseX, mouseY))
-                        list.add(Component.literal(Config.WATER_PER_CYCLE + " mB"));
+                        list.add(Component.literal(FarmerBlockEntity.WaterUsage + " mB"));
 
                 return list;
         }
