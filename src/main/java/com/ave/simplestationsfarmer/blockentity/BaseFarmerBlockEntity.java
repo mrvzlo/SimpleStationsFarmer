@@ -27,7 +27,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
     public boolean working = false;
 
     protected int powerUsage = 1;
-    protected int waterUsage = Config.WATER_PER_CYCLE.get();
+    public int fluidUsage;
 
     public BaseFarmerBlockEntity(BlockEntityType entity, BlockPos pos, BlockState state, CropGroup group) {
         super(entity, pos, state, 5, group);
@@ -41,7 +41,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
             progress -= Config.MAX_PROGRESS.get();
 
         checkNewType();
-        checkResource(WATER_SLOT, null, 1000, Config.WATER_MAX.get(), ResourceType.WATER);
+        checkResource(FLUID_SLOT, null, 1000, Config.WATER_MAX.get(), ResourceType.FLUID);
         checkResource(REDSTONE_SLOT, Items.REDSTONE_BLOCK, Config.POWER_PER_RED.get(), Config.POWER_MAX.get(),
                 ResourceType.POWER);
         checkResource(FERTI_SLOT, null, Config.FERT_PER_ITEM.get(), Config.FERT_MAX.get(),
@@ -68,7 +68,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
         if (progress < Config.MAX_PROGRESS.get())
             return;
 
-        tank.drain(waterUsage);
+        tank.drain(fluidUsage);
         var toAdd = new ItemStack(type.product);
         toAdd.setCount(slot.getCount() + type.output);
         inventory.setStackInSlot(OUTPUT_SLOT, toAdd);
@@ -78,7 +78,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
     private boolean getWorking(ItemStack slot) {
         if (type == null || type == CropType.Unknown)
             return false;
-        if (tank.getFluidAmount() < waterUsage)
+        if (tank.getFluidAmount() < fluidUsage)
             return false;
         if (slot.getCount() == 0)
             return true;
@@ -96,7 +96,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
         if (stack.isEmpty() || stack.getItem().equals(Items.BUCKET) || getResourceValue(type) + increment > maxCapacity)
             return;
 
-        if (stack.getItem().equals(Items.WATER_BUCKET))
+        if (stack.getItem().equals(Items.WATER_BUCKET) || stack.getItem().equals(Items.LAVA_BUCKET))
             inventory.setStackInSlot(slot, new ItemStack(Items.BUCKET, 1));
         else {
             stack.shrink(1);
@@ -107,7 +107,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
 
     private void addResource(ResourceType type, int amount) {
         switch (type) {
-            case WATER -> tank.fill(amount);
+            case FLUID -> tank.fill(amount);
             case FERT -> fertilizer += amount;
             case POWER -> fuel.receiveEnergy(amount, false);
         }
@@ -126,7 +126,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
 
     private int getResourceValue(ResourceType type) {
         return switch (type) {
-            case WATER -> tank.getFluidAmount();
+            case FLUID -> tank.getFluidAmount();
             case FERT -> fertilizer;
             case POWER -> fuel.getEnergyStored();
         };
@@ -180,6 +180,6 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
     }
 
     private enum ResourceType {
-        WATER, FERT, POWER
+        FLUID, FERT, POWER
     }
 }

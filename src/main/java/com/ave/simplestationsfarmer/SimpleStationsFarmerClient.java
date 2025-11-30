@@ -2,10 +2,12 @@ package com.ave.simplestationsfarmer;
 
 import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
 import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import com.ave.simplestationsfarmer.renderer.StationRenderer;
 import com.ave.simplestationsfarmer.screen.ModMenuTypes;
+import com.ave.simplestationsfarmer.screen.TreeFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.FarmStationScreen;
 
@@ -45,12 +47,14 @@ public class SimpleStationsFarmerClient {
     public static void registerScreens(RegisterMenuScreensEvent event) {
         event.register(ModMenuTypes.FARM_MENU.get(), FarmStationScreen::new);
         event.register(ModMenuTypes.DARK_FARM_MENU.get(), DarkFarmStationScreen::new);
+        event.register(ModMenuTypes.TREE_FARM_MENU.get(), TreeFarmStationScreen::new);
     }
 
     @SubscribeEvent
     public static void registerCaps(RegisterCapabilitiesEvent event) {
         FarmerBlockEntity.registerCaps(event);
         DarkFarmerBlockEntity.registerCaps(event);
+        TreeFarmerBlockEntity.registerCaps(event);
         PartBlockEntity.registerCaps(event);
     }
 

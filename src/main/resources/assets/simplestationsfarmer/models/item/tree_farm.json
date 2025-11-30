@@ -1,0 +1,8 @@
+{
+  "parent": "simplestationsfarmer:custom/trees",
+  "textures": {
+    "all": "simplestationsfarmer:block/tree_farm",
+    "1": "simplestationsfarmer:block/tree_farm"
+  },
+  "render_type": "transparent"
+}

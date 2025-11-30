@@ -8,6 +8,7 @@ import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.FarmStationScreen;
+import com.ave.simplestationsfarmer.screen.TreeFarmStationScreen;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 import com.google.common.collect.Lists;
 
@@ -31,12 +32,14 @@ public class JEIModPlugin implements IModPlugin {
     public void registerCategories(IRecipeCategoryRegistration registration) {
         registration.addRecipeCategories(new FarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DarkFarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new TreeFarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
         registration.addRecipes(FarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Crop));
         registration.addRecipes(DarkFarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Dark));
+        registration.addRecipes(TreeFarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Tree));
     }
 
     private List<SimpleRecipe> getRecipes(CropGroup group) {
@@ -53,6 +56,7 @@ public class JEIModPlugin implements IModPlugin {
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.FARMER_BLOCK.get()), FarmRecipeCategory.REGULAR);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.DARK_FARMER_BLOCK.get()), DarkFarmRecipeCategory.REGULAR);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.TREE_FARMER_BLOCK.get()), TreeFarmRecipeCategory.REGULAR);
     }
 
     @Override
@@ -61,5 +65,7 @@ public class JEIModPlugin implements IModPlugin {
                 UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, FarmRecipeCategory.REGULAR);
         registration.addRecipeClickArea(DarkFarmStationScreen.class, UIBlocks.OUT_SLOT.left - 16, 6,
                 UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, DarkFarmRecipeCategory.REGULAR);
+        registration.addRecipeClickArea(TreeFarmStationScreen.class, UIBlocks.OUT_SLOT.left - 16, 6,
+                UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, TreeFarmRecipeCategory.REGULAR);
     }
 }

@@ -94,12 +94,12 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
         UIBlocks.PROGRESS_BAR.drawProgressToRight(graphics, x, y, progressPart, 0xFFCCFEDD);
 
         float waterPart = miner.tank.getPercent();
-        UIBlocks.WATER_BAR.drawProgressToTop(graphics, x, y, waterPart, 0xAA222299);
-        if (miner.tank.getFluidAmount() < Config.WATER_PER_CYCLE.get())
+        UIBlocks.WATER_BAR.drawProgressToTop(graphics, x, y, waterPart, getFluidColor());
+        if (miner.tank.getFluidAmount() < miner.fluidUsage)
             UIBlocks.WATER_SLOT.drawBorder(graphics, x, y, borderColor);
 
         float fertPart = (float) miner.fertilizer / Config.FERT_MAX.get();
-        UIBlocks.FERTI_BAR.drawProgressToTop(graphics, x, y, fertPart, this.getFertColor());
+        UIBlocks.FERTI_BAR.drawProgressToTop(graphics, x, y, fertPart, getFertColor());
 
         float powerPart = (float) miner.fuel.getEnergyStored() / Config.POWER_MAX.get();
         UIBlocks.POWER_BAR.drawProgressToTop(graphics, x, y, powerPart, 0xAABB2211);
@@ -107,5 +107,9 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
 
     public int getFertColor() {
         return 0;
+    }
+
+    public int getFluidColor() {
+        return 0xAA222299;
     }
 }

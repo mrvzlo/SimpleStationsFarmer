@@ -29,10 +29,13 @@
 
   "screen.simplestationsfarmer.farmer": "Farming station",
   "screen.simplestationsfarmer.dark_farmer": "Mycology station",
+  "screen.simplestationsfarmer.tree_farmer": "Woodcutting station",
   "screen.simplestationsfarmer.farm_recipes": "Farmer recipes",
   "screen.simplestationsfarmer.dark_farm_recipes": "Mycology recipes",
+  "screen.simplestationsfarmer.tree_farm_recipes": "Woodcutter recipes",
   "screen.simplestationsfarmer.power": "Energy",
   "screen.simplestationsfarmer.water": "Water",
+  "screen.simplestationsfarmer.lava": "Lava",
   "screen.simplestationsfarmer.fertilizer": "Fertilizer",
   "screen.simplestationsfarmer.filter": "Plant seed to grow"
 }

@@ -39,6 +39,7 @@ public class SimpleStationsFarmer {
                                         .icon(() -> ModBlocks.FARMER_BLOCK_ITEM.get().getDefaultInstance())
                                         .displayItems((parameters, output) -> {
                                                 output.accept(ModBlocks.FARMER_BLOCK_ITEM.get());
+                                                output.accept(ModBlocks.TREE_FARMER_BLOCK_ITEM.get());
                                                 output.accept(ModBlocks.DARK_FARMER_BLOCK_ITEM.get());
                                                 output.accept(ModBlocks.SPRINKLER.get());
                                         }).build());

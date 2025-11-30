@@ -24,7 +24,7 @@ import net.neoforged.neoforge.items.IItemHandler;
 public abstract class ModContainer extends BlockEntity implements MenuProvider {
     public final SidedItemHandler inventory;
     public static final int OUTPUT_SLOT = 0;
-    public static final int WATER_SLOT = 1;
+    public static final int FLUID_SLOT = 1;
     public static final int TYPE_SLOT = 2;
     public static final int FERTI_SLOT = 3;
     public static final int REDSTONE_SLOT = 4;

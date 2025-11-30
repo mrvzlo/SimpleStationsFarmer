@@ -76,9 +76,19 @@ public class PartBlockEntity extends BlockEntity {
     }
 
     public boolean isEdge() {
+        return sameX() || sameZ();
+    }
+
+    public boolean sameX() {
         if (this.controllerPos == null)
             return false;
-        return this.controllerPos.getX() == getBlockPos().getX() || this.controllerPos.getZ() == getBlockPos().getZ();
+        return this.controllerPos.getX() == getBlockPos().getX();
+    }
+
+    public boolean sameZ() {
+        if (this.controllerPos == null)
+            return false;
+        return this.controllerPos.getZ() == getBlockPos().getZ();
     }
 
     @Override

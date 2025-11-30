@@ -1,8 +1,11 @@
 package com.ave.simplestationsfarmer.registrations;
 
+import java.util.Arrays;
+
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlock;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlock;
+import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlock;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlock;
 
 import net.minecraft.world.item.BlockItem;
@@ -25,6 +28,10 @@ public class ModBlocks {
                         () -> new DarkFarmerBlock(BlockBehaviour.Properties.of()
                                         .strength(0.1F).lightLevel((state) -> 15).noOcclusion()));
 
+        public static final DeferredBlock<Block> TREE_FARMER_BLOCK = BLOCKS.register("tree_farm",
+                        () -> new TreeFarmerBlock(BlockBehaviour.Properties.of()
+                                        .strength(0.1F).lightLevel((state) -> 15).noOcclusion()));
+
         public static final DeferredBlock<Block> PART = BLOCKS.register("part",
                         () -> new PartBlock(BlockBehaviour.Properties.of()
                                         .strength(0.1F).lightLevel((state) -> 15).noOcclusion()));
@@ -35,35 +42,28 @@ public class ModBlocks {
         public static final DeferredItem<BlockItem> DARK_FARMER_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("dark_farm",
                         DARK_FARMER_BLOCK);
 
+        public static final DeferredItem<BlockItem> TREE_FARMER_BLOCK_ITEM = ITEMS.registerSimpleBlockItem("tree_farm",
+                        TREE_FARMER_BLOCK);
+
         public static final DeferredItem<Item> SPRINKLER = ITEMS.registerItem("sprinkler", Item::new,
                         new Item.Properties());
 
-        public static final DeferredBlock<Block> CARROT_BLOCK = BLOCKS.register("carrot",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> POTATO_BLOCK = BLOCKS.register("potato",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> WHEAT_BLOCK = BLOCKS.register("wheat",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> BEET_BLOCK = BLOCKS.register("beet",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> SUGAR_BLOCK = BLOCKS.register("sugar_cane",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> BERRY_BLOCK = BLOCKS.register("sweet_berry",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> CACTUS_BLOCK = BLOCKS.register("cactus",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> PUMPKIN_BLOCK = BLOCKS.register("pumpkin",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> MELON_BLOCK = BLOCKS.register("melon",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> GLOWBERRY_BLOCK = BLOCKS.register("glow_berry",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> RED_MUSHROOM_BLOCK = BLOCKS.register("red_mushroom",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> BROWN_MUSHROOM_BLOCK = BLOCKS.register("brown_mushroom",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> NETHER_WART_BLOCK = BLOCKS.register("n_wart",
-                        () -> new Block(BlockBehaviour.Properties.of()));
-        public static final DeferredBlock<Block> CHORUS_BLOCK = BLOCKS.register("chorus",
-                        () -> new Block(BlockBehaviour.Properties.of()));
+        private static final String[] CROPS = { "carrot", "potato", "wheat", "beet", "sugar_cane", "sweet_berry",
+                        "cactus", "pumpkin", "melon", "glow_berry", "red_mushroom", "brown_mushroom", "n_wart",
+                        "chorus", };
+
+        public static final DeferredBlock<Block>[] CROP_BLOCKS = Arrays.stream(CROPS)
+                        .map(x -> BLOCKS.register(x, () -> new Block(BlockBehaviour.Properties.of())))
+                        .toArray(DeferredBlock[]::new);
+
+        private static final String[] TREES = { "acacia", "birch", "cherry", "crimson_stem", "dark_oak", "jungle",
+                        "mangrove", "oak", "spruce", "warped_stem", "bamboo" };
+
+        public static final DeferredBlock<Block>[] TREE_EDGE_BLOCKS = Arrays.stream(TREES)
+                        .map(x -> BLOCKS.register("edge_" + x, () -> new Block(BlockBehaviour.Properties.of())))
+                        .toArray(DeferredBlock[]::new);
+
+        public static final DeferredBlock<Block>[] TREE_CORNER_BLOCKS = Arrays.stream(TREES)
+                        .map(x -> BLOCKS.register("corner_" + x, () -> new Block(BlockBehaviour.Properties.of())))
+                        .toArray(DeferredBlock[]::new);
 }

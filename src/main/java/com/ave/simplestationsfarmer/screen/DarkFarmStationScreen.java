@@ -18,4 +18,9 @@ public class DarkFarmStationScreen extends BaseStationScreen {
     public int getFertColor() {
         return 0xAA6E4C1B;
     }
+
+    @Override
+    public int getFluidColor() {
+        return 0xAAea5c0f;
+    }
 }

@@ -11,11 +11,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class DarkFarmerBlockEntity extends BaseFarmerBlockEntity {
+    public static final int LavaUsage = Config.WATER_PER_CYCLE.get() / 100;
+
     public DarkFarmerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.DARK_FARMER_ENTITY.get(), pos, state, CropGroup.Dark);
 
         powerUsage = 6;
-        waterUsage = Config.WATER_PER_CYCLE.get() * 3 / 2;
+        fluidUsage = LavaUsage;
     }
 
     @Override

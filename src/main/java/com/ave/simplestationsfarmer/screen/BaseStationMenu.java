@@ -38,7 +38,7 @@ public abstract class BaseStationMenu extends AbstractContainerMenu {
         addPlayerHotbar(inventory);
         addSlot(new SlotItemHandler(blockEntity.inventory, ModContainer.OUTPUT_SLOT, UIBlocks.OUT_SLOT.left,
                 UIBlocks.OUT_SLOT.top));
-        addSlot(new SlotItemHandler(blockEntity.inventory, ModContainer.WATER_SLOT, UIBlocks.WATER_SLOT.left,
+        addSlot(new SlotItemHandler(blockEntity.inventory, ModContainer.FLUID_SLOT, UIBlocks.WATER_SLOT.left,
                 UIBlocks.WATER_SLOT.top));
         addSlot(new SlotItemHandler(blockEntity.inventory, ModContainer.TYPE_SLOT, UIBlocks.FILTER_SLOT.left,
                 UIBlocks.FILTER_SLOT.top));

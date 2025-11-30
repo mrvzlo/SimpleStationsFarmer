@@ -11,11 +11,13 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 
 public class FarmerBlockEntity extends BaseFarmerBlockEntity {
+    public static final int WaterUsage = Config.WATER_PER_CYCLE.get();
+
     public FarmerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.FARMER_ENTITY.get(), pos, state, CropGroup.Crop);
 
         powerUsage = 2;
-        waterUsage = Config.WATER_PER_CYCLE.get();
+        fluidUsage = WaterUsage;
     }
 
     @Override

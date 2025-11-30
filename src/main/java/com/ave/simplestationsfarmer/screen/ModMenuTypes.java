@@ -24,6 +24,9 @@ public class ModMenuTypes {
     public static final DeferredHolder<MenuType<?>, MenuType<DarkFarmStationMenu>> DARK_FARM_MENU = registerMenuType(
             "dark_farm_menu", DarkFarmStationMenu::new);
 
+    public static final DeferredHolder<MenuType<?>, MenuType<TreeFarmStationMenu>> TREE_FARM_MENU = registerMenuType(
+            "tree_farm_menu", TreeFarmStationMenu::new);
+
     private static <T extends AbstractContainerMenu> DeferredHolder<MenuType<?>, MenuType<T>> registerMenuType(
             String name, IContainerFactory<T> factory) {
         return MENUS.register(name, () -> IMenuTypeExtension.create(factory));

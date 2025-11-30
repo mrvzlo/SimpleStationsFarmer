@@ -1,0 +1,7 @@
+{
+  "parent": "simplestationsfarmer:custom/trees_edge",
+  "textures": {
+    "0": "simplestationsfarmer:block/crimson_stem"
+  },
+  "render_type": "transparent"
+}

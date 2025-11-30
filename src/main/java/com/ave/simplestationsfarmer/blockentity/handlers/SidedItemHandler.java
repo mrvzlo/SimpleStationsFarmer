@@ -22,8 +22,10 @@ public class SidedItemHandler extends ItemStackHandler {
     public boolean isItemValid(int slot, ItemStack stack) {
         if (slot == ModContainer.OUTPUT_SLOT)
             return false;
-        if (slot == BaseFarmerBlockEntity.WATER_SLOT)
-            return stack.getItem() == Items.WATER_BUCKET;
+
+        if (slot == BaseFarmerBlockEntity.FLUID_SLOT)
+            return stack.getItem() == (group == CropGroup.Dark ? Items.LAVA_BUCKET : Items.WATER_BUCKET);
+
         if (slot == BaseFarmerBlockEntity.FERTI_SLOT)
             return stack.getItem() == this.group.fertilizer;
         if (slot == BaseFarmerBlockEntity.REDSTONE_SLOT)

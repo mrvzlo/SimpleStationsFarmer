@@ -4,8 +4,8 @@ import java.util.List;
 
 import org.jetbrains.annotations.Nullable;
 
-import com.ave.simplestationsfarmer.Config;
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
+import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 import com.google.common.collect.Lists;
@@ -68,7 +68,7 @@ public class DarkFarmRecipeCategory implements IRecipeCategory<SimpleRecipe> {
                 builder.addSlot(RecipeIngredientRole.INPUT, UIBlocks.FERTI_SLOT.left, UIBlocks.FERTI_SLOT.top)
                                 .addIngredients(Ingredient.of(Items.ROTTEN_FLESH));
                 builder.addSlot(RecipeIngredientRole.INPUT, UIBlocks.WATER_SLOT.left, UIBlocks.WATER_SLOT.top)
-                                .addIngredients(Ingredient.of(Items.WATER_BUCKET));
+                                .addIngredients(Ingredient.of(Items.LAVA_BUCKET));
                 builder.addSlot(RecipeIngredientRole.OUTPUT, UIBlocks.OUT_SLOT.left, UIBlocks.OUT_SLOT.top)
                                 .addItemStack(recipe.outputType);
                 builder.addSlot(RecipeIngredientRole.CATALYST, UIBlocks.FILTER_SLOT.left, UIBlocks.FILTER_SLOT.top)
@@ -85,7 +85,7 @@ public class DarkFarmRecipeCategory implements IRecipeCategory<SimpleRecipe> {
                         double mouseY) {
                 List<Component> list = Lists.newArrayList();
                 if (UIBlocks.WATER_BAR.isHovered(mouseX, mouseY))
-                        list.add(Component.literal(Config.WATER_PER_CYCLE + " mB"));
+                        list.add(Component.literal(DarkFarmerBlockEntity.LavaUsage + " mB"));
 
                 return list;
         }
