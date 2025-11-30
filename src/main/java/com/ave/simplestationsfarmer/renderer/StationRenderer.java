@@ -17,19 +17,23 @@ import net.neoforged.neoforge.client.model.data.ModelData;
 
 public class StationRenderer implements BlockEntityRenderer<PartBlockEntity> {
     private final int treeOffset = CropType.ACACIA.ordinal();
+    private final int fruitOffset = CropType.APPLE.ordinal();
     private final int cropOffset = 1;
     private final BakedModel[] cropModels = new BakedModel[treeOffset - 1];
     private final BakedModel[] treeCornerModels = new BakedModel[CropType.values().length - treeOffset];
     private final BakedModel[] treeEdgeModels = new BakedModel[CropType.values().length - treeOffset];
+    private final BakedModel[] fruitModels = new BakedModel[fruitOffset - 1];
 
     public StationRenderer(BlockEntityRendererProvider.Context context) {
         var shaper = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
         for (var i = 0; i < treeOffset - cropOffset; i++)
             cropModels[i] = shaper.getBlockModel(ModBlocks.CROP_BLOCKS[i].get().defaultBlockState());
-        for (var i = 0; i < CropType.values().length - treeOffset; i++) {
+        for (var i = 0; i < fruitOffset - treeOffset; i++) {
             treeCornerModels[i] = shaper.getBlockModel(ModBlocks.TREE_CORNER_BLOCKS[i].get().defaultBlockState());
             treeEdgeModels[i] = shaper.getBlockModel(ModBlocks.TREE_EDGE_BLOCKS[i].get().defaultBlockState());
         }
+        for (var i = 0; i < CropType.values().length - fruitOffset; i++)
+            fruitModels[i] = shaper.getBlockModel(ModBlocks.FRUIT_BLOCKS[i].get().defaultBlockState());
     }
 
     @Override
@@ -40,16 +44,23 @@ public class StationRenderer implements BlockEntityRenderer<PartBlockEntity> {
         if (type == null || type == CropType.Unknown)
             return;
 
-        if (type.group == CropGroup.Tree)
-            drawTree(pose, buf, light, overlay, type, be);
-        else
-            drawCrops(pose, buf, light, overlay, type);
-    }
-
-    private void drawTree(PoseStack pose, MultiBufferSource buf, int light, int overlay, CropType type,
-            PartBlockEntity be) {
         pose.pushPose();
         var dispatcher = Minecraft.getInstance().getBlockRenderer();
+
+        BakedModel model;
+        if (type.group == CropGroup.Tree)
+            model = getTreeModel(pose, type, be);
+        else if (type.group == CropGroup.Forage)
+            model = fruitModels[type.ordinal() - fruitOffset];
+        else
+            model = cropModels[type.ordinal() - cropOffset];
+
+        dispatcher.getModelRenderer().renderModel(pose.last(), buf.getBuffer(RenderType.cutout()), null,
+                model, 1f, 1f, 1f, light, overlay, ModelData.EMPTY, null);
+        pose.popPose();
+    }
+
+    private BakedModel getTreeModel(PoseStack pose, CropType type, PartBlockEntity be) {
         var model = be.isEdge() ? treeEdgeModels[type.ordinal() - treeOffset]
                 : treeCornerModels[type.ordinal() - treeOffset];
 
@@ -58,18 +69,6 @@ public class StationRenderer implements BlockEntityRenderer<PartBlockEntity> {
             pose.mulPose(Axis.YP.rotationDegrees(90));
             pose.translate(-0.5, -0.5, -0.5);
         }
-
-        dispatcher.getModelRenderer().renderModel(pose.last(), buf.getBuffer(RenderType.cutout()), null,
-                model, 1f, 1f, 1f, light, overlay, ModelData.EMPTY, null);
-        pose.popPose();
-    }
-
-    private void drawCrops(PoseStack pose, MultiBufferSource buf, int light, int overlay, CropType type) {
-        pose.pushPose();
-        var dispatcher = Minecraft.getInstance().getBlockRenderer();
-        var model = cropModels[type.ordinal() - cropOffset];
-        dispatcher.getModelRenderer().renderModel(pose.last(), buf.getBuffer(RenderType.cutout()), null,
-                model, 1f, 1f, 1f, light, overlay, ModelData.EMPTY, null);
-        pose.popPose();
+        return model;
     }
 }

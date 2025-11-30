@@ -1,11 +1,21 @@
 package com.ave.simplestationsfarmer.blockentity.enums;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
+
+import com.ave.simplestationsfarmer.SimpleStationsFarmer;
+import net.minecraft.core.Holder;
+import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.tags.ItemTags;
+import net.minecraft.tags.TagKey;
 import net.minecraft.util.StringRepresentable;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 
 public enum CropType implements StringRepresentable {
-    Unknown(CropGroup.Unknown, null, 0),
+    Unknown(CropGroup.Unknown, null, null, 0),
     WHEAT(CropGroup.Crop, Items.WHEAT_SEEDS, Items.WHEAT, 32),
     BEETROOT(CropGroup.Crop, Items.BEETROOT_SEEDS, Items.BEETROOT, 32),
     CARROT(CropGroup.Crop, Items.CARROT, 32),
@@ -30,18 +40,31 @@ public enum CropType implements StringRepresentable {
     OAK(CropGroup.Tree, Items.OAK_SAPLING, Items.OAK_LOG, 32),
     SPRUCE(CropGroup.Tree, Items.SPRUCE_SAPLING, Items.SPRUCE_LOG, 32),
     WD_STEM(CropGroup.Tree, Items.WARPED_FUNGUS, Items.WARPED_STEM, 32),
-    BAMBOO(CropGroup.Tree, Items.BAMBOO, 64);
+    BAMBOO(CropGroup.Tree, Items.BAMBOO, 64),
+    APPLE(CropGroup.Forage, Items.APPLE, 16),
+    CACAO(CropGroup.Forage, Items.COCOA_BEANS, 16),
+    FLOWERS(CropGroup.Forage, ItemTags.FLOWERS, 8);
 
     public final Item seed;
     public final Item product;
     public final int output;
     public final CropGroup group;
+    public final TagKey tag;
 
     CropType(CropGroup group, Item seed, int output) {
         this.seed = seed;
         this.group = group;
         this.product = seed;
         this.output = output;
+        this.tag = null;
+    }
+
+    CropType(CropGroup group, TagKey tag, int output) {
+        this.group = group;
+        this.output = output;
+        this.tag = tag;
+        this.seed = null;
+        this.product = null;
     }
 
     CropType(CropGroup group, Item seed, Item product, int output) {
@@ -49,6 +72,7 @@ public enum CropType implements StringRepresentable {
         this.product = product;
         this.output = output;
         this.group = group;
+        this.tag = null;
     }
 
     public static CropType findById(int type) {
@@ -56,9 +80,12 @@ public enum CropType implements StringRepresentable {
     }
 
     public static CropType findBySeed(Item stack) {
-        for (var c : values())
-            if (stack.equals(c.seed))
+        for (var c : values()) {
+            if (c.seed != null && stack.equals(c.seed))
                 return c;
+            if (c.tag != null && new ItemStack(stack).is(c.tag))
+                return c;
+        }
 
         return CropType.Unknown;
     }
@@ -66,5 +93,17 @@ public enum CropType implements StringRepresentable {
     @Override
     public String getSerializedName() {
         return name().toLowerCase();
+    }
+
+    public Item getProduct() {
+        if (product != null)
+            return product;
+        if (tag != null) {
+            List<Holder<Item>> list = new ArrayList<>();
+            BuiltInRegistries.ITEM.getTagOrEmpty(tag).forEach(x -> list.add((Holder<Item>) x));
+            var rand = ThreadLocalRandom.current().nextInt(list.size());
+            return list.get(rand).value();
+        }
+        return null;
     }
 }

@@ -1,0 +1,7 @@
+{
+  "parent": "simplestationsfarmer:custom/fruits",
+  "textures": {
+    "0": "simplestationsfarmer:block/apple"
+  },
+  "render_type": "transparent"
+}

@@ -1,0 +1,7 @@
+{
+  "parent": "simplestationsfarmer:custom/flowers",
+  "textures": {
+    "0": "simplestationsfarmer:block/flowers"
+  },
+  "render_type": "transparent"
+}

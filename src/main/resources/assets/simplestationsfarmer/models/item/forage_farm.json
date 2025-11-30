@@ -1,0 +1,8 @@
+{
+  "parent": "simplestationsfarmer:custom/harvester",
+  "textures": {
+    "all": "simplestationsfarmer:block/harvester",
+    "1": "simplestationsfarmer:block/harvester"
+  },
+  "render_type": "transparent"
+}

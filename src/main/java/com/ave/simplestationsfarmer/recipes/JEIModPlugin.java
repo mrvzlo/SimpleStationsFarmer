@@ -8,6 +8,7 @@ import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.FarmStationScreen;
+import com.ave.simplestationsfarmer.screen.ForageFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.TreeFarmStationScreen;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 import com.google.common.collect.Lists;
@@ -33,6 +34,7 @@ public class JEIModPlugin implements IModPlugin {
         registration.addRecipeCategories(new FarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new DarkFarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
         registration.addRecipeCategories(new TreeFarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
+        registration.addRecipeCategories(new ForageFarmRecipeCategory(registration.getJeiHelpers().getGuiHelper()));
     }
 
     @Override
@@ -40,6 +42,7 @@ public class JEIModPlugin implements IModPlugin {
         registration.addRecipes(FarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Crop));
         registration.addRecipes(DarkFarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Dark));
         registration.addRecipes(TreeFarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Tree));
+        registration.addRecipes(ForageFarmRecipeCategory.REGULAR, this.getRecipes(CropGroup.Forage));
     }
 
     private List<SimpleRecipe> getRecipes(CropGroup group) {
@@ -47,7 +50,10 @@ public class JEIModPlugin implements IModPlugin {
         for (var c : CropType.values()) {
             if (c.equals(CropType.Unknown) || !c.group.equals(group))
                 continue;
-            list.add(new SimpleRecipe(new ItemStack(c.seed), new ItemStack(c.product, c.output)));
+            if (c.seed != null)
+                list.add(new SimpleRecipe(new ItemStack(c.seed), new ItemStack(c.product, c.output)));
+            if (c.tag != null)
+                list.add(new SimpleRecipe(c.tag));
         }
         return list;
     }
@@ -57,6 +63,8 @@ public class JEIModPlugin implements IModPlugin {
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.FARMER_BLOCK.get()), FarmRecipeCategory.REGULAR);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.DARK_FARMER_BLOCK.get()), DarkFarmRecipeCategory.REGULAR);
         registry.addRecipeCatalyst(new ItemStack(ModBlocks.TREE_FARMER_BLOCK.get()), TreeFarmRecipeCategory.REGULAR);
+        registry.addRecipeCatalyst(new ItemStack(ModBlocks.FORAGE_FARMER_BLOCK.get()),
+                ForageFarmRecipeCategory.REGULAR);
     }
 
     @Override
@@ -67,5 +75,7 @@ public class JEIModPlugin implements IModPlugin {
                 UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, DarkFarmRecipeCategory.REGULAR);
         registration.addRecipeClickArea(TreeFarmStationScreen.class, UIBlocks.OUT_SLOT.left - 16, 6,
                 UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, TreeFarmRecipeCategory.REGULAR);
+        registration.addRecipeClickArea(ForageFarmStationScreen.class, UIBlocks.OUT_SLOT.left - 16, 6,
+                UIBlocks.OUT_SLOT.width + 32, UIBlocks.OUT_SLOT.height, ForageFarmRecipeCategory.REGULAR);
     }
 }

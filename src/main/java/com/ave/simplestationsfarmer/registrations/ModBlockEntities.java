@@ -3,6 +3,7 @@ package com.ave.simplestationsfarmer.registrations;
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.ForageFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
 
@@ -26,6 +27,11 @@ public class ModBlockEntities {
         public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<TreeFarmerBlockEntity>> TREE_FARMER_ENTITY = BLOCK_ENTITIES
                         .register("tree_farmer", () -> BlockEntityType.Builder
                                         .of(TreeFarmerBlockEntity::new, ModBlocks.TREE_FARMER_BLOCK.get()).build(null));
+
+        public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<ForageFarmerBlockEntity>> FORAGE_FARMER_ENTITY = BLOCK_ENTITIES
+                        .register("forage_farmer", () -> BlockEntityType.Builder
+                                        .of(ForageFarmerBlockEntity::new, ModBlocks.FORAGE_FARMER_BLOCK.get())
+                                        .build(null));
 
         public static final DeferredHolder<BlockEntityType<?>, BlockEntityType<PartBlockEntity>> PART_ENTITY = BLOCK_ENTITIES
                         .register("part", () -> BlockEntityType.Builder

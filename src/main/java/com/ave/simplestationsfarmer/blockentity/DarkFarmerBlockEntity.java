@@ -16,7 +16,7 @@ public class DarkFarmerBlockEntity extends BaseFarmerBlockEntity {
     public DarkFarmerBlockEntity(BlockPos pos, BlockState state) {
         super(ModBlockEntities.DARK_FARMER_ENTITY.get(), pos, state, CropGroup.Dark);
 
-        powerUsage = 6;
+        powerUsage = 3;
         fluidUsage = LavaUsage;
     }
 

@@ -10,6 +10,7 @@ import com.ave.simplestationsfarmer.screen.ModMenuTypes;
 import com.ave.simplestationsfarmer.screen.TreeFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.FarmStationScreen;
+import com.ave.simplestationsfarmer.screen.ForageFarmStationScreen;
 
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.SubscribeEvent;
@@ -48,6 +49,7 @@ public class SimpleStationsFarmerClient {
         event.register(ModMenuTypes.FARM_MENU.get(), FarmStationScreen::new);
         event.register(ModMenuTypes.DARK_FARM_MENU.get(), DarkFarmStationScreen::new);
         event.register(ModMenuTypes.TREE_FARM_MENU.get(), TreeFarmStationScreen::new);
+        event.register(ModMenuTypes.FORAGE_FARM_MENU.get(), ForageFarmStationScreen::new);
     }
 
     @SubscribeEvent

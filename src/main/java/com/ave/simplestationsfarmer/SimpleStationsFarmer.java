@@ -41,6 +41,7 @@ public class SimpleStationsFarmer {
                                                 output.accept(ModBlocks.FARMER_BLOCK_ITEM.get());
                                                 output.accept(ModBlocks.TREE_FARMER_BLOCK_ITEM.get());
                                                 output.accept(ModBlocks.DARK_FARMER_BLOCK_ITEM.get());
+                                                output.accept(ModBlocks.FORAGE_FARMER_BLOCK_ITEM.get());
                                                 output.accept(ModBlocks.SPRINKLER.get());
                                         }).build());
 

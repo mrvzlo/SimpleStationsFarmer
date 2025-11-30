@@ -27,6 +27,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
     public boolean working = false;
 
     protected int powerUsage = 1;
+    protected int speed = 1;
     public int fluidUsage;
 
     public BaseFarmerBlockEntity(BlockEntityType entity, BlockPos pos, BlockState state, CropGroup group) {
@@ -53,7 +54,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
         if (!working)
             return;
 
-        progress++;
+        progress += speed;
 
         if (fertilizer > 0) {
             fertilizer--;
@@ -69,7 +70,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
             return;
 
         tank.drain(fluidUsage);
-        var toAdd = new ItemStack(type.product);
+        var toAdd = new ItemStack(type.getProduct());
         toAdd.setCount(slot.getCount() + type.output);
         inventory.setStackInSlot(OUTPUT_SLOT, toAdd);
         setChanged();
