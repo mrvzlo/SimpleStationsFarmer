@@ -42,6 +42,17 @@ public class ModRecipeProvider extends RecipeProvider {
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
                 .save(consumer);
 
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.FORAGE_FARMER_BLOCK.get())
+                .pattern("DSD")
+                .pattern("LRL")
+                .pattern("DSD")
+                .define('R', ModBlocks.SPRINKLER.get())
+                .define('L', Items.LANTERN)
+                .define('D', Items.DIRT)
+                .define('S', Items.STONE_SHOVEL)
+                .unlockedBy("has_redstone", has(Items.REDSTONE))
+                .save(consumer);
+
         ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModBlocks.TREE_FARMER_BLOCK.get())
                 .pattern("LAL")
                 .pattern("SBS")
