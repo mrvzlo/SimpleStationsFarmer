@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
-import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.ItemTags;
@@ -20,12 +19,8 @@ public enum CropType implements StringRepresentable {
     BEETROOT(CropGroup.Crop, Items.BEETROOT_SEEDS, Items.BEETROOT, 32),
     CARROT(CropGroup.Crop, Items.CARROT, 32),
     POTATO(CropGroup.Crop, Items.POTATO, 32),
-    SUGAR(CropGroup.Crop, Items.SUGAR_CANE, 64),
-    BERRY(CropGroup.Crop, Items.SWEET_BERRIES, 64),
     MELON(CropGroup.Crop, Items.MELON_SEEDS, Items.MELON, 16),
     PUMPKIN(CropGroup.Crop, Items.PUMPKIN_SEEDS, Items.PUMPKIN, 16),
-    CACTUS(CropGroup.Crop, Items.CACTUS, 32),
-    GLOWBERRY(CropGroup.Crop, Items.GLOW_BERRIES, 64),
     BROWN_MUSHROOM(CropGroup.Dark, Items.BROWN_MUSHROOM, 32),
     RED_MUSHROOM(CropGroup.Dark, Items.RED_MUSHROOM, 32),
     NETHER_WART(CropGroup.Dark, Items.NETHER_WART, 64),
@@ -43,6 +38,10 @@ public enum CropType implements StringRepresentable {
     BAMBOO(CropGroup.Tree, Items.BAMBOO, 64),
     APPLE(CropGroup.Forage, Items.APPLE, 16),
     CACAO(CropGroup.Forage, Items.COCOA_BEANS, 16),
+    BERRY(CropGroup.Forage, Items.SWEET_BERRIES, 16),
+    GLOWBERRY(CropGroup.Forage, Items.GLOW_BERRIES, 16),
+    CACTUS(CropGroup.Forage, Items.CACTUS, 16),
+    SUGAR(CropGroup.Forage, Items.SUGAR_CANE, 16),
     FLOWERS(CropGroup.Forage, ItemTags.FLOWERS, 8);
 
     public final Item seed;
