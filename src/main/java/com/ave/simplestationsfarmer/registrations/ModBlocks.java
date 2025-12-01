@@ -60,14 +60,15 @@ public class ModBlocks {
         public static final RegistryObject<Item> SPRINKLER = ITEMS.register("sprinkler",
                         () -> new Item(new Item.Properties()));
 
-        private static final String[] CROPS = { "carrot", "potato", "wheat", "beet", "sugar_cane", "sweet_berry",
-                        "cactus", "pumpkin", "melon", "glow_berry", "red_mushroom", "brown_mushroom", "n_wart",
-                        "chorus", };
+        private static final String[] CROPS = { "wheat", "beet", "carrot", "potato", "melon", "pumpkin",
+                        "brown_mushroom", "red_mushroom",
+                        "n_wart", "chorus", };
 
         private static final String[] TREES = { "acacia", "birch", "cherry", "crimson_stem", "dark_oak", "jungle",
                         "mangrove", "oak", "spruce", "warped_stem", "bamboo" };
 
-        private static final String[] FRUITS = { "apple", "cacao", "flowers" };
+        private static final String[] FRUITS = { "apple", "cacao", "sweet_berry", "glow_berry", "cactus", "sugar_cane",
+                        "flowers" };
 
         public static final RegistryObject<Block>[] CROP_BLOCKS = Arrays.stream(CROPS)
                         .map(x -> BLOCKS.register(x, () -> new Block(BlockBehaviour.Properties.of())))
