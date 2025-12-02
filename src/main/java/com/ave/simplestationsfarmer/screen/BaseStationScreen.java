@@ -37,10 +37,10 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
         int startY = (height - imageHeight) / 2;
 
         if (UIBlocks.WATER_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String waterPart = NumToString.parse(farmer.tank.getFluidAmount() / 1000f, "B / ")
+            String fluidPart = NumToString.parse(farmer.tank.getFluidAmount() / 1000f, "B / ")
                     + NumToString.parse(Config.WATER_MAX.get() / 1000f, "B");
-            List<Component> waterText = Arrays.asList(Component.translatable("screen.simplestationsfarmer.water"),
-                    Component.literal(waterPart));
+            List<Component> waterText = Arrays.asList(getFluidName(),
+                    Component.literal(fluidPart));
             gfx.renderComponentTooltip(font, waterText, mouseX, mouseY);
         }
 
@@ -111,5 +111,9 @@ public abstract class BaseStationScreen extends AbstractContainerScreen<BaseStat
 
     public int getFluidColor() {
         return 0xAA222299;
+    }
+
+    protected Component getFluidName() {
+        return Component.translatable("screen.simplestationsfarmer.water");
     }
 }
