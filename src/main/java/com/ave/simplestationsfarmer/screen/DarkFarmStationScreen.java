@@ -23,4 +23,9 @@ public class DarkFarmStationScreen extends BaseStationScreen {
     public int getFluidColor() {
         return 0xAAea5c0f;
     }
+
+    @Override
+    protected Component getFluidName() {
+        return Component.translatable("screen.simplestationsfarmer.lava");
+    }
 }
