@@ -1,10 +1,10 @@
 package com.ave.simplestationsfarmer.blockentity;
 
 import com.ave.simplestationsfarmer.Config;
-import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
 import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import com.ave.simplestationsfarmer.blockentity.handlers.WaterTank;
+import com.ave.simplestationsfarmer.blockentity.managers.ExportManager;
 import com.ave.simplestationsfarmer.registrations.ModSounds;
 
 import net.minecraft.core.BlockPos;
@@ -50,6 +50,7 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
 
         var slot = inventory.getStackInSlot(OUTPUT_SLOT);
         working = getWorking(slot);
+        ExportManager.pushOutput(this);
 
         if (!working)
             return;

@@ -37,10 +37,10 @@ public class SidedItemHandler extends ItemStackHandler {
     }
 
     @Override
-    protected int getStackLimit(int slot, ItemStack stack) {
+    public int getSlotLimit(int slot) {
         if (slot == BaseFarmerBlockEntity.TYPE_SLOT)
             return 1;
-        return super.getStackLimit(slot, stack);
+        return super.getSlotLimit(slot);
     }
 
     public NonNullList<ItemStack> getAsList() {
