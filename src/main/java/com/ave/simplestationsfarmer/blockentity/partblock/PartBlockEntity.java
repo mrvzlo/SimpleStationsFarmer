@@ -55,18 +55,27 @@ public class PartBlockEntity extends BlockEntity {
     }
 
     public IItemHandler getItemHandler(Direction side, PartBlockEntity be) {
-        var inventory = this.getController(be).inventory;
+        var controller = this.getController(be);
+        if (controller == null)
+            return null;
+        var inventory = controller.inventory;
         if (side == Direction.DOWN)
             return new OutputItemHandler(inventory);
         return new InputItemHandler(inventory);
     }
 
     public EnergyStorage getEnergyStorage(PartBlockEntity be) {
-        return this.getController(be).fuel;
+        var controller = this.getController(be);
+        if (controller == null)
+            return null;
+        return controller.fuel;
     }
 
     public FluidTank getWaterStorage(PartBlockEntity be) {
-        return this.getController(be).tank;
+        var controller = this.getController(be);
+        if (controller == null)
+            return null;
+        return controller.tank;
     }
 
     private BaseFarmerBlockEntity getController(PartBlockEntity be) {

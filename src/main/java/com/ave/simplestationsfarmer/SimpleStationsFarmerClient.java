@@ -2,6 +2,7 @@ package com.ave.simplestationsfarmer;
 
 import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.ForageFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
 import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
@@ -57,6 +58,7 @@ public class SimpleStationsFarmerClient {
         FarmerBlockEntity.registerCaps(event);
         DarkFarmerBlockEntity.registerCaps(event);
         TreeFarmerBlockEntity.registerCaps(event);
+        ForageFarmerBlockEntity.registerCaps(event);
         PartBlockEntity.registerCaps(event);
     }
 

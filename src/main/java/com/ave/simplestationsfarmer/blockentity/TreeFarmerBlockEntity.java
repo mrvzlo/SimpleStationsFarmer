@@ -11,6 +11,8 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 public class TreeFarmerBlockEntity extends BaseFarmerBlockEntity {
     public static final int WaterUsage = Config.WATER_PER_CYCLE.get() * 2;
@@ -30,5 +32,12 @@ public class TreeFarmerBlockEntity extends BaseFarmerBlockEntity {
     @Override
     protected SoundEvent getSound() {
         return SoundEvents.WOOD_BREAK;
+    }
+
+    public static void registerCaps(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.TREE_FARMER_ENTITY.get(),
+                (be, direction) -> be.getItemHandler(direction));
     }
 }

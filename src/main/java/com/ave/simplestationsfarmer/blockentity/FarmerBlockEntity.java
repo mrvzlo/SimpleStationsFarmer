@@ -9,6 +9,8 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.capabilities.Capabilities;
+import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 public class FarmerBlockEntity extends BaseFarmerBlockEntity {
     public static final int WaterUsage = Config.WATER_PER_CYCLE.get();
@@ -23,5 +25,12 @@ public class FarmerBlockEntity extends BaseFarmerBlockEntity {
     @Override
     public FarmStationMenu createMenu(int containerId, Inventory inventory, Player player) {
         return new FarmStationMenu(containerId, inventory, this);
+    }
+
+    public static void registerCaps(RegisterCapabilitiesEvent event) {
+        event.registerBlockEntity(
+                Capabilities.ItemHandler.BLOCK,
+                ModBlockEntities.FARMER_ENTITY.get(),
+                (be, direction) -> be.getItemHandler(direction));
     }
 }

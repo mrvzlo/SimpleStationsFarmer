@@ -103,7 +103,6 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
             inventory.setStackInSlot(slot, new ItemStack(Items.BUCKET, 1));
         else {
             stack.shrink(1);
-            inventory.setStackInSlot(slot, stack);
         }
         addResource(type, increment);
     }
