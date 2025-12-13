@@ -5,17 +5,17 @@ import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.items.IItemHandler;
-import net.neoforged.neoforge.items.ItemHandlerHelper;
+import net.minecraftforge.common.capabilities.ForgeCapabilities;
+import net.minecraftforge.items.IItemHandler;
+import net.minecraftforge.items.ItemHandlerHelper;
 
 public class ExportManager {
-    public static void pushOutput(BaseFarmerBlockEntity miner) {
-        ItemStack stack = miner.inventory.getStackInSlot(BaseFarmerBlockEntity.OUTPUT_SLOT);
+    public static void pushOutput(BaseFarmerBlockEntity station) {
+        ItemStack stack = station.inventory.getStackInSlot(BaseFarmerBlockEntity.OUTPUT_SLOT);
         if (stack.isEmpty())
             return;
 
-        BlockPos belowPos = miner.getBlockPos().below();
+        BlockPos belowPos = station.getBlockPos().below();
         IItemHandler handler = null;
 
         for (int dz = -1; dz <= 1; dz++)
@@ -23,14 +23,18 @@ public class ExportManager {
                 if (handler != null)
                     break;
                 var pos = belowPos.offset(dx, 0, dz);
-                handler = Capabilities.ItemHandler.BLOCK.getCapability(miner.getLevel(), pos, null, null,
-                        Direction.UP);
+                var be = station.getLevel().getBlockEntity(pos);
+                if (be == null)
+                    continue;
+                var cap = be.getCapability(ForgeCapabilities.ITEM_HANDLER, Direction.UP);
+                if (cap.isPresent())
+                    handler = cap.orElse(null);
             }
 
         if (handler == null)
             return;
 
         ItemStack remaining = ItemHandlerHelper.insertItem(handler, stack, false);
-        miner.inventory.setStackInSlot(BaseFarmerBlockEntity.OUTPUT_SLOT, remaining);
+        station.inventory.setStackInSlot(BaseFarmerBlockEntity.OUTPUT_SLOT, remaining);
     }
 }
