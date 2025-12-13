@@ -4,7 +4,6 @@ import org.slf4j.Logger;
 
 import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
-import com.ave.simplestationsfarmer.registrations.ModSounds;
 import com.ave.simplestationsfarmer.screen.ModMenuTypes;
 import com.mojang.logging.LogUtils;
 
@@ -48,7 +47,6 @@ public class SimpleStationsFarmer {
                 CREATIVE_MODE_TABS.register(modEventBus);
                 ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
                 ModMenuTypes.register(modEventBus);
-                ModSounds.SOUND_EVENTS.register(modEventBus);
 
                 modEventBus.addListener(this::addCreative);
         }
