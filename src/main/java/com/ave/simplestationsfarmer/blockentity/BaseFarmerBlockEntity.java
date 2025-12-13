@@ -5,11 +5,11 @@ import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
 import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import com.ave.simplestationsfarmer.blockentity.handlers.WaterTank;
 import com.ave.simplestationsfarmer.blockentity.managers.ExportManager;
-import com.ave.simplestationsfarmer.registrations.ModSounds;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -122,8 +122,8 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
             soundCooldown--;
             return;
         }
-        soundCooldown += 20;
-        level.playSound(null, getBlockPos(), ModSounds.WORK_SOUND.get(), SoundSource.BLOCKS);
+        soundCooldown += 100;
+        level.playSound(null, getBlockPos(), SoundEvents.CROP_BREAK, SoundSource.BLOCKS);
     }
 
     private int getResourceValue(ResourceType type) {

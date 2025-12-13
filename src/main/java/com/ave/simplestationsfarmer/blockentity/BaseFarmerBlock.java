@@ -96,8 +96,8 @@ public abstract class BaseFarmerBlock extends Block implements EntityBlock {
                 if (p.equals(pos))
                     continue;
 
-                var block = ModBlocks.PART.get().defaultBlockState();
-                level.setBlock(p, block, 3);
+                var part = ModBlocks.PART.get().defaultBlockState();
+                level.setBlock(p, part, 3);
 
                 var be = (PartBlockEntity) level.getBlockEntity(p);
                 be.setControllerPos(pos);
@@ -115,10 +115,8 @@ public abstract class BaseFarmerBlock extends Block implements EntityBlock {
             return;
 
         var controller = level.getBlockEntity(pos);
-        if (controller instanceof BaseFarmerBlockEntity miner) {
-            Containers.dropItemStack(level, pos.getX(), pos.getY(), pos.getZ(),
-                    new ItemStack(block, 1));
-            Containers.dropContents(level, pos, miner.inventory.getAsList());
+        if (controller instanceof BaseFarmerBlockEntity farmer) {
+            Containers.dropContents(level, pos, farmer.inventory.getAsList());
         }
         super.onRemove(state, level, pos, newState, moving);
 
