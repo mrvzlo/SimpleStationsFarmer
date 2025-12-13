@@ -12,6 +12,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.item.Item;
@@ -136,7 +137,11 @@ public abstract class BaseFarmerBlockEntity extends ModContainer {
             return;
         }
         soundCooldown += 100;
-        level.playSound(null, getBlockPos(), SoundEvents.CROP_BREAK, SoundSource.BLOCKS);
+        level.playSound(null, getBlockPos(), getSound(), SoundSource.BLOCKS);
+    }
+
+    protected SoundEvent getSound() {
+        return SoundEvents.CROP_BREAK;
     }
 
     private int getResourceValue(ResourceType type) {
