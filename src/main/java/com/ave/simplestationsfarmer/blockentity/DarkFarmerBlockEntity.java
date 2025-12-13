@@ -6,6 +6,8 @@ import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationMenu;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -23,5 +25,10 @@ public class DarkFarmerBlockEntity extends BaseFarmerBlockEntity {
     @Override
     public DarkFarmStationMenu createMenu(int containerId, Inventory inventory, Player player) {
         return new DarkFarmStationMenu(containerId, inventory, this);
+    }
+
+    @Override
+    protected SoundEvent getSound() {
+        return SoundEvents.WART_BLOCK_BREAK;
     }
 }

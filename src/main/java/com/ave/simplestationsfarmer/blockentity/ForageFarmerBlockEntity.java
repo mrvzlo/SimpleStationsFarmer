@@ -6,6 +6,8 @@ import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 import com.ave.simplestationsfarmer.screen.ForageFarmStationMenu;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
@@ -24,5 +26,10 @@ public class ForageFarmerBlockEntity extends BaseFarmerBlockEntity {
     @Override
     public ForageFarmStationMenu createMenu(int containerId, Inventory inventory, Player player) {
         return new ForageFarmStationMenu(containerId, inventory, this);
+    }
+
+    @Override
+    protected SoundEvent getSound() {
+        return SoundEvents.FLOWERING_AZALEA_BREAK;
     }
 }
