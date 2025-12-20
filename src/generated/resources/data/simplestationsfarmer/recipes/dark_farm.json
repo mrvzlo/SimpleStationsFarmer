@@ -27,7 +27,7 @@
     "NSN"
   ],
   "result": {
-    "count": 1,
-    "id": "simplestationsfarmer:dark_farm"
-  }
+    "item": "simplestationsfarmer:dark_farm"
+  },
+  "show_notification": true
 }

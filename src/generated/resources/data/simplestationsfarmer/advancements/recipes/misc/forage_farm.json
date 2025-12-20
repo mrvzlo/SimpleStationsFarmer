@@ -5,7 +5,9 @@
       "conditions": {
         "items": [
           {
-            "items": "minecraft:redstone"
+            "items": [
+              "minecraft:redstone"
+            ]
           }
         ]
       },
@@ -13,20 +15,21 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "simplestationsfarmer:sprinkler"
+        "recipe": "simplestationsfarmer:forage_farm"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
   },
   "requirements": [
     [
-      "has_the_recipe",
-      "has_redstone"
+      "has_redstone",
+      "has_the_recipe"
     ]
   ],
   "rewards": {
     "recipes": [
-      "simplestationsfarmer:sprinkler"
+      "simplestationsfarmer:forage_farm"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

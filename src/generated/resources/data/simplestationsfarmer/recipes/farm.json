@@ -5,6 +5,9 @@
     "D": {
       "item": "minecraft:dirt"
     },
+    "H": {
+      "item": "minecraft:stone_hoe"
+    },
     "L": {
       "item": "minecraft:lantern"
     },
@@ -16,12 +19,12 @@
     }
   },
   "pattern": [
-    "DSD",
+    "DHD",
     "LRL",
     "DSD"
   ],
   "result": {
-    "count": 1,
-    "id": "simplestationsfarmer:forage_farm"
-  }
+    "item": "simplestationsfarmer:farm"
+  },
+  "show_notification": true
 }

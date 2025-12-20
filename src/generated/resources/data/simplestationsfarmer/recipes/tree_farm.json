@@ -24,7 +24,7 @@
     "HAH"
   ],
   "result": {
-    "count": 1,
-    "id": "simplestationsfarmer:tree_farm"
-  }
+    "item": "simplestationsfarmer:tree_farm"
+  },
+  "show_notification": true
 }

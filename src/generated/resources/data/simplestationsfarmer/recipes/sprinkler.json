@@ -21,7 +21,7 @@
     "RBR"
   ],
   "result": {
-    "count": 1,
-    "id": "simplestationsfarmer:sprinkler"
-  }
+    "item": "simplestationsfarmer:sprinkler"
+  },
+  "show_notification": true
 }
