@@ -1,11 +1,13 @@
 package com.ave.simplestationsfarmer.blockentity.partblock;
 
+import javax.annotation.Nullable;
+
 import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlock;
 import com.mojang.serialization.MapCodec;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
@@ -28,31 +30,32 @@ public class PartBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
-            Player player, InteractionHand hand, BlockHitResult hit) {
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
+            BlockHitResult hit) {
 
         if (level.isClientSide)
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
 
         BlockEntity be = level.getBlockEntity(pos);
         if (!(be instanceof PartBlockEntity part))
-            return ItemInteractionResult.SUCCESS;
+            return InteractionResult.SUCCESS;
 
         BlockPos ctrlPos = part.getControllerPos();
         BaseFarmerBlock ctrl = (BaseFarmerBlock) level.getBlockState(ctrlPos).getBlock();
-        ctrl.useItemOn(stack, state, level, ctrlPos, player, hand, hit);
+        ctrl.use(state, level, ctrlPos, player, hand, hit);
 
-        return ItemInteractionResult.SUCCESS;
+        return InteractionResult.SUCCESS;
     }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        BlockEntity be = level.getBlockEntity(pos);
+    public void playerDestroy(Level level, Player player, BlockPos pos,
+            BlockState state, @Nullable BlockEntity be,
+            ItemStack tool) {
         if (!(be instanceof PartBlockEntity part))
-            return state;
+            return;
 
         BlockPos controllerPos = part.getControllerPos();
         level.destroyBlock(controllerPos, !player.isCreative());
-        return state;
+        return;
     }
 }

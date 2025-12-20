@@ -18,25 +18,25 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraftforge.registries.RegistryObject;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.ItemInteractionResult;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.SimpleMenuProvider;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.LevelReader;
+import net.minecraftforge.network.NetworkHooks;
+
+import javax.annotation.Nullable;
 
 import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
 import com.ave.simplestationsfarmer.registrations.ModBlocks;
 
 public abstract class BaseFarmerBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    private final RegistryObject<BlockItem> block;
 
-    public BaseFarmerBlock(Properties props, RegistryObject<BlockItem> block) {
+    public BaseFarmerBlock(Properties props) {
         super(props);
-        this.block = block;
         this.registerDefaultState(
                 this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }
@@ -66,13 +66,11 @@ public abstract class BaseFarmerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public ItemInteractionResult useItemOn(ItemStack stack, BlockState state, Level level, BlockPos pos,
-            Player player, InteractionHand hand, BlockHitResult hit) {
-        if (!(player instanceof ServerPlayer sp))
-            return ItemInteractionResult.SUCCESS;
+    public InteractionResult use(BlockState state, Level level, BlockPos pos, Player player, InteractionHand hand,
+            BlockHitResult hit) {
         var blockEntity = (BaseFarmerBlockEntity) level.getBlockEntity(pos);
-        sp.openMenu(new SimpleMenuProvider(blockEntity, Component.literal("")), pos);
-        return ItemInteractionResult.SUCCESS;
+        NetworkHooks.openScreen(((ServerPlayer) player), blockEntity, pos);
+        return InteractionResult.SUCCESS;
     }
 
     @Override
@@ -109,8 +107,10 @@ public abstract class BaseFarmerBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public BlockState playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
-        return super.playerWillDestroy(level, pos, state, player);
+    public void playerDestroy(Level level, Player player, BlockPos pos,
+            BlockState state, @Nullable BlockEntity be,
+            ItemStack tool) {
+        super.playerDestroy(level, player, pos, state, be, tool);
     }
 
     @Override

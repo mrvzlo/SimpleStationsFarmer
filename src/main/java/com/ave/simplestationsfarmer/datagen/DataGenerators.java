@@ -11,6 +11,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.loot.LootTableProvider;
 import net.minecraft.world.level.storage.loot.parameters.LootContextParamSets;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
@@ -21,14 +22,10 @@ public class DataGenerators {
     public static void gatherData(GatherDataEvent event) {
         DataGenerator generator = event.getGenerator();
         PackOutput out = generator.getPackOutput();
-        CompletableFuture<HolderLookup.Provider> lookup = event.getLookupProvider();
 
         if (event.includeServer()) {
-            generator.addProvider(event.includeServer(), new ModRecipeProvider(out, lookup));
-            generator.addProvider(true, new LootTableProvider(out, Collections.emptySet(),
-                    List.of(new LootTableProvider.SubProviderEntry(ModBlockLootTableProvider::new,
-                            LootContextParamSets.BLOCK)),
-                    lookup));
+            generator.addProvider(event.includeServer(), new ModRecipeProvider(out));
+            generator.addProvider(event.includeServer(), ModLootTableProvider.create(out));
         }
     }
 }
