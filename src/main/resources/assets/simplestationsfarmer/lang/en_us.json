@@ -27,6 +27,10 @@
   "simplestationsfarmer.configuration.power_mult": "Redstone Multiplier",
   "simplestationsfarmer.configuration.power_mult.tooltip": "Productivity bonus applied when redstone is available.\nDefault: +2.0 (200%)",
 
+  "container.simplestationsfarmer.farmer": "",
+  "container.simplestationsfarmer.dark_farmer": "",
+  "container.simplestationsfarmer.tree_farmer": "",
+  "container.simplestationsfarmer.forage_farmer": "",
   "screen.simplestationsfarmer.farmer": "Farming station",
   "screen.simplestationsfarmer.dark_farmer": "Mycology station",
   "screen.simplestationsfarmer.tree_farmer": "Woodcutting station",

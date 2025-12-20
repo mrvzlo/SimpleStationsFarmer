@@ -27,6 +27,10 @@
   "simplestationsfarmer.configuration.power_mult": "Множитель скорости от энергии",
   "simplestationsfarmer.configuration.power_mult.tooltip": "Бонус производительности при наличии редстоуна.\nПо умолчанию: +2.0 (200%)",
 
+  "container.simplestationsfarmer.farmer": "",
+  "container.simplestationsfarmer.dark_farmer": "",
+  "container.simplestationsfarmer.tree_farmer": "",
+  "container.simplestationsfarmer.forage_farmer": "",
   "screen.simplestationsfarmer.farmer": "Фермерская станция",
   "screen.simplestationsfarmer.dark_farmer": "Грибная станция",
   "screen.simplestationsfarmer.tree_farmer": "Древесная станция",

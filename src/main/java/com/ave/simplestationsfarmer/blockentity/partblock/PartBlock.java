@@ -1,15 +1,11 @@
 package com.ave.simplestationsfarmer.blockentity.partblock;
 
-import javax.annotation.Nullable;
-
 import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlock;
 import com.mojang.serialization.MapCodec;
-
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.EntityBlock;
@@ -48,14 +44,11 @@ public class PartBlock extends Block implements EntityBlock {
     }
 
     @Override
-    public void playerDestroy(Level level, Player player, BlockPos pos,
-            BlockState state, @Nullable BlockEntity be,
-            ItemStack tool) {
+    public void playerWillDestroy(Level level, BlockPos pos, BlockState state, Player player) {
+        var be = level.getBlockEntity(pos);
         if (!(be instanceof PartBlockEntity part))
             return;
-
         BlockPos controllerPos = part.getControllerPos();
         level.destroyBlock(controllerPos, !player.isCreative());
-        return;
     }
 }
