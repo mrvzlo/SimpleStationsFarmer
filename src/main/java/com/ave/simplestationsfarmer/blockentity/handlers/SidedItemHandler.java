@@ -1,49 +1,46 @@
 package com.ave.simplestationsfarmer.blockentity.handlers;
 
 import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
-import com.ave.simplestationsfarmer.blockentity.ModContainer;
-import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
-import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 
-import net.minecraft.core.NonNullList;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.neoforged.neoforge.items.ItemStackHandler;
+import net.neoforged.neoforge.items.IItemHandler;
 
-public class SidedItemHandler extends ItemStackHandler {
-    private final CropGroup group;
+public class SidedItemHandler implements IItemHandler {
+    private final CommonItemHandler parent;
 
-    public SidedItemHandler(int size, CropGroup group) {
-        super(size);
-        this.group = group;
+    public SidedItemHandler(CommonItemHandler parent) {
+        this.parent = parent;
     }
 
     @Override
-    public boolean isItemValid(int slot, ItemStack stack) {
-        if (slot == ModContainer.OUTPUT_SLOT)
-            return false;
+    public ItemStack extractItem(int slot, int amount, boolean simulate) {
+        if (slot != BaseFarmerBlockEntity.OUTPUT_SLOT)
+            return ItemStack.EMPTY;
+        return parent.extractItem(slot, amount, simulate);
+    }
 
-        if (slot == BaseFarmerBlockEntity.FLUID_SLOT)
-            return stack.getItem() == (group == CropGroup.Dark ? Items.LAVA_BUCKET : Items.WATER_BUCKET);
+    @Override
+    public int getSlots() {
+        return parent.getSlots();
+    }
 
-        if (slot == BaseFarmerBlockEntity.FERTI_SLOT)
-            return stack.getItem() == this.group.fertilizer;
-        if (slot == BaseFarmerBlockEntity.REDSTONE_SLOT)
-            return stack.getItem() == Items.REDSTONE_BLOCK || stack.getItem() == Items.REDSTONE;
-        if (slot == BaseFarmerBlockEntity.TYPE_SLOT)
-            return CropType.findBySeed(stack.getItem()).group == group;
+    @Override
+    public ItemStack getStackInSlot(int slot) {
+        return parent.getStackInSlot(slot);
+    }
 
-        return super.isItemValid(slot, stack);
+    @Override
+    public ItemStack insertItem(int slot, ItemStack stack, boolean simulate) {
+        return parent.insertItem(slot, stack, simulate);
     }
 
     @Override
     public int getSlotLimit(int slot) {
-        if (slot == BaseFarmerBlockEntity.TYPE_SLOT)
-            return 1;
-        return super.getSlotLimit(slot);
+        return parent.getSlotLimit(slot);
     }
 
-    public NonNullList<ItemStack> getAsList() {
-        return stacks;
+    @Override
+    public boolean isItemValid(int slot, ItemStack stack) {
+        return parent.isItemValid(slot, stack);
     }
 }

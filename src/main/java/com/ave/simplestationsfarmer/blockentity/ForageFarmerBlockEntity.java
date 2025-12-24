@@ -39,6 +39,6 @@ public class ForageFarmerBlockEntity extends BaseFarmerBlockEntity {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.FORAGE_FARMER_ENTITY.get(),
-                (be, direction) -> be.getItemHandler(direction));
+                (be, d) -> be.getInventory(d));
     }
 }

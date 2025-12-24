@@ -2,8 +2,6 @@ package com.ave.simplestationsfarmer.blockentity.partblock;
 
 import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.enums.CropType;
-import com.ave.simplestationsfarmer.blockentity.handlers.InputItemHandler;
-import com.ave.simplestationsfarmer.blockentity.handlers.OutputItemHandler;
 import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
 
 import net.minecraft.core.BlockPos;
@@ -51,17 +49,14 @@ public class PartBlockEntity extends BlockEntity {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.PART_ENTITY.get(),
-                (be, direction) -> be.getItemHandler(direction, be));
+                (be, dir) -> be.getInventory(dir, be));
     }
 
-    public IItemHandler getItemHandler(Direction side, PartBlockEntity be) {
+    public IItemHandler getInventory(Direction dir, PartBlockEntity be) {
         var controller = this.getController(be);
         if (controller == null)
             return null;
-        var inventory = controller.inventory;
-        if (side == Direction.DOWN)
-            return new OutputItemHandler(inventory);
-        return new InputItemHandler(inventory);
+        return controller.getInventory(dir);
     }
 
     public EnergyStorage getEnergyStorage(PartBlockEntity be) {

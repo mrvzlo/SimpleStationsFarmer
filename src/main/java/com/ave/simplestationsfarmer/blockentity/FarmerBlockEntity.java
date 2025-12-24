@@ -31,6 +31,6 @@ public class FarmerBlockEntity extends BaseFarmerBlockEntity {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
                 ModBlockEntities.FARMER_ENTITY.get(),
-                (be, direction) -> be.getItemHandler(direction));
+                (be, d) -> be.getInventory(d));
     }
 }

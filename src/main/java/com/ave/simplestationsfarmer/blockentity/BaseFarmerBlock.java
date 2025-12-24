@@ -14,7 +14,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.block.state.StateDefinition;
 import net.minecraft.world.level.block.state.properties.DirectionProperty;
 import net.minecraft.world.phys.BlockHitResult;
-import net.neoforged.neoforge.registries.DeferredBlock;
 import net.minecraft.world.Containers;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.ItemInteractionResult;
@@ -30,11 +29,9 @@ import com.ave.simplestationsfarmer.registrations.ModBlocks;
 
 public abstract class BaseFarmerBlock extends Block implements EntityBlock {
     public static final DirectionProperty FACING = HorizontalDirectionalBlock.FACING;
-    private final DeferredBlock<Block> block;
 
-    public BaseFarmerBlock(Properties props, DeferredBlock<Block> block) {
+    public BaseFarmerBlock(Properties props) {
         super(props);
-        this.block = block;
         this.registerDefaultState(
                 this.stateDefinition.any().setValue(FACING, Direction.NORTH));
     }

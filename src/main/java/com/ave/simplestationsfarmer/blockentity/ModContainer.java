@@ -1,9 +1,9 @@
 package com.ave.simplestationsfarmer.blockentity;
 
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
-import com.ave.simplestationsfarmer.blockentity.handlers.InputItemHandler;
-import com.ave.simplestationsfarmer.blockentity.handlers.OutputItemHandler;
+import com.ave.simplestationsfarmer.blockentity.handlers.CommonItemHandler;
 import com.ave.simplestationsfarmer.blockentity.handlers.SidedItemHandler;
+
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.HolderLookup;
@@ -19,7 +19,7 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.items.IItemHandler;
 
 public abstract class ModContainer extends BlockEntity implements MenuProvider {
-    public final SidedItemHandler inventory;
+    public final CommonItemHandler inventory;
     public static final int OUTPUT_SLOT = 0;
     public static final int FLUID_SLOT = 1;
     public static final int TYPE_SLOT = 2;
@@ -29,18 +29,12 @@ public abstract class ModContainer extends BlockEntity implements MenuProvider {
     public ModContainer(BlockEntityType<BlockEntity> entity, BlockPos pos, BlockState state, int size,
             CropGroup group) {
         super(entity, pos, state);
-        inventory = new SidedItemHandler(size, group) {
+        inventory = new CommonItemHandler(size, group) {
             @Override
             protected void onContentsChanged(int slot) {
                 setChanged();
             }
         };
-    }
-
-    public IItemHandler getItemHandler(Direction side) {
-        if (side == Direction.DOWN)
-            return new OutputItemHandler(inventory);
-        return new InputItemHandler(inventory);
     }
 
     @Override
@@ -58,6 +52,12 @@ public abstract class ModContainer extends BlockEntity implements MenuProvider {
     public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
         super.loadAdditional(tag, registries);
         inventory.deserializeNBT(registries, tag.getCompound("inventory"));
+    }
+
+    public IItemHandler getInventory(Direction dir) {
+        if (dir == null)
+            return inventory;
+        return new SidedItemHandler(inventory);
     }
 
     @Override
