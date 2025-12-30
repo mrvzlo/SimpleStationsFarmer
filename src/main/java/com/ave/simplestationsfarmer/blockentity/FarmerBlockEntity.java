@@ -1,14 +1,20 @@
 package com.ave.simplestationsfarmer.blockentity;
 
+import com.ave.simplestationscore.resources.EnergyResource;
+import com.ave.simplestationscore.resources.FluidResource;
 import com.ave.simplestationsfarmer.Config;
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
-import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
+import com.ave.simplestationsfarmer.blockentity.handlers.OptionalEnergyResource;
+import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.ave.simplestationsfarmer.screen.FarmStationMenu;
 
 import net.minecraft.core.BlockPos;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.level.material.Fluids;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
@@ -16,10 +22,11 @@ public class FarmerBlockEntity extends BaseFarmerBlockEntity {
     public static final int WaterUsage = Config.WATER_PER_CYCLE.get();
 
     public FarmerBlockEntity(BlockPos pos, BlockState state) {
-        super(ModBlockEntities.FARMER_ENTITY.get(), pos, state, CropGroup.Crop);
+        super(Registrations.FARMER.getEntity(), pos, state, CropGroup.Crop);
 
-        powerUsage = 2;
         fluidUsage = WaterUsage;
+        resources.put(FUEL_SLOT, new OptionalEnergyResource(2));
+        resources.put(FLUID_SLOT, new FluidResource(Fluids.WATER, Config.FLUID_MAX.get(), WaterUsage));
     }
 
     @Override
@@ -27,10 +34,14 @@ public class FarmerBlockEntity extends BaseFarmerBlockEntity {
         return new FarmStationMenu(containerId, inventory, this);
     }
 
+    public SoundEvent getWorkSound() {
+        return SoundEvents.CROP_BREAK;
+    }
+
     public static void registerCaps(RegisterCapabilitiesEvent event) {
         event.registerBlockEntity(
                 Capabilities.ItemHandler.BLOCK,
-                ModBlockEntities.FARMER_ENTITY.get(),
-                (be, d) -> be.getInventory(d));
+                Registrations.FARMER.getEntity(),
+                (be, d) -> be.getItemHandler(d));
     }
 }

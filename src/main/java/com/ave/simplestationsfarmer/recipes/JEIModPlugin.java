@@ -5,7 +5,7 @@ import java.util.List;
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
 import com.ave.simplestationsfarmer.blockentity.enums.CropType;
-import com.ave.simplestationsfarmer.registrations.ModBlocks;
+import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.FarmStationScreen;
 import com.ave.simplestationsfarmer.screen.ForageFarmStationScreen;
@@ -60,10 +60,10 @@ public class JEIModPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registry) {
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.FARMER_BLOCK.get()), FarmRecipeCategory.REGULAR);
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.DARK_FARMER_BLOCK.get()), DarkFarmRecipeCategory.REGULAR);
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.TREE_FARMER_BLOCK.get()), TreeFarmRecipeCategory.REGULAR);
-        registry.addRecipeCatalyst(new ItemStack(ModBlocks.FORAGE_FARMER_BLOCK.get()),
+        registry.addRecipeCatalyst(new ItemStack(Registrations.FARMER.getBlock()), FarmRecipeCategory.REGULAR);
+        registry.addRecipeCatalyst(new ItemStack(Registrations.DARK_FARMER.getBlock()), DarkFarmRecipeCategory.REGULAR);
+        registry.addRecipeCatalyst(new ItemStack(Registrations.TREE_FARMER.getBlock()), TreeFarmRecipeCategory.REGULAR);
+        registry.addRecipeCatalyst(new ItemStack(Registrations.FORAGE_FARMER.getBlock()),
                 ForageFarmRecipeCategory.REGULAR);
     }
 

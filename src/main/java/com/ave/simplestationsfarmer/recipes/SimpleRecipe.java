@@ -1,6 +1,7 @@
 package com.ave.simplestationsfarmer.recipes;
 
 import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class SimpleRecipe {
@@ -8,7 +9,7 @@ public class SimpleRecipe {
     public final int water = 1000;
     public final int fertilizer = 1;
     public final ItemStack outputType;
-    public final TagKey tag;
+    public final TagKey<Item> tag;
 
     public SimpleRecipe(ItemStack stack, ItemStack out) {
         this.filter = stack;
@@ -16,7 +17,7 @@ public class SimpleRecipe {
         tag = null;
     }
 
-    public SimpleRecipe(TagKey tag) {
+    public SimpleRecipe(TagKey<Item> tag) {
         this.tag = tag;
         outputType = null;
         filter = null;

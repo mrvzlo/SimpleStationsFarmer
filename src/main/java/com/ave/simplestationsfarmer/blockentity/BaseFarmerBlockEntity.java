@@ -1,191 +1,80 @@
 package com.ave.simplestationsfarmer.blockentity;
 
+import com.ave.simplestationscore.mainblock.BaseStationBlockEntity;
 import com.ave.simplestationsfarmer.Config;
+import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
 import com.ave.simplestationsfarmer.blockentity.enums.CropType;
-import com.ave.simplestationsfarmer.blockentity.handlers.WaterTank;
-import com.ave.simplestationsfarmer.blockentity.managers.ExportManager;
+import com.ave.simplestationsfarmer.blockentity.handlers.FarmItemHandler;
+import com.ave.simplestationsfarmer.blockentity.handlers.OptionalFluidItemResource;
 
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.HolderLookup;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.sounds.SoundEvents;
-import net.minecraft.sounds.SoundSource;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.energy.EnergyStorage;
 
-public abstract class BaseFarmerBlockEntity extends ModContainer {
-    public EnergyStorage fuel = new EnergyStorage(Config.POWER_MAX.get());
-    public WaterTank tank = WaterTank.create(0);
+public abstract class BaseFarmerBlockEntity extends BaseStationBlockEntity {
+    public static final int FLUID_SLOT = 2;
+    public static final int TYPE_SLOT = 3;
+    public static final int FERTI_SLOT = 4;
+
     public CropType type = CropType.Unknown;
-    public float progress = 0;
     public int fertilizer = 0;
-    public boolean working = false;
-
-    protected int powerUsage = 1;
-    protected int speed = 1;
-    public int fluidUsage;
+    public int fluidValue = 0;
+    public int fluidUsage = 0;
 
     public BaseFarmerBlockEntity(BlockEntityType entity, BlockPos pos, BlockState state, CropGroup group) {
-        super(entity, pos, state, 5, group);
-    }
+        super(entity, pos, state);
 
-    public void tick() {
-        if (level.isClientSide)
-            return;
-
-        if (progress >= Config.MAX_PROGRESS.get())
-            progress -= Config.MAX_PROGRESS.get();
-
-        checkNewType();
-        checkResource(FLUID_SLOT, null, 1000, Config.WATER_MAX.get(), ResourceType.FLUID);
-        checkResource(REDSTONE_SLOT, Items.REDSTONE_BLOCK, Config.POWER_PER_RED.get(), Config.POWER_MAX.get(),
-                ResourceType.POWER);
-        checkResource(FERTI_SLOT, null, Config.FERT_PER_ITEM.get(), Config.FERT_MAX.get(),
-                ResourceType.FERT);
-
-        var slot = inventory.getStackInSlot(OUTPUT_SLOT);
-        working = getWorking(slot);
-        ExportManager.pushOutput(this);
-
-        if (!working)
-            return;
-
-        progress += speed;
-
-        if (fertilizer > 0) {
-            fertilizer--;
-            progress += Config.FERT_MULT.get();
-        }
-        if (fuel.getEnergyStored() >= powerUsage) {
-            fuel.extractEnergy(powerUsage, false);
-            progress += Config.POWER_MULT.get();
-        }
-        playSound();
-
-        if (progress < Config.MAX_PROGRESS.get())
-            return;
-
-        tank.drain(fluidUsage);
-        var toAdd = new ItemStack(type.getProduct());
-        toAdd.setCount(slot.getCount() + type.output);
-        inventory.setStackInSlot(OUTPUT_SLOT, toAdd);
-        setChanged();
-    }
-
-    private boolean getWorking(ItemStack slot) {
-        if (type == null || type == CropType.Unknown)
-            return false;
-        if (tank.getFluidAmount() < fluidUsage)
-            return false;
-        if (slot.getCount() == 0)
-            return true;
-        if (slot.getCount() + type.output > slot.getMaxStackSize())
-            return false;
-        return slot.getItem().equals(type.product);
-    }
-
-    private void checkResource(int slot, Item blockItem, int increment, int maxCapacity, ResourceType type) {
-        var stack = inventory.getStackInSlot(slot);
-
-        if (blockItem != null && stack.getItem().equals(blockItem))
-            increment *= 9;
-
-        if (stack.isEmpty() || stack.getItem().equals(Items.BUCKET) || getResourceValue(type) + increment > maxCapacity)
-            return;
-
-        if (stack.getItem().equals(Items.WATER_BUCKET) || stack.getItem().equals(Items.LAVA_BUCKET))
-            inventory.setStackInSlot(slot, new ItemStack(Items.BUCKET, 1));
-        else {
-            stack.shrink(1);
-        }
-        addResource(type, increment);
-    }
-
-    private void addResource(ResourceType type, int amount) {
-        switch (type) {
-            case FLUID -> tank.fill(amount);
-            case FERT -> fertilizer += amount;
-            case POWER -> fuel.receiveEnergy(amount, false);
-        }
-    }
-
-    public int soundCooldown = 0;
-
-    private void playSound() {
-        if (soundCooldown > 0) {
-            soundCooldown--;
-            return;
-        }
-        soundCooldown += 100;
-        level.playSound(null, getBlockPos(), getSound(), SoundSource.BLOCKS);
-    }
-
-    protected SoundEvent getSound() {
-        return SoundEvents.CROP_BREAK;
-    }
-
-    private int getResourceValue(ResourceType type) {
-        return switch (type) {
-            case FLUID -> tank.getFluidAmount();
-            case FERT -> fertilizer;
-            case POWER -> fuel.getEnergyStored();
+        resources.put(FERTI_SLOT,
+                new OptionalFluidItemResource(Config.FERT_MAX.get(), 1, Config.FERT_PER_ITEM.get(), "fertilizer"));
+        fuelMax = Config.POWER_MAX.get();
+        inventory = new FarmItemHandler(5, group) {
+            @Override
+            protected void onContentsChanged(int slot) {
+                setChanged();
+            }
         };
     }
 
-    private void checkNewType() {
-        var newType = getCurrentFilter();
-        if (type == null && newType == null || type != null && type.equals(newType))
+    @Override()
+    public void tick() {
+        super.tick();
+
+        if (level.isClientSide)
             return;
-
-        type = newType;
-        progress = 0;
-        level.sendBlockUpdated(getBlockPos(), getBlockState(), getBlockState(), 3);
+        fertilizer = resources.get(FERTI_SLOT).get();
+        fluidValue = resources.get(FLUID_SLOT).get();
     }
 
-    @Override
-    protected void saveAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.saveAdditional(tag, registries);
-        saveAll(tag);
+    @Override()
+    protected void preWorkTick() {
+        if (fertilizer > 0 && working)
+            progress += Config.FERT_MULT.get();
+        if (fuelValue > 0 && working)
+            progress += Config.POWER_MULT.get();
     }
 
-    @Override
-    public void handleUpdateTag(CompoundTag tag, HolderLookup.Provider registries) {
-        super.handleUpdateTag(tag, registries);
-        saveAll(tag);
-    }
-
-    @Override
-    public void loadAdditional(CompoundTag tag, HolderLookup.Provider registries) {
-        super.loadAdditional(tag, registries);
-        type = CropType.findById(tag.getInt("type"));
-        fuel = new EnergyStorage(Config.POWER_MAX.get(), Config.POWER_MAX.get(), Config.POWER_MAX.get(),
-                tag.getInt("fuel"));
-        progress = tag.getFloat("progress");
-        fertilizer = tag.getInt("fertilizer");
-        tank = WaterTank.create(tag.getInt("water"));
-    }
-
-    private void saveAll(CompoundTag tag) {
-        tag.putInt("fuel", fuel.getEnergyStored());
-        tag.putFloat("progress", progress);
-        tag.putInt("fertilizer", fertilizer);
-        tag.putInt("water", tank.getFluidAmount());
-        if (type != null)
-            tag.putInt("type", type.ordinal());
-    }
-
-    private CropType getCurrentFilter() {
+    protected int getCurrentType() {
         var stack = inventory.getStackInSlot(TYPE_SLOT);
-        return stack.isEmpty() ? CropType.Unknown : CropType.findBySeed(stack.getItem());
+        if (stack.isEmpty())
+            return -1;
+        var type = CropType.findBySeed(stack.getItem());
+        return type.equals(CropType.Unknown) ? -1 : type.ordinal();
     }
 
-    private enum ResourceType {
-        FLUID, FERT, POWER
+    public int getMaxProgress() {
+        return Config.MAX_PROGRESS.getAsInt();
+    }
+
+    @Override
+    public ItemStack getProduct(boolean check) {
+        var type = getCurrentType();
+        if (type < 0)
+            return ItemStack.EMPTY;
+        var cropType = CropType.findById(type);
+        if (check && cropType.product == null && !inventory.getStackInSlot(OUTPUT_SLOT).isEmpty())
+            return ItemStack.EMPTY;
+        return cropType.getProduct();
     }
 }

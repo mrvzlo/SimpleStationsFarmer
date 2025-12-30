@@ -1,9 +1,9 @@
 package com.ave.simplestationsfarmer.renderer;
 
+import com.ave.simplestationscore.partblock.PartBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
 import com.ave.simplestationsfarmer.blockentity.enums.CropType;
-import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
-import com.ave.simplestationsfarmer.registrations.ModBlocks;
+import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.math.Axis;
 
@@ -27,21 +27,22 @@ public class StationRenderer implements BlockEntityRenderer<PartBlockEntity> {
     public StationRenderer(BlockEntityRendererProvider.Context context) {
         var shaper = Minecraft.getInstance().getBlockRenderer().getBlockModelShaper();
         for (var i = 0; i < treeOffset - cropOffset; i++)
-            cropModels[i] = shaper.getBlockModel(ModBlocks.CROP_BLOCKS[i].get().defaultBlockState());
+            cropModels[i] = shaper.getBlockModel(Registrations.CROP_BLOCKS[i].get().defaultBlockState());
         for (var i = 0; i < fruitOffset - treeOffset; i++) {
-            treeCornerModels[i] = shaper.getBlockModel(ModBlocks.TREE_CORNER_BLOCKS[i].get().defaultBlockState());
-            treeEdgeModels[i] = shaper.getBlockModel(ModBlocks.TREE_EDGE_BLOCKS[i].get().defaultBlockState());
+            treeCornerModels[i] = shaper.getBlockModel(Registrations.TREE_CORNER_BLOCKS[i].get().defaultBlockState());
+            treeEdgeModels[i] = shaper.getBlockModel(Registrations.TREE_EDGE_BLOCKS[i].get().defaultBlockState());
         }
         for (var i = 0; i < CropType.values().length - fruitOffset; i++)
-            fruitModels[i] = shaper.getBlockModel(ModBlocks.FRUIT_BLOCKS[i].get().defaultBlockState());
+            fruitModels[i] = shaper.getBlockModel(Registrations.FRUIT_BLOCKS[i].get().defaultBlockState());
     }
 
     @Override
     public void render(PartBlockEntity be, float pt, PoseStack pose, MultiBufferSource buf, int light,
             int overlay) {
 
-        var type = be.getCropType();
-        if (type == null || type == CropType.Unknown)
+        var typeCode = be.getStationType();
+        var type = CropType.findById(typeCode);
+        if (type == CropType.Unknown)
             return;
 
         pose.pushPose();

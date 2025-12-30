@@ -2,11 +2,13 @@ package com.ave.simplestationsfarmer;
 
 import org.slf4j.Logger;
 
-import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
-import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
-import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
-import com.ave.simplestationsfarmer.registrations.ModBlocks;
-import com.ave.simplestationsfarmer.screen.ModMenuTypes;
+import com.ave.simplestationscore.partblock.PartBlockEntity;
+import com.ave.simplestationscore.registrations.RegistrationManager;
+import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.ForageFarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
+import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.mojang.logging.LogUtils;
 
 import net.minecraft.core.registries.Registries;
@@ -28,54 +30,60 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 public class SimpleStationsFarmer {
         public static final String MODID = "simplestationsfarmer";
         public static final Logger LOGGER = LogUtils.getLogger();
-        public static final DeferredRegister<CreativeModeTab> CREATIVE_MODE_TABS = DeferredRegister
-                        .create(Registries.CREATIVE_MODE_TAB, MODID);
-
-        public static final DeferredHolder<CreativeModeTab, CreativeModeTab> EXAMPLE_TAB = CREATIVE_MODE_TABS
-                        .register("example_tab", () -> CreativeModeTab.builder()
-                                        .title(Component.translatable("itemGroup.simplestations"))
-                                        .withTabsBefore(CreativeModeTabs.COMBAT)
-                                        .icon(() -> ModBlocks.FARMER_BLOCK_ITEM.get().getDefaultInstance())
-                                        .displayItems((parameters, output) -> {
-                                                output.accept(ModBlocks.FARMER_BLOCK_ITEM.get());
-                                                output.accept(ModBlocks.TREE_FARMER_BLOCK_ITEM.get());
-                                                output.accept(ModBlocks.DARK_FARMER_BLOCK_ITEM.get());
-                                                output.accept(ModBlocks.FORAGE_FARMER_BLOCK_ITEM.get());
-                                                output.accept(ModBlocks.SPRINKLER.get());
-                                        }).build());
 
         public SimpleStationsFarmer(IEventBus modEventBus, ModContainer modContainer) {
                 modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
-                ModBlocks.BLOCKS.register(modEventBus);
-                ModBlocks.ITEMS.register(modEventBus);
-                CREATIVE_MODE_TABS.register(modEventBus);
-                ModBlockEntities.BLOCK_ENTITIES.register(modEventBus);
-                ModMenuTypes.register(modEventBus);
-
+                Registrations.MANAGER.register(modEventBus);
                 modEventBus.addListener(this::addCreative);
                 modEventBus.addListener(this::registerCapabilities);
         }
 
-        // Add the example block item to the building blocks tab
         private void addCreative(BuildCreativeModeTabContentsEvent event) {
-                if (event.getTabKey() == CreativeModeTabs.BUILDING_BLOCKS)
-                        event.accept(ModBlocks.FARMER_BLOCK_ITEM);
+                if (!event.getTab().equals(Registrations.MANAGER.CREATIVE_TAB.get()))
+                        return;
+                event.accept(Registrations.FARMER.getItem());
+                event.accept(Registrations.TREE_FARMER.getItem());
+                event.accept(Registrations.DARK_FARMER.getItem());
+                event.accept(Registrations.FORAGE_FARMER.getItem());
+                event.accept(Registrations.SPRINKLER.get());
         }
 
         private void registerCapabilities(RegisterCapabilitiesEvent event) {
                 event.registerBlock(Capabilities.EnergyStorage.BLOCK,
-                                (level, pos, state, be, side) -> ((BaseFarmerBlockEntity) be).fuel,
-                                ModBlocks.FARMER_BLOCK.get());
+                                (level, pos, state, be, side) -> ((FarmerBlockEntity) be).getEnergyStorage(),
+                                Registrations.FARMER.getBlock());
+                event.registerBlock(Capabilities.FluidHandler.BLOCK,
+                                (level, pos, state, be, side) -> ((FarmerBlockEntity) be).getWaterStorage(),
+                                Registrations.FARMER.getBlock());
+
+                event.registerBlock(Capabilities.EnergyStorage.BLOCK,
+                                (level, pos, state, be, side) -> ((DarkFarmerBlockEntity) be).getEnergyStorage(),
+                                Registrations.DARK_FARMER.getBlock());
+                event.registerBlock(Capabilities.FluidHandler.BLOCK,
+                                (level, pos, state, be, side) -> ((DarkFarmerBlockEntity) be).getWaterStorage(),
+                                Registrations.DARK_FARMER.getBlock());
+
+                event.registerBlock(Capabilities.EnergyStorage.BLOCK,
+                                (level, pos, state, be, side) -> ((TreeFarmerBlockEntity) be).getEnergyStorage(),
+                                Registrations.TREE_FARMER.getBlock());
+                event.registerBlock(Capabilities.FluidHandler.BLOCK,
+                                (level, pos, state, be, side) -> ((TreeFarmerBlockEntity) be).getWaterStorage(),
+                                Registrations.TREE_FARMER.getBlock());
+
+                event.registerBlock(Capabilities.EnergyStorage.BLOCK,
+                                (level, pos, state, be, side) -> ((ForageFarmerBlockEntity) be).getEnergyStorage(),
+                                Registrations.FORAGE_FARMER.getBlock());
+                event.registerBlock(Capabilities.FluidHandler.BLOCK,
+                                (level, pos, state, be, side) -> ((ForageFarmerBlockEntity) be).getWaterStorage(),
+                                Registrations.FORAGE_FARMER.getBlock());
+
                 event.registerBlock(
                                 Capabilities.EnergyStorage.BLOCK, (level, pos, state, be,
-                                                side) -> ((PartBlockEntity) be).getEnergyStorage((PartBlockEntity) be),
-                                ModBlocks.PART.get());
-                event.registerBlock(Capabilities.FluidHandler.BLOCK,
-                                (level, pos, state, be, side) -> ((BaseFarmerBlockEntity) be).tank,
-                                ModBlocks.FARMER_BLOCK.get());
+                                                side) -> PartBlockEntity.getEnergyStorage((PartBlockEntity) be),
+                                RegistrationManager.PART.getBlock());
                 event.registerBlock(
                                 Capabilities.FluidHandler.BLOCK, (level, pos, state, be,
-                                                side) -> ((PartBlockEntity) be).getWaterStorage((PartBlockEntity) be),
-                                ModBlocks.PART.get());
+                                                side) -> PartBlockEntity.getWaterStorage((PartBlockEntity) be),
+                                RegistrationManager.PART.getBlock());
         }
 }

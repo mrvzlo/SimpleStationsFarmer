@@ -1,5 +1,7 @@
 package com.ave.simplestationsfarmer.uihelpers;
 
+import com.ave.simplestationscore.uihelpers.Square;
+
 public class UIBlocks {
     public static final Square WATER_BAR = new Square(8, 15, 16, 35);
     public static final Square FERTI_BAR = new Square(26, 15, 16, 35);

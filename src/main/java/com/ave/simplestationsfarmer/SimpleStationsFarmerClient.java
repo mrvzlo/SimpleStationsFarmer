@@ -1,13 +1,13 @@
 package com.ave.simplestationsfarmer;
 
+import com.ave.simplestationscore.partblock.PartBlockEntity;
+import com.ave.simplestationscore.registrations.RegistrationManager;
 import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.ForageFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
-import com.ave.simplestationsfarmer.blockentity.partblock.PartBlockEntity;
-import com.ave.simplestationsfarmer.registrations.ModBlockEntities;
+import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.ave.simplestationsfarmer.renderer.StationRenderer;
-import com.ave.simplestationsfarmer.screen.ModMenuTypes;
 import com.ave.simplestationsfarmer.screen.TreeFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.FarmStationScreen;
@@ -47,10 +47,10 @@ public class SimpleStationsFarmerClient {
 
     @SubscribeEvent
     public static void registerScreens(RegisterMenuScreensEvent event) {
-        event.register(ModMenuTypes.FARM_MENU.get(), FarmStationScreen::new);
-        event.register(ModMenuTypes.DARK_FARM_MENU.get(), DarkFarmStationScreen::new);
-        event.register(ModMenuTypes.TREE_FARM_MENU.get(), TreeFarmStationScreen::new);
-        event.register(ModMenuTypes.FORAGE_FARM_MENU.get(), ForageFarmStationScreen::new);
+        event.register(Registrations.FARM_MENU.get(), FarmStationScreen::new);
+        event.register(Registrations.DARK_FARM_MENU.get(), DarkFarmStationScreen::new);
+        event.register(Registrations.TREE_FARM_MENU.get(), TreeFarmStationScreen::new);
+        event.register(Registrations.FORAGE_FARM_MENU.get(), ForageFarmStationScreen::new);
     }
 
     @SubscribeEvent
@@ -64,6 +64,6 @@ public class SimpleStationsFarmerClient {
 
     @SubscribeEvent // on the mod event bus only on the physical client
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(ModBlockEntities.PART_ENTITY.get(), StationRenderer::new);
+        event.registerBlockEntityRenderer(RegistrationManager.PART.getEntity(), StationRenderer::new);
     }
 }

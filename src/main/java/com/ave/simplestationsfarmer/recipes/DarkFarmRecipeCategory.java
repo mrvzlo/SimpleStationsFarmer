@@ -6,7 +6,7 @@ import org.jetbrains.annotations.Nullable;
 
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
 import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
-import com.ave.simplestationsfarmer.registrations.ModBlocks;
+import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.ave.simplestationsfarmer.uihelpers.UIBlocks;
 import com.google.common.collect.Lists;
 
@@ -58,7 +58,7 @@ public class DarkFarmRecipeCategory implements IRecipeCategory<SimpleRecipe> {
         @Override
         public @Nullable IDrawable getIcon() {
                 return guiHelper.createDrawableIngredient(VanillaTypes.ITEM_STACK,
-                                new ItemStack(ModBlocks.DARK_FARMER_BLOCK_ITEM.get()));
+                                new ItemStack(Registrations.DARK_FARMER.getItem()));
         }
 
         @Override

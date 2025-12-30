@@ -48,7 +48,7 @@ public enum CropType implements StringRepresentable {
     public final Item product;
     public final int output;
     public final CropGroup group;
-    public final TagKey tag;
+    public final TagKey<Item> tag;
 
     CropType(CropGroup group, Item seed, int output) {
         this.seed = seed;
@@ -58,7 +58,7 @@ public enum CropType implements StringRepresentable {
         this.tag = null;
     }
 
-    CropType(CropGroup group, TagKey tag, int output) {
+    CropType(CropGroup group, TagKey<Item> tag, int output) {
         this.group = group;
         this.output = output;
         this.tag = tag;
@@ -75,6 +75,8 @@ public enum CropType implements StringRepresentable {
     }
 
     public static CropType findById(int type) {
+        if (type < 0 || type >= CropType.values().length)
+            return CropType.Unknown;
         return CropType.values()[type];
     }
 
@@ -94,15 +96,15 @@ public enum CropType implements StringRepresentable {
         return name().toLowerCase();
     }
 
-    public Item getProduct() {
+    public ItemStack getProduct() {
         if (product != null)
-            return product;
+            return new ItemStack(product, output);
         if (tag != null) {
             List<Holder<Item>> list = new ArrayList<>();
             BuiltInRegistries.ITEM.getTagOrEmpty(tag).forEach(x -> list.add((Holder<Item>) x));
             var rand = ThreadLocalRandom.current().nextInt(list.size());
-            return list.get(rand).value();
+            return new ItemStack(list.get(rand).value(), output);
         }
-        return null;
+        return ItemStack.EMPTY;
     }
 }
