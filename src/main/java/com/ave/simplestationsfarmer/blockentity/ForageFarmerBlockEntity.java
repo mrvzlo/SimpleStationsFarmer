@@ -25,7 +25,6 @@ public class ForageFarmerBlockEntity extends BaseFarmerBlockEntity {
         super(Registrations.FORAGE_FARMER.getEntity(), pos, state, CropGroup.Forage);
 
         speed = 10;
-        fluidUsage = WaterUsage;
         resources.put(FUEL_SLOT, new OptionalEnergyResource(1));
         resources.put(FLUID_SLOT, new FluidResource(Fluids.WATER, Config.FLUID_MAX.get(), WaterUsage));
     }

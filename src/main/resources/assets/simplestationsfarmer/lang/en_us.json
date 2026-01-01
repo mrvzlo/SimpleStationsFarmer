@@ -1,5 +1,4 @@
 {
-  "itemGroup.simplestations": "Simple Farming Stations",
   "block.simplestationsfarmer.farm": "Farming station",
   "block.simplestationsfarmer.dark_farm": "Mycology station",
   "block.simplestationsfarmer.tree_farm": "Woodcutting station",
@@ -35,7 +34,6 @@
   "screen.simplestationsfarmer.dark_farm_recipes": "Mycology recipes",
   "screen.simplestationsfarmer.tree_farm_recipes": "Woodcutter recipes",
   "screen.simplestationsfarmer.forage_farm_recipes": "Forager recipes",
-  "screen.simplestationsfarmer.power": "Energy",
   "screen.simplestationsfarmer.water": "Water",
   "screen.simplestationsfarmer.lava": "Lava",
   "screen.simplestationsfarmer.fertilizer": "Fertilizer",

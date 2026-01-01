@@ -24,7 +24,6 @@ public class DarkFarmerBlockEntity extends BaseFarmerBlockEntity {
     public DarkFarmerBlockEntity(BlockPos pos, BlockState state) {
         super(Registrations.DARK_FARMER.getEntity(), pos, state, CropGroup.Dark);
 
-        fluidUsage = LavaUsage;
         resources.put(FUEL_SLOT, new OptionalEnergyResource(3));
         resources.put(FLUID_SLOT, new FluidResource(Fluids.LAVA, Config.FLUID_MAX.get(), LavaUsage));
     }

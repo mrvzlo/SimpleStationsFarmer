@@ -1,5 +1,4 @@
 {
-  "itemGroup.simplestations": "Простые фермерские станции",
   "block.simplestationsfarmer.farm": "Фермерская станция",
   "block.simplestationsfarmer.dark_farm": "Грибная станция",
   "block.simplestationsfarmer.tree_farm": "Древесная станция",
@@ -35,7 +34,6 @@
   "screen.simplestationsfarmer.dark_farm_recipes": "Рецепты грибной фермы",
   "screen.simplestationsfarmer.tree_farm_recipes": "Рецепты лесопилки",
   "screen.simplestationsfarmer.forage_farm_recipes": "Рецепты собирателя",
-  "screen.simplestationsfarmer.power": "Энергия",
   "screen.simplestationsfarmer.water": "Вода",
   "screen.simplestationsfarmer.lava": "Лава",
   "screen.simplestationsfarmer.fertilizer": "Удобрение",

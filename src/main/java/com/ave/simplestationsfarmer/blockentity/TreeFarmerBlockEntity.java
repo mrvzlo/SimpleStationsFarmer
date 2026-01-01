@@ -24,7 +24,6 @@ public class TreeFarmerBlockEntity extends BaseFarmerBlockEntity {
     public TreeFarmerBlockEntity(BlockPos pos, BlockState state) {
         super(Registrations.TREE_FARMER.getEntity(), pos, state, CropGroup.Tree);
 
-        fluidUsage = WaterUsage;
         resources.put(FUEL_SLOT, new OptionalEnergyResource(6));
         resources.put(FLUID_SLOT, new FluidResource(Fluids.WATER, Config.FLUID_MAX.get(), WaterUsage));
     }

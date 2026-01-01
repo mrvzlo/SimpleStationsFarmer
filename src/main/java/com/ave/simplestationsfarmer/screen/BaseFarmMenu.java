@@ -33,7 +33,7 @@ public abstract class BaseFarmMenu extends BaseStationMenu {
     public void addDataSlots(BaseStationBlockEntity station) {
         super.addDataSlots(station);
         var farm = (BaseFarmerBlockEntity) station;
-        addDataSlot(DataSlotHelper.fromInt(() -> farm.fertilizer, x -> farm.fertilizer = x));
-        addDataSlot(DataSlotHelper.fromInt(() -> farm.fluidValue, x -> farm.fluidValue = x));
+        addDataSlot(DataSlotHelper.fromInt(() -> farm.getFertResource().get(), x -> farm.getFertResource().set(x)));
+        addDataSlot(DataSlotHelper.fromInt(() -> farm.getFluidResource().get(), x -> farm.getFluidResource().set(x)));
     }
 }

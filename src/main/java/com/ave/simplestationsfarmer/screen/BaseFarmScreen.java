@@ -33,7 +33,7 @@ public abstract class BaseFarmScreen extends BaseStationScreen {
         int startY = getStartY();
 
         if (UIBlocks.WATER_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String fluidPart = NumToString.parse(farmer.fluidValue / 1000f, "B / ")
+            String fluidPart = NumToString.parse(farmer.getFluidResource().get() / 1000f, "B / ")
                     + NumToString.parse(Config.FLUID_MAX.get() / 1000f, "B");
             List<Component> waterText = Arrays.asList(getFluidName(),
                     Component.literal(fluidPart));
@@ -41,7 +41,7 @@ public abstract class BaseFarmScreen extends BaseStationScreen {
         }
 
         if (UIBlocks.FERTI_BAR.isHovered(mouseX - startX, mouseY - startY)) {
-            String fertPart = farmer.fertilizer + " / " + Config.FERT_MAX.get();
+            String fertPart = farmer.getFertResource().get() + " / " + Config.FERT_MAX.get();
             List<Component> fertText = Arrays.asList(
                     Component.translatable("screen.simplestationsfarmer.fertilizer"),
                     Component.literal(fertPart));
@@ -66,12 +66,12 @@ public abstract class BaseFarmScreen extends BaseStationScreen {
         int y = getStartY();
         int borderColor = getWarningColor();
 
-        float waterPart = (float) farm.fluidValue / Config.FLUID_MAX.get();
+        float waterPart = farm.getFluidResource().getPercent();
         UIBlocks.WATER_BAR.drawProgressToTop(graphics, x, y, waterPart, getFluidColor());
-        if (farm.fluidValue < farm.fluidUsage)
+        if (!farm.getFluidResource().isEnough())
             UIBlocks.WATER_SLOT.drawBorder(graphics, x, y, borderColor);
 
-        float fertPart = (float) farm.fertilizer / Config.FERT_MAX.get();
+        float fertPart = farm.getFertResource().getPercent();
         UIBlocks.FERTI_BAR.drawProgressToTop(graphics, x, y, fertPart, getFertColor());
 
         renderProgressBar(graphics, farm, UIBlocks.PROGRESS_BAR);
