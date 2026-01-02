@@ -3,7 +3,7 @@ package com.ave.simplestationsfarmer;
 import org.slf4j.Logger;
 
 import com.ave.simplestationscore.partblock.PartBlockEntity;
-import com.ave.simplestationscore.registrations.RegistrationManager;
+import com.ave.simplestationscore.registrations.CoreRegistrations;
 import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.ForageFarmerBlockEntity;
@@ -33,7 +33,7 @@ public class SimpleStationsFarmer {
         }
 
         private void addCreative(BuildCreativeModeTabContentsEvent event) {
-                if (!event.getTab().equals(RegistrationManager.CREATIVE_TAB.get()))
+                if (!event.getTab().equals(CoreRegistrations.CREATIVE_TAB.get()))
                         return;
                 event.accept(Registrations.FARMER.getItem());
                 event.accept(Registrations.TREE_FARMER.getItem());
@@ -74,10 +74,10 @@ public class SimpleStationsFarmer {
                 event.registerBlock(
                                 Capabilities.EnergyStorage.BLOCK, (level, pos, state, be,
                                                 side) -> PartBlockEntity.getEnergyStorage((PartBlockEntity) be),
-                                RegistrationManager.PART.getBlock());
+                                CoreRegistrations.PART.getBlock());
                 event.registerBlock(
                                 Capabilities.FluidHandler.BLOCK, (level, pos, state, be,
                                                 side) -> PartBlockEntity.getWaterStorage((PartBlockEntity) be),
-                                RegistrationManager.PART.getBlock());
+                                CoreRegistrations.PART.getBlock());
         }
 }

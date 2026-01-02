@@ -1,6 +1,7 @@
 package com.ave.simplestationsfarmer.renderer;
 
 import com.ave.simplestationscore.partblock.PartBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
 import com.ave.simplestationsfarmer.blockentity.enums.CropType;
 import com.ave.simplestationsfarmer.registrations.Registrations;
@@ -40,6 +41,9 @@ public class StationRenderer implements BlockEntityRenderer<PartBlockEntity> {
     public void render(PartBlockEntity be, float pt, PoseStack pose, MultiBufferSource buf, int light,
             int overlay) {
 
+        var parent = be.getController();
+        if (!(parent instanceof BaseFarmerBlockEntity))
+            return;
         var typeCode = be.getStationType();
         var type = CropType.findById(typeCode);
         if (type == CropType.Unknown)
