@@ -1,6 +1,7 @@
 package com.ave.simplestationsfarmer.blockentity;
 
 import com.ave.simplestationscore.mainblock.BaseStationBlockEntity;
+import com.ave.simplestationscore.resources.FluidResource;
 import com.ave.simplestationscore.resources.StationResource;
 import com.ave.simplestationsfarmer.Config;
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;
@@ -12,6 +13,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.entity.BlockEntityType;
 import net.minecraft.world.level.block.state.BlockState;
+import net.neoforged.neoforge.fluids.capability.templates.FluidTank;
 
 public abstract class BaseFarmerBlockEntity extends BaseStationBlockEntity {
     public static final int FLUID_SLOT = 2;
@@ -36,9 +38,9 @@ public abstract class BaseFarmerBlockEntity extends BaseStationBlockEntity {
 
     @Override()
     protected void preWorkTick() {
-        if (getFertResource().isEnough() && working)
+        if (getFertResource().isEnough())
             progress += Config.FERT_MULT.get();
-        if (getEnergyResource().isEnough() && working)
+        if (getEnergyResource().isEnough())
             progress += Config.POWER_MULT.get();
     }
 
@@ -71,5 +73,13 @@ public abstract class BaseFarmerBlockEntity extends BaseStationBlockEntity {
 
     public StationResource getFluidResource() {
         return resources.get(FLUID_SLOT);
+    }
+
+    @Override()
+    public FluidTank getWaterStorage() {
+        var resource = resources.get(FLUID_SLOT);
+        if (resource instanceof FluidResource res)
+            return res.storage;
+        return null;
     }
 }

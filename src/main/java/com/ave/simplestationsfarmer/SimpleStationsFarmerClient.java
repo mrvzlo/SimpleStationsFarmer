@@ -2,6 +2,7 @@ package com.ave.simplestationsfarmer;
 
 import com.ave.simplestationscore.partblock.PartBlockEntity;
 import com.ave.simplestationscore.registrations.CoreRegistrations;
+import com.ave.simplestationscore.registrations.RegistrationManager;
 import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.ForageFarmerBlockEntity;
@@ -55,11 +56,10 @@ public class SimpleStationsFarmerClient {
 
     @SubscribeEvent
     public static void registerCaps(RegisterCapabilitiesEvent event) {
-        FarmerBlockEntity.registerCaps(event);
-        DarkFarmerBlockEntity.registerCaps(event);
-        TreeFarmerBlockEntity.registerCaps(event);
-        ForageFarmerBlockEntity.registerCaps(event);
-        PartBlockEntity.registerCaps(event);
+        RegistrationManager.registerCaps(event, Registrations.FARMER.getEntity());
+        RegistrationManager.registerCaps(event, Registrations.DARK_FARMER.getEntity());
+        RegistrationManager.registerCaps(event, Registrations.TREE_FARMER.getEntity());
+        RegistrationManager.registerCaps(event, Registrations.FORAGE_FARMER.getEntity());
     }
 
     @SubscribeEvent // on the mod event bus only on the physical client

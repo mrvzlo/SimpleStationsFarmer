@@ -35,11 +35,4 @@ public class TreeFarmerBlockEntity extends BaseFarmerBlockEntity {
     public SoundEvent getWorkSound() {
         return SoundEvents.WOOD_BREAK;
     }
-
-    public static void registerCaps(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                Registrations.TREE_FARMER.getEntity(),
-                (be, d) -> be.getItemHandler(d));
-    }
 }

@@ -14,8 +14,6 @@ import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
-import net.neoforged.neoforge.capabilities.Capabilities;
-import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 
 public class DarkFarmerBlockEntity extends BaseFarmerBlockEntity {
     public static final int LavaUsage = Config.WATER_PER_CYCLE.get() / 100;
@@ -34,12 +32,5 @@ public class DarkFarmerBlockEntity extends BaseFarmerBlockEntity {
 
     public SoundEvent getWorkSound() {
         return SoundEvents.WART_BLOCK_BREAK;
-    }
-
-    public static void registerCaps(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                Registrations.DARK_FARMER.getEntity(),
-                (be, d) -> be.getItemHandler(d));
     }
 }

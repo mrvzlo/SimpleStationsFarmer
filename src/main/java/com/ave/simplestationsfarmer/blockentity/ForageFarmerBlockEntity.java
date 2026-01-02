@@ -36,11 +36,4 @@ public class ForageFarmerBlockEntity extends BaseFarmerBlockEntity {
     public SoundEvent getWorkSound() {
         return SoundEvents.FLOWERING_AZALEA_BREAK;
     }
-
-    public static void registerCaps(RegisterCapabilitiesEvent event) {
-        event.registerBlockEntity(
-                Capabilities.ItemHandler.BLOCK,
-                Registrations.FORAGE_FARMER.getEntity(),
-                (be, d) -> be.getItemHandler(d));
-    }
 }
