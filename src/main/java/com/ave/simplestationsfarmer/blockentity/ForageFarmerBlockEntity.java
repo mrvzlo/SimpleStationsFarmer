@@ -1,6 +1,5 @@
 package com.ave.simplestationsfarmer.blockentity;
 
-import com.ave.simplestationscore.resources.EnergyResource;
 import com.ave.simplestationscore.resources.FluidResource;
 import com.ave.simplestationsfarmer.Config;
 import com.ave.simplestationsfarmer.blockentity.enums.CropGroup;

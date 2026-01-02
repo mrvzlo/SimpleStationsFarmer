@@ -11,10 +11,6 @@ import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
 import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.mojang.logging.LogUtils;
 
-import net.minecraft.core.registries.Registries;
-import net.minecraft.network.chat.Component;
-import net.minecraft.world.item.CreativeModeTab;
-import net.minecraft.world.item.CreativeModeTabs;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
@@ -22,8 +18,6 @@ import net.neoforged.fml.ModContainer;
 import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
 // The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(SimpleStationsFarmer.MODID)
@@ -39,7 +33,7 @@ public class SimpleStationsFarmer {
         }
 
         private void addCreative(BuildCreativeModeTabContentsEvent event) {
-                if (!event.getTab().equals(Registrations.MANAGER.CREATIVE_TAB.get()))
+                if (!event.getTab().equals(RegistrationManager.CREATIVE_TAB.get()))
                         return;
                 event.accept(Registrations.FARMER.getItem());
                 event.accept(Registrations.TREE_FARMER.getItem());
