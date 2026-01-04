@@ -1,7 +1,0 @@
-{
-  "parent": "simplestationsfarmer:custom/crop",
-  "textures": {
-    "0": "simplestationsfarmer:block/n_wart"
-  },
-  "render_type": "transparent"
-}

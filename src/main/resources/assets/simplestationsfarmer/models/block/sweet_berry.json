@@ -1,7 +1,0 @@
-{
-  "parent": "simplestationsfarmer:custom/crop",
-  "textures": {
-    "0": "simplestationsfarmer:block/sweet_berry"
-  },
-  "render_type": "transparent"
-}

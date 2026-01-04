@@ -51,7 +51,7 @@ public abstract class BaseFarmScreen extends BaseStationScreen {
         renderPowerTooltip(gfx, UIBlocks.POWER_BAR, mouseX, mouseY, station);
         renderProgressTooltip(gfx, UIBlocks.PROGRESS_BAR, mouseX, mouseY, station);
 
-        if (farmer.type == null && UIBlocks.FILTER_SLOT.isHovered(mouseX - startX, mouseY - startY)) {
+        if (farmer.type == -1 && UIBlocks.FILTER_SLOT.isHovered(mouseX - startX, mouseY - startY)) {
             gfx.renderTooltip(font, Component.translatable("screen.simplestationsfarmer.filter"), mouseX, mouseY);
         }
     }

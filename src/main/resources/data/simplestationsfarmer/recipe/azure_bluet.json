@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:forage_farm",
+  "from": { "item": "minecraft:azure_bluet" },
+  "to": { "id": "minecraft:azure_bluet", "count": 16 },
+  "block": "minecraft:azure_bluet"
+}

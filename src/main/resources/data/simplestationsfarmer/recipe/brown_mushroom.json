@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:dark_farm",
+  "from": { "item": "minecraft:brown_mushroom" },
+  "to": { "id": "minecraft:brown_mushroom", "count": 16 },
+  "block": "minecraft:brown_mushroom"
+}

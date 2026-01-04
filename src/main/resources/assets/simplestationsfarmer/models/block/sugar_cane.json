@@ -1,7 +1,0 @@
-{
-  "parent": "simplestationsfarmer:custom/crop",
-  "textures": {
-    "0": "simplestationsfarmer:block/sugar_cane"
-  },
-  "render_type": "transparent"
-}

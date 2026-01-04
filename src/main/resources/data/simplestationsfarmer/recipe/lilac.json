@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:forage_farm",
+  "from": { "item": "minecraft:lilac" },
+  "to": { "id": "minecraft:lilac", "count": 8 },
+  "block": "minecraft:lilac"
+}

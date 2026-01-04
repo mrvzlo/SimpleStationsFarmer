@@ -8,7 +8,7 @@ import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.ForageFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
 import com.ave.simplestationsfarmer.registrations.Registrations;
-import com.ave.simplestationsfarmer.renderer.StationRenderer;
+import com.ave.simplestationsfarmer.renderer.CropRenderer;
 import com.ave.simplestationsfarmer.screen.TreeFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
 import com.ave.simplestationsfarmer.screen.FarmStationScreen;
@@ -64,6 +64,6 @@ public class SimpleStationsFarmerClient {
 
     @SubscribeEvent // on the mod event bus only on the physical client
     public static void registerEntityRenderers(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerBlockEntityRenderer(CoreRegistrations.PART.getEntity(), StationRenderer::new);
+        event.registerBlockEntityRenderer(CoreRegistrations.PART.getEntity(), CropRenderer::new);
     }
 }

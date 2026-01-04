@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:forage_farm",
+  "from": { "item": "minecraft:cocoa_beans" },
+  "to": { "id": "minecraft:cocoa_beans", "count": 16 },
+  "block": "simplestationsfarmer:cacao"
+}

@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "tag": "minecraft:small_flowers" },
+  "to": { "id": "minecraft:wheat", "count": 32 },
+  "block": "minecraft:wheat"
+}

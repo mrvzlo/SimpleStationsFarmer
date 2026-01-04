@@ -1,7 +1,0 @@
-{
-  "parent": "simplestationsfarmer:custom/crop",
-  "textures": {
-    "0": "simplestationsfarmer:block/red_mushroom"
-  },
-  "render_type": "transparent"
-}

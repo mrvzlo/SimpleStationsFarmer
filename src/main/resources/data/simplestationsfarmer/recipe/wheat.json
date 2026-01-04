@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "item": "minecraft:wheat_seeds" },
+  "to": { "id": "minecraft:wheat", "count": 32 },
+  "block": "minecraft:wheat"
+}

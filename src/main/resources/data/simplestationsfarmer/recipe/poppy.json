@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:forage_farm",
+  "from": { "item": "minecraft:poppy" },
+  "to": { "id": "minecraft:poppy", "count": 16 },
+  "block": "minecraft:poppy"
+}

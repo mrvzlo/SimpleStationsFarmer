@@ -8,6 +8,7 @@ import com.ave.simplestationsfarmer.blockentity.DarkFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.FarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.ForageFarmerBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
+import com.ave.simplestationsfarmer.recipes.ModRecipes;
 import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.mojang.logging.LogUtils;
 
@@ -19,7 +20,6 @@ import net.neoforged.neoforge.capabilities.Capabilities;
 import net.neoforged.neoforge.capabilities.RegisterCapabilitiesEvent;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
 
-// The value here should match an entry in the META-INF/neoforge.mods.toml file
 @Mod(SimpleStationsFarmer.MODID)
 public class SimpleStationsFarmer {
         public static final String MODID = "simplestationsfarmer";
@@ -28,6 +28,7 @@ public class SimpleStationsFarmer {
         public SimpleStationsFarmer(IEventBus modEventBus, ModContainer modContainer) {
                 modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
                 Registrations.MANAGER.register(modEventBus);
+                ModRecipes.register(modEventBus);
                 modEventBus.addListener(this::addCreative);
         }
 

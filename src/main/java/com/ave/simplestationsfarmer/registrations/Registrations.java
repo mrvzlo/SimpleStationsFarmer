@@ -38,18 +38,13 @@ public class Registrations {
         public static final DeferredItem<Item> SPRINKLER = MANAGER.ITEMS.registerItem("sprinkler", Item::new,
                         new Item.Properties());
 
-        private static final String[] CROPS = { "wheat", "beet", "carrot", "potato", "melon", "pumpkin",
-                        "brown_mushroom", "red_mushroom",
-                        "n_wart", "chorus", };
         private static final String[] TREES = { "acacia", "birch", "cherry", "crimson_stem", "dark_oak", "jungle",
                         "mangrove", "oak", "spruce", "warped_stem", "bamboo" };
-        private static final String[] FRUITS = { "apple", "cacao", "sweet_berry", "glow_berry", "cactus", "sugar_cane",
-                        "flowers" };
+        private static final String[] FORAGABLE = { "apple", "cacao" };
 
-        public static final DeferredBlock<Block>[] CROP_BLOCKS = MANAGER.registerEmptyBlocks("", CROPS);
         public static final DeferredBlock<Block>[] TREE_EDGE_BLOCKS = MANAGER.registerEmptyBlocks("edge_", TREES);
         public static final DeferredBlock<Block>[] TREE_CORNER_BLOCKS = MANAGER.registerEmptyBlocks("corner_", TREES);
-        public static final DeferredBlock<Block>[] FRUIT_BLOCKS = MANAGER.registerEmptyBlocks("", FRUITS);
+        public static final DeferredBlock<Block>[] FORAGABLE_BLOCKS = MANAGER.registerEmptyBlocks("", FORAGABLE);
 
         public static final DeferredHolder<MenuType<?>, MenuType<FarmStationMenu>> FARM_MENU = MANAGER
                         .registerMenuType("farm_menu", FarmStationMenu::new);

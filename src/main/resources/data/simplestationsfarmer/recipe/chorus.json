@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:dark_farm",
+  "from": { "item": "minecraft:chorus_fruit" },
+  "to": { "id": "minecraft:chorus_fruit", "count": 8 },
+  "block": "minecraft:chorus_flower"
+}
