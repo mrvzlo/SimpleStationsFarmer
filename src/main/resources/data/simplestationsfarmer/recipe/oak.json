@@ -1,0 +1,8 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:tree_farm",
+  "from": { "item": "minecraft:oak_sapling" },
+  "to": { "id": "minecraft:oak_log", "count": 32 },
+  "block": "minecraft:oak_log",
+  "extra": "oak_leaves"
+}

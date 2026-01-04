@@ -1,0 +1,8 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:tree_farm",
+  "from": { "item": "minecraft:mangrove_propagule" },
+  "to": { "id": "minecraft:mangrove_log", "count": 32 },
+  "block": "minecraft:mangrove_log",
+  "extra": "mangrove_leaves"
+}

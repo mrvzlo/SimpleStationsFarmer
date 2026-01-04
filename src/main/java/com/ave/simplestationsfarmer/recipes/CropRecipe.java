@@ -16,8 +16,9 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.state.BlockState;
 
-public record CropRecipe(Ingredient from, ItemStack to, ResourceLocation block, ResourceLocation station)
-        implements Recipe<CropRecipeInput> {
+public record CropRecipe(Ingredient from, ItemStack to, ResourceLocation block, ResourceLocation station,
+        ResourceLocation extra) implements Recipe<CropRecipeInput> {
+
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> list = NonNullList.create();
         list.add(from);
@@ -31,6 +32,8 @@ public record CropRecipe(Ingredient from, ItemStack to, ResourceLocation block, 
             ModRecipes.darkCropToInt.put(filter, hash);
         if (station.equals(Registrations.FORAGE_FARMER.getBlock()))
             ModRecipes.foragableToInt.put(filter, hash);
+        if (station.equals(Registrations.TREE_FARMER.getBlock()))
+            ModRecipes.treeToInt.put(filter, hash);
         ModRecipes.intToCropRecipe.put(hash, this);
         return list;
     }

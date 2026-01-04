@@ -3,7 +3,6 @@ package com.ave.simplestationsfarmer.jei;
 import java.util.List;
 
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
-import com.ave.simplestationsfarmer.blockentity.enums.*;
 import com.ave.simplestationsfarmer.recipes.ModRecipes;
 import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
@@ -44,7 +43,8 @@ public class JEIModPlugin implements IModPlugin {
         registration.addRecipes(FarmRecipeCategory.REGULAR, this.getCropRecipes(Registrations.FARMER.getBlock()));
         registration.addRecipes(DarkFarmRecipeCategory.REGULAR,
                 this.getCropRecipes(Registrations.DARK_FARMER.getBlock()));
-        registration.addRecipes(TreeFarmRecipeCategory.REGULAR, this.getTreeCropRecipes());
+        registration.addRecipes(TreeFarmRecipeCategory.REGULAR,
+                this.getCropRecipes(Registrations.TREE_FARMER.getBlock()));
         registration.addRecipes(ForageFarmRecipeCategory.REGULAR,
                 this.getCropRecipes(Registrations.FORAGE_FARMER.getBlock()));
     }
@@ -60,13 +60,6 @@ public class JEIModPlugin implements IModPlugin {
             var input = new ItemStack(recipe.from().getItems()[0].getItem());
             list.add(new SimpleRecipe(input, recipe.to()));
         }
-        return list;
-    }
-
-    private List<SimpleRecipe> getTreeCropRecipes() {
-        List<SimpleRecipe> list = Lists.newArrayList();
-        for (var c : TreeType.values())
-            list.add(new SimpleRecipe(new ItemStack(c.seed), c.getProduct()));
         return list;
     }
 

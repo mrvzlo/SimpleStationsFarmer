@@ -1,7 +1,0 @@
-{
-  "parent": "simplestationsfarmer:custom/trees_edge",
-  "textures": {
-    "0": "simplestationsfarmer:block/dark_oak"
-  },
-  "render_type": "transparent"
-}

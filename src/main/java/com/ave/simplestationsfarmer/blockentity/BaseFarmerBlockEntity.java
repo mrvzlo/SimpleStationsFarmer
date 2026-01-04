@@ -5,6 +5,7 @@ import com.ave.simplestationscore.resources.FluidResource;
 import com.ave.simplestationscore.resources.StationResource;
 import com.ave.simplestationsfarmer.Config;
 import com.ave.simplestationsfarmer.blockentity.handlers.OptionalFluidItemResource;
+import com.ave.simplestationsfarmer.recipes.ModRecipes;
 
 import net.minecraft.core.BlockPos;
 import net.minecraft.world.item.Item;
@@ -65,10 +66,10 @@ public abstract class BaseFarmerBlockEntity extends BaseStationBlockEntity {
         var type = getCurrentType();
         if (type == -1)
             return ItemStack.EMPTY;
-        return getStackByType(type);
+
+        var recipe = ModRecipes.intToCropRecipe.get(type);
+        return recipe == null ? ItemStack.EMPTY : recipe.to();
     }
 
     protected abstract int getTypeBySeed(Item item);
-
-    protected abstract ItemStack getStackByType(int type);
 }

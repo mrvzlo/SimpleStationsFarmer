@@ -26,6 +26,7 @@ public class ModRecipes {
             .register("farm", () -> new RecipeType<CropRecipe>() {
             });
 
+    public static Map<Item, Integer> treeToInt = new IdentityHashMap<>();
     public static Map<Item, Integer> cropToInt = new IdentityHashMap<>();
     public static Map<Item, Integer> darkCropToInt = new IdentityHashMap<>();
     public static Map<Item, Integer> foragableToInt = new IdentityHashMap<>();

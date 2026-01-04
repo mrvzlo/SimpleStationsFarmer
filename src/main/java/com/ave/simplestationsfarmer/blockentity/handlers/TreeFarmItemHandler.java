@@ -1,7 +1,8 @@
 package com.ave.simplestationsfarmer.blockentity.handlers;
 
 import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
-import com.ave.simplestationsfarmer.blockentity.enums.TreeType;
+import com.ave.simplestationsfarmer.recipes.ModRecipes;
+
 import net.minecraft.world.item.ItemStack;
 
 public class TreeFarmItemHandler extends FarmItemHandler {
@@ -12,7 +13,7 @@ public class TreeFarmItemHandler extends FarmItemHandler {
     @Override
     public boolean isItemValid(int slot, ItemStack stack) {
         if (slot == BaseFarmerBlockEntity.TYPE_SLOT)
-            return TreeType.findBySeed(stack.getItem()) != null;
+            return ModRecipes.treeToInt.containsKey(stack.getItem());
 
         return super.isItemValid(slot, stack);
     }

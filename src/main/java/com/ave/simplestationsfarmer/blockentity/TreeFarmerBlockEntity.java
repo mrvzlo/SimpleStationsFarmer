@@ -2,9 +2,9 @@ package com.ave.simplestationsfarmer.blockentity;
 
 import com.ave.simplestationscore.resources.FluidResource;
 import com.ave.simplestationsfarmer.Config;
-import com.ave.simplestationsfarmer.blockentity.enums.TreeType;
 import com.ave.simplestationsfarmer.blockentity.handlers.OptionalEnergyResource;
 import com.ave.simplestationsfarmer.blockentity.handlers.TreeFarmItemHandler;
+import com.ave.simplestationsfarmer.recipes.ModRecipes;
 import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.ave.simplestationsfarmer.screen.TreeFarmStationMenu;
 
@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 
@@ -44,12 +43,8 @@ public class TreeFarmerBlockEntity extends BaseFarmerBlockEntity {
         return SoundEvents.WOOD_BREAK;
     }
 
-    protected int getTypeBySeed(Item item) {
-        var type = TreeType.findBySeed(item);
-        return type == null ? -1 : type.ordinal();
-    }
-
-    public ItemStack getStackByType(int type) {
-        return TreeType.findById(type).getProduct();
+    protected int getTypeBySeed(Item filter) {
+        var type = ModRecipes.treeToInt.get(filter);
+        return type == null ? -1 : type;
     }
 }

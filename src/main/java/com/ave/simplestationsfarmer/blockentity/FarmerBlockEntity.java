@@ -14,7 +14,6 @@ import net.minecraft.sounds.SoundEvents;
 import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraft.world.level.material.Fluids;
 
@@ -47,10 +46,5 @@ public class FarmerBlockEntity extends BaseFarmerBlockEntity {
     protected int getTypeBySeed(Item filter) {
         var type = ModRecipes.cropToInt.get(filter);
         return type == null ? -1 : type;
-    }
-
-    public ItemStack getStackByType(int type) {
-        var recipe = ModRecipes.intToCropRecipe.get(type);
-        return recipe == null ? ItemStack.EMPTY : recipe.to();
     }
 }

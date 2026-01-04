@@ -1,7 +1,0 @@
-{
-  "parent": "simplestationsfarmer:custom/trees_corner",
-  "textures": {
-    "0": "simplestationsfarmer:block/jungle"
-  },
-  "render_type": "transparent"
-}
