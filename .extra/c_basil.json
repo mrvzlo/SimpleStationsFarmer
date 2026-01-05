@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "item": "croptopia:basil_seeds" },
+  "to": { "id": "croptopia:basil", "count": 32 },
+  "block": "croptopia:basil_crop"
+}

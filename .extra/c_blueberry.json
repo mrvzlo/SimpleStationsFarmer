@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "item": "croptopia:blueberry_seeds" },
+  "to": { "id": "croptopia:blueberry", "count": 32 },
+  "block": "croptopia:blueberry_crop"
+}

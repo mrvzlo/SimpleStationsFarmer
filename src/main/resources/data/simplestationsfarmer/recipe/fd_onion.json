@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "item": "farmersdelight:onion" },
+  "to": { "id": "farmersdelight:onion", "count": 16 },
+  "block": "farmersdelight:onions"
+}

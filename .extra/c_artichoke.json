@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "item": "croptopia:artichoke_seeds" },
+  "to": { "id": "croptopia:artichoke", "count": 32 },
+  "block": "croptopia:artichoke_crop"
+}

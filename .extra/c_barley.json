@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "item": "croptopia:barley_seeds" },
+  "to": { "id": "croptopia:barley", "count": 32 },
+  "block": "croptopia:barley_crop"
+}
