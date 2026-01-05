@@ -2,7 +2,10 @@ package com.ave.simplestationsfarmer.renderer;
 
 import com.ave.simplestationscore.partblock.PartBlockEntity;
 import com.ave.simplestationsfarmer.blockentity.BaseFarmerBlockEntity;
+import com.ave.simplestationsfarmer.blockentity.TreeFarmerBlockEntity;
 import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.math.Axis;
+
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
@@ -23,25 +26,41 @@ public class CropRenderer implements BlockEntityRenderer<PartBlockEntity> {
         if (typeCode == -1)
             return;
 
-        pose.pushPose();
         var dispatcher = Minecraft.getInstance().getBlockRenderer();
 
-        var model = CropBlockStateManager.get(typeCode);
-        dispatcher.getModelRenderer().renderModel(pose.last(), buf.getBuffer(RenderType.cutout()), null,
-                model, 1f, 1f, 1f, light, overlay, ModelData.EMPTY, null);
+        if (parent instanceof TreeFarmerBlockEntity) {
+            var solid = buf.getBuffer(RenderType.solid());
+            if (be.isEdge()) {
+                var fallenTree = CropBlockStateManager.getFallenTree(typeCode);
+                pose.pushPose();
+                if (be.sameZ()) {
+                    pose.translate(0.5, 0.5, 0.5);
+                    pose.mulPose(Axis.YP.rotationDegrees(90));
+                    pose.translate(-0.5, -0.5, -0.5);
+                }
+                dispatcher.getModelRenderer().renderModel(pose.last(), solid, null,
+                        fallenTree, 1f, 1f, 1f, light, overlay, ModelData.EMPTY, null);
+                pose.popPose();
+            } else {
+                var model = CropBlockStateManager.getTree(typeCode);
+                pose.pushPose();
+                dispatcher.getModelRenderer().renderModel(pose.last(), solid, null,
+                        model, 1f, 1f, 1f, light, overlay, ModelData.EMPTY, null);
+                pose.popPose();
+                var leaves = CropBlockStateManager.getLeaves(typeCode);
+                pose.pushPose();
+                dispatcher.getModelRenderer().renderModel(pose.last(), buf.getBuffer(RenderType.cutoutMipped()), null,
+                        leaves, 0.5f, 0.9f, 0.2f, light, overlay, ModelData.EMPTY, null);
+                pose.popPose();
+            }
 
-        pose.popPose();
+        } else {
+            var model = CropBlockStateManager.get(typeCode);
+            var cutout = buf.getBuffer(RenderType.cutout());
+            pose.pushPose();
+            dispatcher.getModelRenderer().renderModel(pose.last(), cutout, null,
+                    model, 1f, 1f, 1f, light, overlay, ModelData.EMPTY, null);
+            pose.popPose();
+        }
     }
-
-    // private BakedModel getTreeModel(PoseStack pose, int type, PartBlockEntity be)
-    // {
-    // var model = be.isEdge() ? treeEdgeModels[type] : treeCornerModels[type];
-
-    // if (be.isEdge() && be.sameZ()) {
-    // pose.translate(0.5, 0.5, 0.5);
-    // pose.mulPose(Axis.YP.rotationDegrees(90));
-    // pose.translate(-0.5, -0.5, -0.5);
-    // }
-    // return model;
-    // }
 }

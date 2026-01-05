@@ -66,6 +66,10 @@ public record CropRecipe(Ingredient from, ItemStack to, ResourceLocation block, 
         return BuiltInRegistries.BLOCK.get(block).defaultBlockState();
     }
 
+    public BlockState getExtraState() {
+        return BuiltInRegistries.BLOCK.get(extra).defaultBlockState();
+    }
+
     public Block getStation() {
         return BuiltInRegistries.BLOCK.get(station);
     }
