@@ -19,9 +19,7 @@ import com.ave.simplestationsfarmer.screen.TreeFarmStationMenu;
 import net.minecraft.world.inventory.MenuType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.neoforge.registries.DeferredBlock;
-import net.neoforged.neoforge.registries.DeferredHolder;
-import net.neoforged.neoforge.registries.DeferredItem;
+import net.minecraftforge.registries.RegistryObject;
 
 public class Registrations {
         public static final RegistrationManager MANAGER = new RegistrationManager(SimpleStationsFarmer.MODID);
@@ -35,21 +33,20 @@ public class Registrations {
         public static final Station<ForageFarmerBlockEntity, ForageFarmerBlock> FORAGE_FARMER = MANAGER.registerStation(
                         "forage_farm", (p) -> new ForageFarmerBlock(p), ForageFarmerBlockEntity::new);
 
-        public static final DeferredItem<Item> SPRINKLER = MANAGER.ITEMS.registerItem("sprinkler", Item::new,
-                        new Item.Properties());
+        public static final RegistryObject<Item> SPRINKLER = MANAGER.registerItem("sprinkler");
 
         private static final String[] FORAGABLE = { "apple", "cacao" };
-        public static final DeferredBlock<Block>[] FORAGABLE_BLOCKS = MANAGER.registerEmptyBlocks("", FORAGABLE);
+        public static final RegistryObject<Block>[] FORAGABLE_BLOCKS = MANAGER.registerEmptyBlocks("", FORAGABLE);
 
-        public static final DeferredHolder<MenuType<?>, MenuType<FarmStationMenu>> FARM_MENU = MANAGER
+        public static final RegistryObject<MenuType<FarmStationMenu>> FARM_MENU = MANAGER
                         .registerMenuType("farm_menu", FarmStationMenu::new);
 
-        public static final DeferredHolder<MenuType<?>, MenuType<DarkFarmStationMenu>> DARK_FARM_MENU = MANAGER
+        public static final RegistryObject<MenuType<DarkFarmStationMenu>> DARK_FARM_MENU = MANAGER
                         .registerMenuType("dark_farm_menu", DarkFarmStationMenu::new);
 
-        public static final DeferredHolder<MenuType<?>, MenuType<TreeFarmStationMenu>> TREE_FARM_MENU = MANAGER
+        public static final RegistryObject<MenuType<TreeFarmStationMenu>> TREE_FARM_MENU = MANAGER
                         .registerMenuType("tree_farm_menu", TreeFarmStationMenu::new);
 
-        public static final DeferredHolder<MenuType<?>, MenuType<ForageFarmStationMenu>> FORAGE_FARM_MENU = MANAGER
+        public static final RegistryObject<MenuType<ForageFarmStationMenu>> FORAGE_FARM_MENU = MANAGER
                         .registerMenuType("forage_farm_menu", ForageFarmStationMenu::new);
 }

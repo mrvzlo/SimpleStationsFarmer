@@ -1,8 +1,8 @@
 {
-  "block.simplestationsfarmer.farm": "Farming station",
-  "block.simplestationsfarmer.dark_farm": "Mycology station",
-  "block.simplestationsfarmer.tree_farm": "Woodcutting station",
-  "block.simplestationsfarmer.forage_farm": "Foraging station",
+  "item.simplestationsfarmer.farm": "Farming station",
+  "item.simplestationsfarmer.dark_farm": "Mycology station",
+  "item.simplestationsfarmer.tree_farm": "Woodcutting station",
+  "item.simplestationsfarmer.forage_farm": "Foraging station",
   "item.simplestationsfarmer.sprinkler": "Sprinkler",
 
   "simplestationsfarmer.configuration.title": "Configs",

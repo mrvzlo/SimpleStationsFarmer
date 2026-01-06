@@ -10,7 +10,7 @@ import net.minecraft.client.resources.model.BakedModel;
 import net.minecraft.core.Direction;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.level.block.state.BlockState;
-import net.neoforged.neoforge.client.model.data.ModelData;
+import net.minecraftforge.client.model.data.ModelData;
 
 public abstract class BaseQuadModel implements BakedModel {
     public List<BakedQuad> cachedQuads;
@@ -71,6 +71,7 @@ public abstract class BaseQuadModel implements BakedModel {
         return base.usesBlockLight();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public TextureAtlasSprite getParticleIcon() {
         return base.getParticleIcon();
