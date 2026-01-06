@@ -28,9 +28,9 @@ public abstract class BaseFarmerBlockEntity extends BaseStationBlockEntity {
 
     @Override()
     protected void preWorkTick() {
-        if (getFertResource().isEnough())
+        if (getFertResource().canSubstract(1))
             progress += Config.FERT_MULT.get();
-        if (getEnergyResource().isEnough())
+        if (getEnergyResource().canSubstract(1))
             progress += Config.POWER_MULT.get();
     }
 
