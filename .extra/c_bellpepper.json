@@ -2,6 +2,6 @@
   "type": "simplestationsfarmer:farm",
   "station": "simplestationsfarmer:farm",
   "from": { "item": "croptopia:bellpepper_seeds" },
-  "to": { "id": "croptopia:bellpepper", "count": 32 },
+  "to": { "item": "croptopia:bellpepper", "count": 32 },
   "block": "croptopia:bellpepper_crop"
 }

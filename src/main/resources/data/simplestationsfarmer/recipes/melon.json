@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "item": "minecraft:melon_seeds" },
+  "to": { "item": "minecraft:melon", "count": 16 },
+  "block": "minecraft:melon"
+}

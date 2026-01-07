@@ -2,6 +2,6 @@
   "type": "simplestationsfarmer:farm",
   "station": "simplestationsfarmer:farm",
   "from": { "item": "croptopia:blackberry_seeds" },
-  "to": { "id": "croptopia:blackberry", "count": 32 },
+  "to": { "item": "croptopia:blackberry", "count": 32 },
   "block": "croptopia:blackberry_crop"
 }

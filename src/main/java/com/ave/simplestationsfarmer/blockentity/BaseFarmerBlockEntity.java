@@ -68,7 +68,7 @@ public abstract class BaseFarmerBlockEntity extends BaseStationBlockEntity {
             return ItemStack.EMPTY;
 
         var recipe = ModRecipes.intToCropRecipe.get(type);
-        return recipe == null ? ItemStack.EMPTY : recipe.to();
+        return recipe == null ? ItemStack.EMPTY : recipe.to;
     }
 
     protected abstract int getTypeBySeed(Item item);

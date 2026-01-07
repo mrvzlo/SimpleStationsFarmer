@@ -1,8 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:tree_farm",
-  "from": { "item": "minecraft:acacia_sapling" },
-  "to": { "id": "minecraft:acacia_log", "count": 32 },
-  "block": "minecraft:acacia_log",
-  "extra": "acacia_leaves"
-}

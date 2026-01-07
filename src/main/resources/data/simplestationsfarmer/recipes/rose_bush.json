@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:forage_farm",
+  "from": { "item": "minecraft:rose_bush" },
+  "to": { "item": "minecraft:rose_bush", "count": 8 },
+  "block": "minecraft:rose_bush"
+}

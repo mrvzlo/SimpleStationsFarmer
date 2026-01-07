@@ -2,6 +2,6 @@
   "type": "simplestationsfarmer:farm",
   "station": "simplestationsfarmer:farm",
   "from": { "item": "croptopia:chilli_seeds" },
-  "to": { "id": "croptopia:chilli", "count": 32 },
+  "to": { "item": "croptopia:chilli", "count": 32 },
   "block": "croptopia:chilli_crop"
 }

@@ -1,0 +1,8 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:tree_farm",
+  "from": { "item": "minecraft:dark_oak_sapling" },
+  "to": { "item": "minecraft:dark_oak_log", "count": 32 },
+  "block": "minecraft:dark_oak_log",
+  "extra": "dark_oak_leaves"
+}

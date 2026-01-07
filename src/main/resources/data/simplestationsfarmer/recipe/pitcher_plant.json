@@ -1,7 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:forage_farm",
-  "from": { "item": "minecraft:pitcher_plant" },
-  "to": { "id": "minecraft:pitcher_plant", "count": 8 },
-  "block": "minecraft:pitcher_plant"
-}

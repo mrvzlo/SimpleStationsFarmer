@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:farm",
+  "from": { "item": "farmersdelight:rice_panicle" },
+  "to": { "item": "farmersdelight:rice_panicle", "count": 16 },
+  "block": "farmersdelight:rice_panicles"
+}

@@ -1,7 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:farm",
-  "from": { "item": "minecraft:carrot" },
-  "to": { "id": "minecraft:carrot", "count": 32 },
-  "block": "minecraft:carrots"
-}

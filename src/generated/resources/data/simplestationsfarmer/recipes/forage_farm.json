@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "D": {
+      "item": "minecraft:dirt"
+    },
+    "L": {
+      "item": "minecraft:lantern"
+    },
+    "R": {
+      "item": "simplestationsfarmer:sprinkler"
+    },
+    "S": {
+      "item": "minecraft:stone_shovel"
+    }
+  },
+  "pattern": [
+    "DSD",
+    "LRL",
+    "DSD"
+  ],
+  "result": {
+    "item": "simplestationsfarmer:forage_farm"
+  },
+  "show_notification": true
+}

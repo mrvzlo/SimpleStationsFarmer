@@ -1,7 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:forage_farm",
-  "from": { "item": "minecraft:oxeye_daisy" },
-  "to": { "id": "minecraft:oxeye_daisy", "count": 16 },
-  "block": "minecraft:oxeye_daisy"
-}

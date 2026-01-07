@@ -3,6 +3,7 @@ package com.ave.simplestationsfarmer.jei;
 import java.util.List;
 
 import com.ave.simplestationsfarmer.SimpleStationsFarmer;
+import com.ave.simplestationsfarmer.recipes.CropRecipe;
 import com.ave.simplestationsfarmer.recipes.ModRecipes;
 import com.ave.simplestationsfarmer.registrations.Registrations;
 import com.ave.simplestationsfarmer.screen.DarkFarmStationScreen;
@@ -52,13 +53,12 @@ public class JEIModPlugin implements IModPlugin {
     private List<SimpleRecipe> getCropRecipes(Block station) {
         List<SimpleRecipe> list = Lists.newArrayList();
         var level = Minecraft.getInstance().level;
-        var all = level.getRecipeManager().getAllRecipesFor(ModRecipes.FARM_TYPE.get());
-        for (var holder : all) {
-            var recipe = holder.value();
+        var all = level.getRecipeManager().getAllRecipesFor(CropRecipe.Type.INSTANCE);
+        for (var recipe : all) {
             if (!recipe.getStation().equals(station))
                 continue;
-            var input = new ItemStack(recipe.from().getItems()[0].getItem());
-            list.add(new SimpleRecipe(input, recipe.to()));
+            var input = new ItemStack(recipe.from.getItems()[0].getItem());
+            list.add(new SimpleRecipe(input, recipe.to));
         }
         return list;
     }

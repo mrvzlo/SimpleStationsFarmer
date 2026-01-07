@@ -2,6 +2,6 @@
   "type": "simplestationsfarmer:farm",
   "station": "simplestationsfarmer:farm",
   "from": { "item": "croptopia:broccoli_seeds" },
-  "to": { "id": "croptopia:broccoli", "count": 32 },
+  "to": { "item": "croptopia:broccoli", "count": 32 },
   "block": "croptopia:broccoli_crop"
 }

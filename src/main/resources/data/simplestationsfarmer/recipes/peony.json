@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:forage_farm",
+  "from": { "item": "minecraft:peony" },
+  "to": { "item": "minecraft:peony", "count": 8 },
+  "block": "minecraft:peony"
+}

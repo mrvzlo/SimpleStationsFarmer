@@ -1,7 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:forage_farm",
-  "from": { "item": "minecraft:apple" },
-  "to": { "id": "minecraft:apple", "count": 16 },
-  "block": "simplestationsfarmer:apple"
-}

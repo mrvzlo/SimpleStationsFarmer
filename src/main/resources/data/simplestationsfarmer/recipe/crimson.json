@@ -1,8 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:tree_farm",
-  "from": { "item": "minecraft:crimson_fungus" },
-  "to": { "id": "minecraft:crimson_stem", "count": 32 },
-  "block": "minecraft:crimson_stem",
-  "extra": "minecraft:nether_wart_block"
-}

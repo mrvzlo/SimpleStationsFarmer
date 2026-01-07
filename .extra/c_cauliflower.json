@@ -2,6 +2,6 @@
   "type": "simplestationsfarmer:farm",
   "station": "simplestationsfarmer:farm",
   "from": { "item": "croptopia:cauliflower_seeds" },
-  "to": { "id": "croptopia:cauliflower", "count": 32 },
+  "to": { "item": "croptopia:cauliflower", "count": 32 },
   "block": "croptopia:cauliflower_crop"
 }

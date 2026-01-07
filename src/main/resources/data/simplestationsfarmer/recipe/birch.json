@@ -1,8 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:tree_farm",
-  "from": { "item": "minecraft:birch_sapling" },
-  "to": { "id": "minecraft:birch_log", "count": 32 },
-  "block": "minecraft:birch_log",
-  "extra": "birch_leaves"
-}

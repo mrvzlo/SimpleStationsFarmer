@@ -1,8 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:tree_farm",
-  "from": { "item": "minecraft:cherry_sapling" },
-  "to": { "id": "minecraft:cherry_log", "count": 32 },
-  "block": "minecraft:cherry_log",
-  "extra": "cherry_leaves"
-}

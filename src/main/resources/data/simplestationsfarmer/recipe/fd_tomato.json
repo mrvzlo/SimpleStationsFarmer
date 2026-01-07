@@ -1,7 +1,0 @@
-{
-  "type": "simplestationsfarmer:farm",
-  "station": "simplestationsfarmer:farm",
-  "from": { "item": "farmersdelight:tomato_seeds" },
-  "to": { "id": "farmersdelight:tomato", "count": 16 },
-  "block": "farmersdelight:tomatoes"
-}

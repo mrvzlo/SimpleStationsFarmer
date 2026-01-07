@@ -2,6 +2,6 @@
   "type": "simplestationsfarmer:farm",
   "station": "simplestationsfarmer:farm",
   "from": { "item": "croptopia:cabbage_seeds" },
-  "to": { "id": "croptopia:cabbage", "count": 32 },
+  "to": { "item": "croptopia:cabbage", "count": 32 },
   "block": "croptopia:cabbage_crop"
 }

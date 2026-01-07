@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:dark_farm",
+  "from": { "item": "minecraft:nether_wart" },
+  "to": { "item": "minecraft:nether_wart", "count": 32 },
+  "block": "minecraft:nether_wart"
+}

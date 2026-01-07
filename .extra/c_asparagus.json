@@ -2,6 +2,6 @@
   "type": "simplestationsfarmer:farm",
   "station": "simplestationsfarmer:farm",
   "from": { "item": "croptopia:asparagus_seeds" },
-  "to": { "id": "croptopia:asparagus", "count": 32 },
+  "to": { "item": "croptopia:asparagus", "count": 32 },
   "block": "croptopia:asparagus_crop"
 }

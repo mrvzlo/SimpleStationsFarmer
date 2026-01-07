@@ -1,0 +1,7 @@
+{
+  "type": "simplestationsfarmer:farm",
+  "station": "simplestationsfarmer:forage_farm",
+  "from": { "item": "minecraft:glow_berries" },
+  "to": { "item": "minecraft:glow_berries", "count": 16 },
+  "block": "minecraft:cave_vines_plant"
+}

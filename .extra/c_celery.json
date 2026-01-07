@@ -2,6 +2,6 @@
   "type": "simplestationsfarmer:farm",
   "station": "simplestationsfarmer:farm",
   "from": { "item": "croptopia:celery_seeds" },
-  "to": { "id": "croptopia:celery", "count": 32 },
+  "to": { "item": "croptopia:celery", "count": 32 },
   "block": "croptopia:celery_crop"
 }
